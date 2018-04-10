@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/profile_nav"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="Profile" />
+        <item
+            android:id="@+id/score_nav"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="Score Card" />
+        <item
+            android:id="@+id/logout_nav"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="Logout" />
+
+    </group>
+</menu>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Scholar Quiz</string>
+    <string name="login_prferance">org.sairaa.scholarquiz.login_preference</string>
+    <string name="login_status_preference">org.sairaa.scholarquiz.login_status_preference</string>
+</resources>
