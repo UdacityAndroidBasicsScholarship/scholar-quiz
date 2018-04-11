@@ -1,82 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/gradient"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity">
 
-    <ImageView
-        android:id="@+id/institute_logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="40dp"
-        android:src="@mipmap/ic_launcher" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingBottom="32dp"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:paddingTop="32dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/scholarquizapplogo"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:text="Login"
-            android:textColor="@color/colorHeading"
-            android:textSize="22sp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login_heading"
+            android:textColor="#fdfdfe"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/email_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="User Name"
+            style="@style/editTextStyle"
+            android:hint="@string/login_email_hint"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/password_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
+            style="@style/editTextStyle"
+            android:hint="@string/login_pwd_hint"
             android:inputType="textPassword" />
 
         <CheckBox
-            android:id="@+id/checkbox_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Remember Me" />
+            android:id="@+id/rememberMe_CheckBox"
+            style="@style/checkBoxStyle"
+            android:text="@string/remem_checkbox"
+            android:theme="@style/checkBoxStyle"/>
 
         <Button
             android:id="@+id/signin_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:text="Sign In"
-            android:textSize="20sp" />
+            style="@style/buttonStyle"
+            android:text="@string/login_heading" />
 
         <TextView
-            android:id="@+id/register"
+            android:id="@+id/forgotPassword_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:gravity="center_horizontal"
-            android:textSize="20sp"
-            android:text="Register"/>
-        <TextView
-            android:id="@+id/forgot_password_login"
-            android:layout_width="match_parent"
+            android:text="@string/forgot_textview"
+            android:textColor="#00ddff"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:textSize="15sp"
-            android:gravity="center_horizontal"
-            android:text="Forgot Password ?" />
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center_horizontal"
+                android:text="@string/newUser"
+                android:textSize="16sp"
+                android:theme="@style/checkBoxStyle" />
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center_horizontal"
+                android:text="@string/regLogIn"
+                android:textColor="#00ddff"
+                android:textSize="16sp"
+                android:layout_marginLeft="3dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

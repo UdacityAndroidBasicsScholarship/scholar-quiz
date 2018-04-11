@@ -1,53 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    android:background="@drawable/gradient"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".LoginActivity">
 
-    <EditText
-        android:id="@+id/name_reg"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Name"/>
-    <EditText
-        android:id="@+id/email_reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Your email id"
-        android:inputType="textEmailAddress"/>
-    <EditText
-        android:id="@+id/slackid_reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint=" @slackId"/>
-    <EditText
-        android:id="@+id/password_reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Password"/>
-    <EditText
-        android:id="@+id/confirm_password_reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Retype Password"/>
-    <EditText
-        android:id="@+id/info_reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Information/Phone no/Optional"/>
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp">
 
-    <Button
-        android:id="@+id/register_reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:text="Register"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/regHeading"
+            android:textColor="#fdfdfe"
+            android:textSize="24sp"/>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/name_reg"
+            style="@style/editTextStyle"
+            android:hint="@string/user_name"
+            android:inputType="textCapWords"/>
+        <EditText
+            android:id="@+id/email_reg"
+            style="@style/editTextStyle"
+            android:hint="@string/reg_Email_id"
+            android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/slackid_reg"
+            style="@style/editTextStyle"
+            android:hint="@string/slack_id"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/password_reg"
+            style="@style/editTextStyle"
+            android:hint="@string/password1"
+            android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/confirm_password_reg"
+            style="@style/editTextStyle"
+            android:hint="@string/password2"
+            android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/info_reg"
+            style="@style/editTextStyle"
+            android:hint="@string/additional_info"
+            android:inputType="textLongMessage"/>
+
+        <Button
+            android:id="@+id/register_reg"
+            style="@style/buttonStyle"
+            android:text="@string/signup" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center_horizontal"
+                android:text="@string/alreadyUser"
+                android:textSize="16sp"
+                android:theme="@style/checkBoxStyle"
+                android:layout_marginRight="3dp"/>
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center_horizontal"
+                android:text="@string/loginHere"
+                android:textColor="#00ddff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
