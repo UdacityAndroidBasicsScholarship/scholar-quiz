@@ -10,8 +10,8 @@ import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText name,emailId,slackId,password,conPasword,info;
-    private Button registerB;
+    private EditText nameEditText, emailIdEditText, slackIdEditText, passwordEditText, confirmPaswordEditText, infoEditText;
+    private Button registerButton;
     // Alert dialog
     AlertDialog.Builder alertBuilder;
     @Override
@@ -19,15 +19,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        name = findViewById(R.id.name_reg);
-        emailId = findViewById(R.id.email_reg);
-        slackId = findViewById(R.id.slackid_reg);
-        password = findViewById(R.id.password_reg);
-        conPasword = findViewById(R.id.confirm_password_reg);
-        info = findViewById(R.id.info_reg);
-        registerB = findViewById(R.id.register_reg);
+        nameEditText = findViewById(R.id.name_reg);
+        emailIdEditText = findViewById(R.id.email_reg);
+        slackIdEditText = findViewById(R.id.slackid_reg);
+        passwordEditText = findViewById(R.id.password_reg);
+        confirmPaswordEditText = findViewById(R.id.confirm_password_reg);
+        infoEditText = findViewById(R.id.info_reg);
+        registerButton = findViewById(R.id.register_reg);
         //set register to onClick event
-        registerB.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
 
     }
 
@@ -35,17 +35,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.register_reg:
-                // Check all requir field empty or not
-                if(name.getText().toString().equals("")
-                        || emailId.getText().toString().equals("")
-                        || slackId.getText().toString().equals("")
-                        || password.getText().toString().equals("")
-                        || conPasword.getText().toString().equals("")) {
+                // Check all require field empty or not
+                if(nameEditText.getText().toString().equals("")
+                        || emailIdEditText.getText().toString().equals("")
+                        || slackIdEditText.getText().toString().equals("")
+                        || passwordEditText.getText().toString().equals("")
+                        || confirmPaswordEditText.getText().toString().equals("")) {
                     // if any of the required field empty "Show Dialog to fill the required field
                     alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
-                    alertBuilder.setTitle("Something Wrong");
-                    alertBuilder.setMessage("Please Fill all required field");
-                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    alertBuilder.setTitle(R.string.some_thing_wrong_msg);
+                    alertBuilder.setMessage(R.string.all_fields_required_msg);
+                    alertBuilder.setPositiveButton(R.string.OK_TEXT, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
@@ -53,17 +53,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
-                }else if(!(password.getText().toString().equals(conPasword.getText().toString()))){
-                    //check pasword and confirm pasword mismatch
+                }else if(!(passwordEditText.getText().toString().equals(confirmPaswordEditText.getText().toString()))){
+                    //check password and confirm password mismatch
                     alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
-                    alertBuilder.setTitle("Something Wrong");
-                    alertBuilder.setMessage("Pasword Mismatch");
-                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    alertBuilder.setTitle(R.string.some_thing_wrong_msg);
+                    alertBuilder.setMessage(R.string.password_mismatch_msg);
+                    alertBuilder.setPositiveButton(R.string.OK_TEXT, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
-                            password.setText("");
-                            conPasword.setText("");
+                            passwordEditText.setText("");
+                            confirmPaswordEditText.setText("");
                         }
                     });
                     AlertDialog alertDialog = alertBuilder.create();
@@ -71,11 +71,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }else{
                     // Background task to insert user information into database
                     BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
-                    backgroundLoginTask.execute("register",name.getText().toString(),
-                                                emailId.getText().toString(),
-                                                slackId.getText().toString(),
-                                                password.getText().toString(),
-                                                info.getText().toString());
+                    backgroundLoginTask.execute(getString(R.string.REGISTER_METHOD), nameEditText.getText().toString(),
+                                                emailIdEditText.getText().toString(),
+                                                slackIdEditText.getText().toString(),
+                                                passwordEditText.getText().toString(),
+                                                infoEditText.getText().toString());
                 }
                 break;
         }

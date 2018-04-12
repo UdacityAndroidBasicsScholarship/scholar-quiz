@@ -19,4 +19,10 @@
     <string name="signup">Sign Up</string>
     <string name="alreadyUser">Already a User?</string>
     <string name="loginHere">Log In here</string>
+    <string name="some_thing_wrong_msg">Something Wrong</string>
+    <string name="all_fields_required_msg">Please Fill all required fields</string>
+    <string name="OK_TEXT">OK</string>
+    <string name="password_mismatch_msg">Password Mismatch</string>
+    <string name="REGISTER_METHOD">register</string>
+    <string name="LOGIN_METHOD">login</string>
 </resources>
