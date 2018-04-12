@@ -1,3 +1,4 @@
+
 package org.sairaa.scholarquiz;
 
 import android.app.AlertDialog;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         registerB = findViewById(R.id.register_reg);
         //set register to onClick event
         registerB.setOnClickListener(this);
+        final TextView register=this.findViewById(R.id.register);
 
     }
 
@@ -77,6 +79,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 password.getText().toString(),
                                                 info.getText().toString());
                 }
+                 case R.id.register:
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class) );
                 break;
         }
     }
