@@ -77,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 password.getText().toString(),
                                                 info.getText().toString());
                 }
+                 case R.id.register:
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class) );
                 break;
         }
     }
