@@ -25,6 +25,7 @@
             android:textColor="#fdfdfe"
             android:textSize="24sp"/>
 
+
         <EditText
             android:id="@+id/name_reg"
             style="@style/editTextStyle"
@@ -83,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
+                android:onClick="onClick"
                 android:gravity="center_horizontal"
                 android:text="@string/loginHere"
                 android:textColor="#00ddff"
