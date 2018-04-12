@@ -29,5 +29,141 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_view"
         app:headerLayout="@layout/navigation_header"/>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/lesson_01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="60dp"
+                android:text="Lesson 01 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 02 Quiz" />
+            <Button
+                android:id="@+id/lesson_03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 03 Quiz" />
+            <Button
+                android:id="@+id/lesson_04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 04 Quiz" />
+            <Button
+                android:id="@+id/lesson_05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 05 Quiz" />
+            <Button
+                android:id="@+id/lesson_06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 06 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_07"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 07 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_08"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 08 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_09"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 09 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 10 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 11 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 12 Quiz" />
+
+            <Button
+                android:id="@+id/lesson_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Lesson 13 Quiz" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.v4.widget.DrawerLayout>
