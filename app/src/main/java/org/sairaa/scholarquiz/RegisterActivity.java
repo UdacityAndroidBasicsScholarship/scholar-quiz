@@ -79,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
-                }else{
+                } else {
                     // Background task to insert user information into database
                     /*BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
                     backgroundLoginTask.execute("register",name.getText().toString(),
