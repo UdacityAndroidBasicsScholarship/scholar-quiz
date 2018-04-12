@@ -2,6 +2,7 @@ package org.sairaa.scholarquiz;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class SharedPreferenceConfig {
     private SharedPreferences sharedPreferences;
@@ -15,12 +16,14 @@ public class SharedPreferenceConfig {
     public void writeLoginStatus(boolean status){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(context.getResources().getString(R.string.login_status_preference), status);
+        Log.i("SharedPreferanceWrite: ",""+status);
         editor.commit();
     }
 
     public boolean readLoginStatus(){
         boolean status = false;
         status = sharedPreferences.getBoolean(context.getResources().getString(R.string.login_status_preference),false);
+        Log.i("SharedPreferanceRead: ",""+status);
         return status;
     }
 }
