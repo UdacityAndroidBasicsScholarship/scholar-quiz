@@ -6,6 +6,10 @@
             android:icon="@mipmap/ic_launcher_round"
             android:title="Profile" />
         <item
+            android:id="@+id/subscribe_nav"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="Subscribe " />
+        <item
             android:id="@+id/score_nav"
             android:icon="@mipmap/ic_launcher_round"
             android:title="Score Card" />
