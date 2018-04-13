@@ -3,13 +3,13 @@
     <string name="login_prferance">org.sairaa.scholarquiz.login_preference</string>
     <string name="login_status_preference">org.sairaa.scholarquiz.login_status_preference</string>
     <string name="login_heading">Log In</string>
-    <string name="login_email_hint">Enter Email or Slack id</string>
+    <string name="login_email_hint">Enter Email Id</string>
     <string name="login_pwd_hint">Enter Password</string>
     <string name="remem_checkbox">Remember me</string>
     <string name="forgot_textview">Forgot Password?</string>
-    <string name="newUser">New User? </string>
-    <string name="regLogIn">Register here</string>
-    <string name="regHeading">Registration</string>
+    <string name="newUser">Don\'t have an account yet?</string>
+    <string name="regLogIn">Sign Up</string>
+    <string name="regHeading">Sign Up</string>
     <string name="user_name">Your Full Name</string>
     <string name="reg_Email_id">Your E-mail id</string>
     <string name="slack_id">Your Slack id</string>
@@ -18,5 +18,5 @@
     <string name="additional_info">Phone No./ Other Info</string>
     <string name="signup">Sign Up</string>
     <string name="alreadyUser">Already a User?</string>
-    <string name="loginHere">Log In here</string>
+    <string name="loginHere">Sign In</string>
 </resources>
