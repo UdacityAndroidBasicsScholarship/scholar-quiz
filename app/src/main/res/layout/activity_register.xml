@@ -89,7 +89,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/button_design"
+
+                    android:background="@drawable/button_design"
                 android:text="@string/signup" />
 
         </LinearLayout>
@@ -124,6 +125,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
+                android:onClick="onClick"
                 android:fontFamily="@font/google_sans_bold"
                 android:gravity="center"
                 android:text="@string/loginHere"
