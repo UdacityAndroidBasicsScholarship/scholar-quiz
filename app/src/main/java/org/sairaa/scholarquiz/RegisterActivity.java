@@ -34,13 +34,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-
             }
         });
         
-
     }
 
     @Override
