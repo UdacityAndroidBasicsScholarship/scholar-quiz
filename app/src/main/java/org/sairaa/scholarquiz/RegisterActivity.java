@@ -2,13 +2,20 @@ package org.sairaa.scholarquiz;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sairaa.scholarquiz.Other.ActivityConstants;
+import org.sairaa.scholarquiz.Other.GeneralActions;
+
+import java.util.ArrayList;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener,BackgroundLoginTask.AsyncData {
 
     private EditText name,emailId,slackId,password,conPasword,info;
     private Button registerB;
@@ -70,14 +77,54 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     alertDialog.show();
                 }else{
                     // Background task to insert user information into database
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
-                    backgroundLoginTask.execute("register",name.getText().toString(),
-                                                emailId.getText().toString(),
-                                                slackId.getText().toString(),
-                                                password.getText().toString(),
-                                                info.getText().toString());
+//                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
+//                    backgroundLoginTask.execute("register",name.getText().toString(),
+//                                                emailId.getText().toString(),
+//                                                slackId.getText().toString(),
+//                                                password.getText().toString(),
+//                                                info.getText().toString());
+
+                    ActivityConstants.URLInfo urlInfo = ActivityConstants.getURLInfoCopy(ActivityConstants.urlList.get(1)); // for login
+                    ArrayList<ActivityConstants.ServiceCallObj> parameters = new ArrayList<>();
+                    parameters.add(new ActivityConstants.ServiceCallObj("user_name",name.getText().toString()));
+                    parameters.add(new ActivityConstants.ServiceCallObj("mail_id",emailId.getText().toString()));
+                    parameters.add(new ActivityConstants.ServiceCallObj("slack_id",slackId.getText().toString()));
+                    parameters.add(new ActivityConstants.ServiceCallObj("info",info.getText().toString()));
+                    BackgroundLoginTask request = new BackgroundLoginTask(this,urlInfo,parameters);
+                    ActivityConstants.callDataRequest(request);
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onDataReceive(JSONObject jsonObject) {
+        String code = null;
+        try {
+            code = jsonObject.getString("code");
+            String message = jsonObject.getString("message");
+
+            if(code.equals("reg_true")){
+                GeneralActions.showDialog(this,"Registration Successfull", message, "OK", new ActivityConstants.SuccessCallBacks() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError() {}
+                });
+
+            }else if(code.equals("reg_false")){
+                GeneralActions.showDialog(this,"Registration Failed", message, "OK", new ActivityConstants.SuccessCallBacks() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError() {}
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

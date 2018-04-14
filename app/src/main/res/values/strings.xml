@@ -19,4 +19,5 @@
     <string name="signup">Sign Up</string>
     <string name="alreadyUser">Already a User?</string>
     <string name="loginHere">Log In here</string>
+    <string name="networkMsg">Network Not Available</string>
 </resources>

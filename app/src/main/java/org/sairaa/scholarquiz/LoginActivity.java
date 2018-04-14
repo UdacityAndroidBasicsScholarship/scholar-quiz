@@ -11,7 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sairaa.scholarquiz.Other.ActivityConstants;
+import org.sairaa.scholarquiz.Other.GeneralActions;
+
+import java.util.ArrayList;
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,BackgroundLoginTask.AsyncData{
     private final String LOG_LOGIN = "LoginActivity";
     private SharedPreferenceConfig sharedPreferenceConfig;
     private TextView register;
@@ -22,7 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        ActivityConstants.initiateConstants(this); // initiating constants defined
         // check wheathe the user already logged in or not
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
         Log.i(LOG_LOGIN,""+sharedPreferenceConfig.readLoginStatus());
@@ -62,12 +69,53 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
                 }else {
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
-                    backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+                   // BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
+                    //backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+
+                    ActivityConstants.URLInfo urlInfo = ActivityConstants.getURLInfoCopy(ActivityConstants.urlList.get(0)); // for login
+                    ArrayList<ActivityConstants.ServiceCallObj> parameters = new ArrayList<>();
+                    parameters.add(new ActivityConstants.ServiceCallObj("mail_id",email.getText().toString()));
+                    parameters.add(new ActivityConstants.ServiceCallObj("password",password.getText().toString()));
+                    BackgroundLoginTask request = new BackgroundLoginTask(this,urlInfo,parameters);
+                    ActivityConstants.callDataRequest(request);
                 }
 
                 break;
             default:
         }
+    }
+
+    @Override
+    public void onDataReceive(JSONObject jsonObject) {
+        String code = null;
+        try {
+            code = jsonObject.getString("code");
+            String message = jsonObject.getString("message");
+            if(code.equals("login_true")){
+                Intent intent = new Intent(this,LessonActivity.class);
+                intent.putExtra("message",message);
+                startActivity(intent);
+                sharedPreferenceConfig = new SharedPreferenceConfig(this);
+                sharedPreferenceConfig.writeLoginStatus(true);
+                finish();
+            }else if(code.equals("login_false")){
+               // showDialog("Error in Login",message,code);
+                GeneralActions.showDialog(this,"Error in Login", message, "OK", new ActivityConstants.SuccessCallBacks() {
+                    @Override
+                    public void onSuccess() {
+                        email.setText("");
+                        password.setText("");
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
