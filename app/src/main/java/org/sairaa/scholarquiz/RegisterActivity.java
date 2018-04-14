@@ -12,6 +12,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private EditText name,emailId,slackId,password,conPasword,info;
     private Button registerB;
+    private Button register;
     // Alert dialog
     AlertDialog.Builder alertBuilder;
     @Override
@@ -26,9 +27,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         conPasword = findViewById(R.id.confirm_password_reg);
         info = findViewById(R.id.info_reg);
         registerB = findViewById(R.id.register_reg);
+        register=findViewById(R.id.register);
         //set register to onClick event
 
         registerB.setOnClickListener(this);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+
+            }
+        });
+        
 
     }
 
@@ -78,9 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             password.getText().toString(),
                             info.getText().toString());
                 }
-                case R.id.register:
-                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                break;
+               break;
         }
     }
 }
