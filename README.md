@@ -41,3 +41,4 @@ Moderator and scholar program handler will have access to add new quiz to the li
 * [Kunal Pitale](https://github.com/iamkunalpitale)
 * [Mohan Cm](https://github.com/mohancm)
 * [Venkat Chowdary](https://github.com/indianlad)
+1.[Himani Sharma](https://github.com/hsharma2304)
