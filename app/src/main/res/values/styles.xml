@@ -1,11 +1,40 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="editTextStyle">
+        <item name="android:background">@drawable/edittextdesign</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
 
+    <style name="buttonStyle">
+        <item name="android:background">@drawable/buttondesign</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">#fdfdfe</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="checkBoxStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textColor">#fdfdfe</item>
+        <item name="colorAccent">#8f00ddff</item>        <!--  for checked state  -->
+        <item name="android:textColorSecondary">#fdfdfe</item>          <!--  for uncheck state  -->
+    </style>
 </resources>

@@ -100,19 +100,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     finish();
 
                 } else if (code.equals("login_false")) {
-                    Toast.makeText(LoginActivity.this, "some error occur", Toast.LENGTH_SHORT).show();
+                    showToastonUI("Some error occur");
                 }
             } catch (JSONException e){
 
             }
         }
 
-
-
         @Override
         public void onError() {
-            Toast.makeText(LoginActivity.this, "some error occur", Toast.LENGTH_SHORT).show();
+            showToastonUI("Some error occur");
         }
     };
+
+
+    private void showToastonUI(final String message){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
 }
 
