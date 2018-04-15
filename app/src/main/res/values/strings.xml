@@ -19,4 +19,8 @@
     <string name="signup">Sign Up</string>
     <string name="alreadyUser">Already a User?</string>
     <string name="loginHere">Sign In</string>
+    <string name="forgotPwd_slackId">Enter your registered Slack Id</string>
+    <string name="forgotPwd_emailId">Enter your registered E-mail Id</string>
+    <string name="forgotPwd_submit">SUBMIT</string>
+    <string name="forgotPwd_title">Forgot Password?</string>
 </resources>

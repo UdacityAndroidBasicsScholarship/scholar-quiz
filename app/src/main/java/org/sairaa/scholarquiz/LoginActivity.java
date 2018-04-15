@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final String LOG_LOGIN = "LoginActivity";
     private SharedPreferenceConfig sharedPreferenceConfig;
-    private TextView register;
+    private TextView register, forgotPwdTextView;
     private EditText email,password;
     private Button signIn;
     private AlertDialog.Builder alertBuilder;
@@ -38,6 +38,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.password_login);
         signIn = findViewById(R.id.signin_login);
         signIn.setOnClickListener(this);
+
+        forgotPwdTextView = findViewById(R.id.forgotPassword_TextView);
+        forgotPwdTextView.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +69,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
                 }
 
+                break;
+            case R.id.forgotPassword_TextView:
+                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
                 break;
             default:
         }
