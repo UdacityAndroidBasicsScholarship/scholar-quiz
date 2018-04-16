@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final String LOG_LOGIN = "LoginActivity";
@@ -47,6 +48,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class) );
                 break;
             case R.id.signin_login:
+
+                if(!email.getText().toString().equals("") && !password.getText().toString().equals("")) {
+                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
+                    backgroundLoginTask.execute("login", email.getText().toString(), password.getText().toString());
+                    break;
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please Enter Email or Password.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.forgotPassword_TextView:
+
 
                 if(email.getText().toString().equals("")
                         || password.getText().equals("")){
