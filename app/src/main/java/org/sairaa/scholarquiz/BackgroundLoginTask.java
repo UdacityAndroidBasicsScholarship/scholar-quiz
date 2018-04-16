@@ -30,8 +30,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
-    private final String LOGIN_URL = "http://sairaa.org/ScholarQuiz/login.php";
-    private final String REGISTER_URL = "http://sairaa.org/ScholarQuiz/register_test.php";
+
+    String LOGIN_URL;
 
     private final String LOG_BACKGROUNDLOGINTASK = "BackgroundLoginTask";
 
@@ -41,6 +41,7 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
     Activity activity;
     ProgressDialog progressDialog;
     AlertDialog.Builder alertBuilder;
+
     public BackgroundLoginTask(Context ctx) {
         this.context = ctx;
         activity = (Activity)ctx;
@@ -49,12 +50,14 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         alertBuilder = new AlertDialog.Builder(activity);
-        progressDialog = new ProgressDialog(context);
+        /*progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Connecting to Server");
         progressDialog.setIndeterminate(true);
+        progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressDialog.show();*/
+        progressDialog = ProgressDialog.show(context, "Please Wait", "COnnecting to Server", true, false);
     }
 
 
@@ -64,7 +67,8 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
 
         if(method.equals("register")){
             try {
-                URL register_url = new URL(REGISTER_URL);
+                URL register_url = new URL(APIHandler.REGISTER_URL);
+
                 HttpURLConnection httpURLConnection = (HttpURLConnection) register_url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -111,7 +115,7 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
             }
         }else if(method.equals("login")){
             try {
-                URL register_url = new URL(LOGIN_URL);
+                URL register_url = new URL(APIHandler.LOGIN_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) register_url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);

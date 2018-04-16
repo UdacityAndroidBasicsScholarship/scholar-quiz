@@ -2,14 +2,23 @@ package org.sairaa.scholarquiz;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sairaa.scholarquiz.Interfaces.DataLoad_Interface;
+import org.sairaa.scholarquiz.Model.NetworkClass;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final String LOG_LOGIN = "LoginActivity";
@@ -46,7 +55,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.register:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class) );
                 break;
+
             case R.id.signin_login:
+
+                HashMap<String, String> params = parseHashmap(email.getText().toString().trim(),password.getText().toString().trim());
+
+
+//                BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
+//                backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
 
                 if(email.getText().toString().equals("")
                         || password.getText().equals("")){
@@ -61,13 +77,80 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
-                }else {
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
-                    backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+                } else {
+//                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
+//                    backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+
+
+                    NetworkClass networkClassInstance = new NetworkClass(APIHandler.LOGIN_URL, dataLoad_interface, params);
+
+                    networkClassInstance.execute();
+
                 }
 
                 break;
             default:
         }
     }
+
+
+    private HashMap<String, String> parseHashmap(String email, String password){
+
+        HashMap<String, String> entry = new HashMap<String,String>();
+
+        entry.put("mail_id",email);
+        entry.put("password",password);
+
+        return entry;
+
+    }
+
+    DataLoad_Interface dataLoad_interface = new DataLoad_Interface() {
+        @Override
+        public void successful(String response) {
+
+            try {
+                Log.d("response", response);
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("server_response");
+                JSONObject object = jsonArray.getJSONObject(0);
+                String code = object.getString("code");
+                String message = object.getString("message");
+
+                if (code.equals("login_true")) {
+
+                    Intent intent = new Intent(LoginActivity.this, LessonActivity.class);
+                    intent.putExtra("message", message);
+                    startActivity(intent);
+
+                    sharedPreferenceConfig = new SharedPreferenceConfig(LoginActivity.this);
+                    sharedPreferenceConfig.writeLoginStatus(true);
+                    finish();
+
+                } else if (code.equals("login_false")) {
+                    showToastonUI("Wrong Email or Password.");
+                }
+            } catch (JSONException e){
+
+            }
+        }
+
+        @Override
+        public void onError() {
+            showToastonUI("Some error occur");
+        }
+    };
+
+
+    private void showToastonUI(final String message){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
 }
+

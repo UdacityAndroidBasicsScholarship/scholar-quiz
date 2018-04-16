@@ -58,7 +58,7 @@ public class LessonActivity extends AppCompatActivity {
                                     startActivity(new Intent(LessonActivity.this,LoginActivity.class));
                                     finish();
                                 break;
-                            case R.id.subscribe_nav:
+                            case R.id.subscribe_list:
                                 startActivity(new Intent(LessonActivity.this,SubscribeActivity.class));
                                 break;
                             case R.id.score_nav:
@@ -100,7 +100,7 @@ public class LessonActivity extends AppCompatActivity {
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
             // pets table in the database).
-            TextView displayView = (TextView) findViewById(R.id.test);
+            TextView displayView = (TextView) findViewById(R.id.textView);
             displayView.setText("Number of rows in pets database table: " + cursor.getCount());
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
