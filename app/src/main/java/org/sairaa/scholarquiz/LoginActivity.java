@@ -1,6 +1,12 @@
 package org.sairaa.scholarquiz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+<<<<<<< HEAD
+=======
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+>>>>>>> upstream/master
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,10 +25,12 @@ import org.sairaa.scholarquiz.Model.NetworkClass;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String LOG_LOGIN = "LoginActivity";
     private SharedPreferenceConfig sharedPreferenceConfig;
     private TextView register;
     private EditText email,password;
     private Button signIn;
+    private AlertDialog.Builder alertBuilder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // check wheathe the user already logged in or not
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+        Log.i(LOG_LOGIN,""+sharedPreferenceConfig.readLoginStatus());
         if (sharedPreferenceConfig.readLoginStatus()){
             startActivity(new Intent(LoginActivity.this,LessonActivity.class));
             this.finish();
@@ -53,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.signin_login:
 
+<<<<<<< HEAD
                 HashMap<String, String> params = parseHashmap(email.getText().toString().trim(),password.getText().toString().trim());
 
                 NetworkClass networkClassInstance = new NetworkClass(APIHandler.LOGIN_URL, dataLoad_interface, params);
@@ -60,6 +70,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 networkClassInstance.execute();
 //                BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
 //                backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+=======
+                if(email.getText().toString().equals("")
+                        || password.getText().equals("")){
+                    alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+                    alertBuilder.setTitle("User Datails");
+                    alertBuilder.setMessage("Please Fill all required field");
+                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = alertBuilder.create();
+                    alertDialog.show();
+                }else {
+                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
+                    backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+                }
+
+>>>>>>> upstream/master
                 break;
             default:
         }

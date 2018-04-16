@@ -47,11 +47,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.register_reg:
                 // Check all requir field empty or not
-                if(name.getText().toString().equals("")
-                        || emailId.getText().toString().equals("")
-                        || slackId.getText().toString().equals("")
-                        || password.getText().toString().equals("")
-                        || conPasword.getText().toString().equals("")) {
+                //Apply the validation in each field including slack Id
+                if(name.getText().toString().length()==0) {
+                    name.setError("Name cannot be blank");
+                }
+                if(emailId.getText().toString().equals("")) {
+                    emailId.setError("Email cannot be blank");
+                }
+                if(!slackId.getText().toString().contains("@")) {
+                    slackId.setError("@ is essential");
+                }
+                if (password.getText().toString().equals("")) {
+                    password.setError("password cannot be blank");
+                }
+                if(conPasword.getText().toString().equals("")) {
+                    conPasword.setError("confirm password cannot be blank");
                     // if any of the required field empty "Show Dialog to fill the required field
                     alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
                     alertBuilder.setTitle("Something Wrong");
@@ -79,22 +89,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
+<<<<<<< HEAD
                 } else {
 
 
                     HashMap<String, String> params = parseHashmap(name.getText().toString(),
+=======
+                }else{
+                    // Background task to insert user information into database
+                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
+                    backgroundLoginTask.execute("register",name.getText().toString(),
+>>>>>>> upstream/master
                             emailId.getText().toString(),
                             slackId.getText().toString(),
                             password.getText().toString(),
                             info.getText().toString());
+<<<<<<< HEAD
 
                     NetworkClass networkClassInstance = new NetworkClass(APIHandler.REGISTER_URL, dataLoad_interface, params);
 
                     networkClassInstance.execute();
+=======
+>>>>>>> upstream/master
                 }
                 break;
         }
     }
+<<<<<<< HEAD
 
     private HashMap<String, String> parseHashmap(String name, String emailId, String slackId, String password, String info){
 
@@ -140,3 +161,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 }
+=======
+}
+>>>>>>> upstream/master

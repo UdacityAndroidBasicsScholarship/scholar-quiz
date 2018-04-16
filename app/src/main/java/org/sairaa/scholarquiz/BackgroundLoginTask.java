@@ -33,6 +33,8 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
 
     String LOGIN_URL;
 
+    private final String LOG_BACKGROUNDLOGINTASK = "BackgroundLoginTask";
+
     private SharedPreferenceConfig sharedPreferenceConfig;
 
     Context context;
@@ -124,6 +126,7 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
 
                 String email =params[1];
                 String password = params[2];
+                Log.i(LOG_BACKGROUNDLOGINTASK,email);
 
                 String data = URLEncoder.encode("mail_id", "UTF-8")+"="+URLEncoder.encode(email,"UTF-8")+"&"+
                         URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
