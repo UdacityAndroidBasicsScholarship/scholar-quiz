@@ -2,12 +2,8 @@ package org.sairaa.scholarquiz;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-<<<<<<< HEAD
-=======
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
->>>>>>> upstream/master
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -62,15 +58,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.signin_login:
 
-<<<<<<< HEAD
                 HashMap<String, String> params = parseHashmap(email.getText().toString().trim(),password.getText().toString().trim());
 
-                NetworkClass networkClassInstance = new NetworkClass(APIHandler.LOGIN_URL, dataLoad_interface, params);
 
-                networkClassInstance.execute();
 //                BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
 //                backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
-=======
+
                 if(email.getText().toString().equals("")
                         || password.getText().equals("")){
                     alertBuilder = new AlertDialog.Builder(LoginActivity.this);
@@ -84,12 +77,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
-                }else {
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
-                    backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+                } else {
+//                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
+//                    backgroundLoginTask.execute("login",email.getText().toString(),password.getText().toString());
+
+
+                    NetworkClass networkClassInstance = new NetworkClass(APIHandler.LOGIN_URL, dataLoad_interface, params);
+
+                    networkClassInstance.execute();
+
                 }
 
->>>>>>> upstream/master
                 break;
             default:
         }
@@ -130,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     finish();
 
                 } else if (code.equals("login_false")) {
-                    showToastonUI("Some error occur");
+                    showToastonUI("Wrong Email or Password.");
                 }
             } catch (JSONException e){
 

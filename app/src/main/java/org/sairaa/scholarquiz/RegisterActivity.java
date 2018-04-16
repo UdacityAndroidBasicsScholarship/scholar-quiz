@@ -89,33 +89,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
-<<<<<<< HEAD
                 } else {
 
 
                     HashMap<String, String> params = parseHashmap(name.getText().toString(),
-=======
-                }else{
-                    // Background task to insert user information into database
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
-                    backgroundLoginTask.execute("register",name.getText().toString(),
->>>>>>> upstream/master
-                            emailId.getText().toString(),
-                            slackId.getText().toString(),
-                            password.getText().toString(),
-                            info.getText().toString());
-<<<<<<< HEAD
+                    emailId.getText().toString(),
+                    slackId.getText().toString(),
+                    password.getText().toString(),
+                    info.getText().toString());
 
                     NetworkClass networkClassInstance = new NetworkClass(APIHandler.REGISTER_URL, dataLoad_interface, params);
 
                     networkClassInstance.execute();
-=======
->>>>>>> upstream/master
+
                 }
                 break;
         }
     }
-<<<<<<< HEAD
 
     private HashMap<String, String> parseHashmap(String name, String emailId, String slackId, String password, String info){
 
@@ -161,6 +151,3 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 }
-=======
-}
->>>>>>> upstream/master
