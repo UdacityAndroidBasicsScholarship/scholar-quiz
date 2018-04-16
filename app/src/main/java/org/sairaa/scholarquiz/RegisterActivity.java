@@ -2,11 +2,22 @@ package org.sairaa.scholarquiz;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sairaa.scholarquiz.Interfaces.DataLoad_Interface;
+import org.sairaa.scholarquiz.Model.NetworkClass;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -78,16 +89,65 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     });
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
-                }else{
-                    // Background task to insert user information into database
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
-                    backgroundLoginTask.execute("register",name.getText().toString(),
-                            emailId.getText().toString(),
-                            slackId.getText().toString(),
-                            password.getText().toString(),
-                            info.getText().toString());
+                } else {
+
+
+                    HashMap<String, String> params = parseHashmap(name.getText().toString(),
+                    emailId.getText().toString(),
+                    slackId.getText().toString(),
+                    password.getText().toString(),
+                    info.getText().toString());
+
+                    NetworkClass networkClassInstance = new NetworkClass(APIHandler.REGISTER_URL, dataLoad_interface, params);
+
+                    networkClassInstance.execute();
+
                 }
                 break;
         }
     }
+
+    private HashMap<String, String> parseHashmap(String name, String emailId, String slackId, String password, String info){
+
+        HashMap<String, String> entry = new HashMap<String,String>();
+
+        entry.put("user_name",name);
+        entry.put("mail_id",emailId);
+        entry.put("slack_id",slackId);
+        entry.put("password",password);
+        entry.put("info",info);
+
+        return entry;
+
+    }
+
+    DataLoad_Interface dataLoad_interface = new DataLoad_Interface() {
+        @Override
+        public void successful(String response) {
+
+            try {
+                Log.d("response", response);
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("server_response");
+                JSONObject object = jsonArray.getJSONObject(0);
+                String code = object.getString("code");
+                String message = object.getString("message");
+
+                if(code.equals("reg_true")){
+                    finish();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                }else if(code.equals("reg_false")){
+                    Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (JSONException e){
+
+            }
+        }
+
+        @Override
+        public void onError() {
+            Toast.makeText(RegisterActivity.this, "some error occur", Toast.LENGTH_SHORT).show();
+        }
+    };
 }
