@@ -23,8 +23,7 @@ public final class QuizContract {
 
     public static final class lessonQuizEntry implements BaseColumns{
 
-        public final String TABLE_NAME = "lessonQuiz";
-
+        public final static String TABLE_NAME = "lessonQuiz";
         public final static String _ID = BaseColumns._ID;
         public final static String L_ID = "lid";
         public final static String Q_ID = "qid";
@@ -35,7 +34,7 @@ public final class QuizContract {
 
     public static final class quizQuestionEntry implements BaseColumns{
 
-        public final String TABLE_NAME = "quiz";
+        public final static String TABLE_NAME = "quiz";
 
         public final static String _ID = BaseColumns._ID;
         public final static String Q_ID = "qid";
@@ -50,7 +49,7 @@ public final class QuizContract {
 
     public static final class scoreBoardEntry implements BaseColumns{
 
-        public final String TABLE_NAME = "scoreBoard";
+        public final static String TABLE_NAME = "scoreBoard";
 
         public final static String _ID = BaseColumns._ID;
         public final static String S_ID = "sid";

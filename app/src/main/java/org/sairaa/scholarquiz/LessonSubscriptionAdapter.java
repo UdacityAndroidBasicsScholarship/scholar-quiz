@@ -38,7 +38,7 @@ public class LessonSubscriptionAdapter extends ArrayAdapter<LessonInfo> {
         lName.setText(dataToDisplay.getlName());
         Log.i(LOG_ADAPTER,dataToDisplay.getlName());
         TextView subscribeText = listItemView.findViewById(R.id.subscribe_list);
-        subscribeText.setText("Working");
+        subscribeText.setText("Subscribe");
         return listItemView;
         //return super.getView(position, convertView, parent);
     }
