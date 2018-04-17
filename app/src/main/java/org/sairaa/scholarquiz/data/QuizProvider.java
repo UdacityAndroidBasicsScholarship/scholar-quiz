@@ -144,7 +144,7 @@ public class QuizProvider extends ContentProvider{
                  throw new IllegalArgumentException("Cannot query unknown URI " + uri);
 
         }
-
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
         return cursor;
     }
 
@@ -193,7 +193,8 @@ public class QuizProvider extends ContentProvider{
             Log.e(LOG_QUIZ_PROVIDER, "Failed to insert in scoreboard row for " + uri);
             return null;
         }
-
+        //Notify all listner when data has changed
+        getContext().getContentResolver().notifyChange(uri,null);
         // Return the new URI with the ID (of the newly inserted row) appended at the end
 
         return ContentUris.withAppendedId(uri, id);
@@ -216,6 +217,8 @@ public class QuizProvider extends ContentProvider{
             return null;
         }
 
+        //Notify all listner when data has changed
+        getContext().getContentResolver().notifyChange(uri,null);
         // Return the new URI with the ID (of the newly inserted row) appended at the end
 
         return ContentUris.withAppendedId(uri, id);
@@ -237,7 +240,8 @@ public class QuizProvider extends ContentProvider{
             Log.e(LOG_QUIZ_PROVIDER, "Failed to insert in quiz table row for " + uri);
             return null;
         }
-
+        //Notify all listner when data has changed
+        getContext().getContentResolver().notifyChange(uri,null);
         // Return the new URI with the ID (of the newly inserted row) appended at the end
 
         return ContentUris.withAppendedId(uri, id);
@@ -260,6 +264,8 @@ public class QuizProvider extends ContentProvider{
             Log.e(LOG_QUIZ_PROVIDER, "Failed to insert row for " + uri);
             return null;
         }
+        //Notify all listner when data has changed
+        getContext().getContentResolver().notifyChange(uri,null);
 
         // Return the new URI with the ID (of the newly inserted row) appended at the end
 
@@ -273,15 +279,78 @@ public class QuizProvider extends ContentProvider{
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         final int match = sUriMatcher.match(uri);
+
+        int rowsDeleted;
         switch (match){
             case SUBSCRIBE:
                 // Delete all rows that match the selection and selection args
-                return database.delete(subscriptionEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = database.delete(subscriptionEntry.TABLE_NAME, selection, selectionArgs);
+
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+
             case  SUBSCRIBE_ID:
                 // Delete a single row given by the ID in the URI
                 selection = subscriptionEntry._ID + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
-                return database.delete(subscriptionEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = database.delete(subscriptionEntry.TABLE_NAME, selection, selectionArgs);
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+            case LESSONQUIZ:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(lessonQuizEntry.TABLE_NAME, selection, selectionArgs);
+
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+            case  LESSONQUIZ_ID:
+                // Delete a single row given by the ID in the URI
+                selection = lessonQuizEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(lessonQuizEntry.TABLE_NAME, selection, selectionArgs);
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+
+            case QUIZ:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(quizQuestionEntry.TABLE_NAME, selection, selectionArgs);
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+            case  QUIZ_ID:
+                // Delete a single row given by the ID in the URI
+                selection = quizQuestionEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(quizQuestionEntry.TABLE_NAME, selection, selectionArgs);
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+
+            case SCOREBOARD:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(scoreBoardEntry.TABLE_NAME, selection, selectionArgs);
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
+            case  SCOREBOARD_ID:
+                // Delete a single row given by the ID in the URI
+                selection = scoreBoardEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(scoreBoardEntry.TABLE_NAME, selection, selectionArgs);
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsDeleted;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
@@ -303,12 +372,94 @@ public class QuizProvider extends ContentProvider{
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 return updateSubscribe(uri, contentValues, selection, selectionArgs);
 
+            case LESSONQUIZ:
+                return updateLessonQuiz(uri, contentValues, selection, selectionArgs);
+
+            case LESSONQUIZ_ID:
+                selection = lessonQuizEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updateLessonQuiz(uri, contentValues, selection, selectionArgs);
+
+            case QUIZ:
+                return updateQuizQuestion(uri, contentValues, selection, selectionArgs);
+
+            case QUIZ_ID:
+                selection = quizQuestionEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updateQuizQuestion(uri, contentValues, selection, selectionArgs);
+
+            case SCOREBOARD:
+                return updateScoreBoard(uri, contentValues, selection, selectionArgs);
+
+            case SCOREBOARD_ID:
+                selection = scoreBoardEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updateScoreBoard(uri, contentValues, selection, selectionArgs);
+
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);    
 
         }
 
 
+    }
+
+    private int updateScoreBoard(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+
+        if (contentValues.size() == 0) {
+            return 0;
+        }
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Returns the number of database rows affected by the update statement
+        int rowsUpdated = database.update(scoreBoardEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
+
+    }
+
+    private int updateQuizQuestion(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+        if (contentValues.size() == 0) {
+            return 0;
+        }
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Returns the number of database rows affected by the update statement
+        int rowsUpdated = database.update(quizQuestionEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
+
+    }
+
+    private int updateLessonQuiz(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+
+        if (contentValues.size() == 0) {
+            return 0;
+        }
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Returns the number of database rows affected by the update statement
+        int rowsUpdated = database.update(lessonQuizEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
     }
 
     private int updateSubscribe(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
@@ -320,7 +471,13 @@ public class QuizProvider extends ContentProvider{
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         // Returns the number of database rows affected by the update statement
-        return database.update(subscriptionEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+        int rowsUpdated = database.update(subscriptionEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
 
     }
 }

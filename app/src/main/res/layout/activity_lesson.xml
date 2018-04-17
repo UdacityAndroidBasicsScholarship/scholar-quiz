@@ -32,13 +32,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/test"
             android:text=""
-            android:layout_marginTop="100dp"/>
-
+            android:layout_marginTop="100dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
         <ListView
             android:id="@+id/lesson_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="56dp"></ListView>
+            android:layout_marginTop="70dp">
+
+        </ListView>
     </FrameLayout>
 
 
