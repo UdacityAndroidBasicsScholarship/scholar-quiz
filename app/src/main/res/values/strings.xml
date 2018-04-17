@@ -23,4 +23,9 @@
     <string name="forgotPwd_emailId">Enter your registered E-mail Id</string>
     <string name="forgotPwd_submit">SUBMIT</string>
     <string name="forgotPwd_title">Forgot Password?</string>
+    <string name="forgotNewPassword">Enter a New Password</string>
+    <string name="forgotConfPassword">Confirm New Password</string>
+    <string name="forgotEmptyfield1">Note: Please enter your E-mail and Slack Ids.</string>
+    <string name="forgotEmptyfield2">Note: Please enter your E-mail Id also.</string>
+    <string name="forgotEmptyfield3">Note: Please enter your Slack Id also.</string>
 </resources>
