@@ -1,14 +1,30 @@
 package org.sairaa.scholarquiz.data;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class QuizContract {
+
+    public static final String CONTENT_AUTHORITY = "org.sairaa.scholarquiz";
+
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+
+    public static final String PATH_SUBSCRIBE = "subscrib";
+    public static final String PATH_LESSONQUIZ = "lessonQuiz";
+    public static final String PATH_QUIZ = "quiz";
+    public static final String PATH_SCOREBOARD = "scoreBoard";
+
+
+
+
 
     private QuizContract(){
 
     }
 
     public static final class subscriptionEntry implements BaseColumns{
+
+        public static final Uri CONTENT_URI_SUBSCRIBE = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SUBSCRIBE);
 
         public final static String TABLE_NAME = "subscrib";
 
@@ -23,6 +39,8 @@ public final class QuizContract {
 
     public static final class lessonQuizEntry implements BaseColumns{
 
+        public static final Uri CONTENT_URI_LESSONQUIZ = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_LESSONQUIZ);
+
         public final static String TABLE_NAME = "lessonQuiz";
         public final static String _ID = BaseColumns._ID;
         public final static String L_ID = "lid";
@@ -33,6 +51,9 @@ public final class QuizContract {
     }
 
     public static final class quizQuestionEntry implements BaseColumns{
+
+        public static final Uri CONTENT_URI_QUIZ = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_QUIZ);
+
 
         public final static String TABLE_NAME = "quiz";
 
@@ -48,6 +69,8 @@ public final class QuizContract {
     }
 
     public static final class scoreBoardEntry implements BaseColumns{
+
+        public static final Uri CONTENT_URI_SCOREBOARD = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_SCOREBOARD);
 
         public final static String TABLE_NAME = "scoreBoard";
 
