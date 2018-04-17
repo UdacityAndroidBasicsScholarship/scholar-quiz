@@ -9,15 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private final String LOG_LOGIN = "LoginActivity";
     private SharedPreferenceConfig sharedPreferenceConfig;
-    private TextView register, forgotPwdTextView;
+    TextView forgotPwdTextView;
     private EditText email,password;
     private Button signIn;
     private AlertDialog.Builder alertBuilder;
+    private TextView register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,4 +78,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             default:
         }
     }
+
+
 }
