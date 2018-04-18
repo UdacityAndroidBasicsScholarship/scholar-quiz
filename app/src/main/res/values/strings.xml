@@ -28,4 +28,5 @@
     <string name="forgotEmptyfield1">Note: Please enter your E-mail and Slack Ids.</string>
     <string name="forgotEmptyfield2">Note: Please enter your E-mail Id also.</string>
     <string name="forgotEmptyfield3">Note: Please enter your Slack Id also.</string>
+    <string name="wel_come">Welcome To</string>
 </resources>
