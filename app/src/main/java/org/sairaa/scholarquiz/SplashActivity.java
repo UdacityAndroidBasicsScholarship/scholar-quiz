@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         }, TIME_OUT);
         textView = (TextView) findViewById(R.id.textView);
         animation = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slideup);
+                R.anim.blink);
         textView.startAnimation(animation);
     }
 
