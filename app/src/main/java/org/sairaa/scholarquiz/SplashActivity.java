@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
-    public final static int TIME_OUT = 2000;
+
+    // Declaration of Time duration till which splash screen is presented to user
+    public final static int TIME_OUT = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Move the user once time has elapsed to Login Screen
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

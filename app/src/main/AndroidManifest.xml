@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- Updated SplashActivity as LAUNCHER -->
         <activity android:name="org.sairaa.scholarquiz.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
