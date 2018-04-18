@@ -13,6 +13,7 @@ android:background="@color/colorPrimaryDark">
         android:textColor="#000"
         android:textStyle="italic|bold"
         android:textSize="50sp"
+        android:id="@+id/textView"
 
 
         />
