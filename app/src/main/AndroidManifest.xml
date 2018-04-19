@@ -12,18 +12,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name="org.sairaa.scholarquiz.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
+        <activity android:name="org.sairaa.scholarquiz.LoginActivity">
+
+        </activity>
+
+        <activity android:name="org.sairaa.scholarquiz.RegisterActivity">
+
+        </activity>
+
         <activity
-            android:name=".LessonActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".SubscribeActivity"></activity>
+            android:name="org.sairaa.scholarquiz.LessonActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+
+        </activity>
+        <activity android:name="org.sairaa.scholarquiz.SubscribeActivity">
+
+
+        </activity>
     </application>
 
 </manifest>
