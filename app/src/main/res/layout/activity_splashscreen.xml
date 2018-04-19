@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorPrimaryDark">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerInParent="true"
-        android:text="Scholar Quiz"
+        android:layout_centerVertical="true"
+        android:text="@string/scholar_quiz"
         android:textColor="#000"
+        android:fontFamily="@font/google_sans_bold_italic"
+        android:textSize="56sp"
         android:textStyle="italic|bold"
-        android:textSize="50sp"
-        android:id="@+id/textView"
 
 
         />
