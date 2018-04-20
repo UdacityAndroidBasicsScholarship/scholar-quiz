@@ -3,20 +3,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/profile_nav"
-            android:icon="@mipmap/ic_launcher_round"
+            android:icon="@drawable/ic_profile"
             android:title="Profile" />
         <item
             android:id="@+id/subscribe_nav"
-            android:icon="@mipmap/ic_launcher_round"
+            android:icon="@drawable/ic_subsribe3"
             android:title="Subscribe " />
         <item
             android:id="@+id/score_nav"
-            android:icon="@mipmap/ic_launcher_round"
+            android:icon="@drawable/ic_scorecard24"
             android:title="Score Card" />
         <item
             android:id="@+id/logout_nav"
-            android:icon="@mipmap/ic_launcher_round"
+            android:icon="@drawable/ic_logout24"
             android:title="Logout" />
-
     </group>
 </menu>
