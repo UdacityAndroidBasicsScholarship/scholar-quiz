@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/headerbackgroundwall2">
-
-    </ImageView>
-
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
     <FrameLayout
         android:id="@+id/content_frame"
@@ -27,6 +20,14 @@
             android:background="@drawable/gradient"
             app:title="Lessons"
             app:titleTextColor="#ffffff" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/headerbackgroundwall2">
+
+        </ImageView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
