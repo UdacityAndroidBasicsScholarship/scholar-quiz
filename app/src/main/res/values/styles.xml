@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <!--Edit Text Style-->
     <style name="editTextStyle">
         <item name="android:background">@drawable/edittextdesign</item>
         <item name="android:fontFamily">@font/google_sans</item>
@@ -18,6 +20,7 @@
         <item name="android:layout_margin">10dp</item>
     </style>
 
+    <!--Button Stylr-->
     <style name="buttonStyle">
         <item name="android:background">@drawable/button_design</item>
         <item name="android:layout_gravity">center</item>
@@ -25,10 +28,12 @@
         <item name="android:fontFamily">@font/google_sans_bold</item>
     </style>
 
+    <!--Check Box Styles-->
     <style name="checkBoxStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="colorAccent">#4facfe</item>
     </style>
+
 </resources>
