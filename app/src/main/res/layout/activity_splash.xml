@@ -5,9 +5,15 @@
     android:layout_height="match_parent">
 
  //Dummy Splash Screen
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_foreground"/>
+        android:background="@drawable/untitled"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/splash"/>
 
 </RelativeLayout>
