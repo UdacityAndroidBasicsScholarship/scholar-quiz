@@ -1,11 +1,16 @@
 package org.sairaa.scholarquiz;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     EditText forgotEmail, forgotSlackId, forgotEmail2, forgotSlackId2, forgotNewPwd, forgotConfPwd;
@@ -29,7 +34,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     public void checkEmailSlackIds(View view) {
         TextView forgotNote = findViewById(R.id.forgotNote);
-        if (forgotEmail.getText().toString().isEmpty() && forgotSlackId.getText().toString().isEmpty()) {
+        /*if (forgotEmail.getText().toString().isEmpty() && forgotSlackId.getText().toString().isEmpty()) {
             forgotNote.setText(getResources().getString(R.string.forgotEmptyfield1));
         } else if (forgotEmail.getText().toString().isEmpty()) {
             forgotNote.setText(getResources().getString(R.string.forgotEmptyfield2));
@@ -40,6 +45,32 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             forgotAfterValidateLayout.setVisibility(View.VISIBLE);
             forgotEmail2.setText(forgotEmail.getText().toString());
             forgotSlackId2.setText(forgotSlackId.getText().toString());
+        }*/
+
+        if(forgotEmail.getText().toString().isEmpty()){
+            Toast.makeText(ForgotPasswordActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+            forgotEmail.setError("enter email");
+        } else {
+            forgetEmail(forgotEmail.getText().toString().trim());
         }
+    }
+
+
+    private void forgetEmail(String email){
+
+        AppInfo.firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                if(task.isSuccessful()){
+
+                    Toast.makeText(ForgotPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_LONG).show();
+                    finish();
+
+                } else {
+                    Toast.makeText(ForgotPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

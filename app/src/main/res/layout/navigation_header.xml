@@ -8,11 +8,11 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/profile" />
+        android:src="@drawable/profile" />-->
 
     <TextView
         android:layout_width="wrap_content"

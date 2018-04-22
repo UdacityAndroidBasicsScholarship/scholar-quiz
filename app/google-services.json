@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "4212313763",
+    "firebase_url": "https://scholar-quiz.firebaseio.com",
+    "project_id": "scholar-quiz",
+    "storage_bucket": "scholar-quiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4212313763:android:08b79b751838f2ba",
+        "android_client_info": {
+          "package_name": "org.sairaa.scholarquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4212313763-p3h7behpg3uer1sc0dq6gh2l137pgq4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9Ii7sO7dcxnFf2367th3NS2Yb3uY_IIA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
