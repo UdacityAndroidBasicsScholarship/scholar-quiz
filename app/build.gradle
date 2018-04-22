@@ -10,13 +10,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-  //  buildscript {
+    //  buildscript {
     //    dependencies {
-            // Add this line
-      //
+    // Add this line
+    //
 
-        //}
-   // }
+    //}
+    // }
     buildTypes {
         release {
             minifyEnabled false
@@ -50,4 +50,16 @@ apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }

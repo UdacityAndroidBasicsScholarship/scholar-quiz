@@ -32,7 +32,9 @@
             android:authorities="org.sairaa.scholarquiz"
             android:exported="false" />
 
-        <activity android:name=".UserChannelActivity"/>
+        <activity android:name=".UserChannelActivity" />
+        <activity android:name=".QuizListActivity" />
+        <activity android:name=".AllChannelListActivity"></activity>
     </application>
 
 </manifest>
