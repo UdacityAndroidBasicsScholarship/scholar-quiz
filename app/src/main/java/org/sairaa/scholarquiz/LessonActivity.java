@@ -37,8 +37,6 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
 
-
-
         drawerLayout = findViewById(R.id.drawer_layout);
         //Toolbar toolbar = findViewById(R.id.toolbar);
         toolbarr = (Toolbar)findViewById(R.id.toolbar_lesson);
@@ -61,6 +59,8 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                         switch (menuItem.getItemId()){
                             case R.id.logout_nav:
                                     sharedPreferenceConfig.writeLoginStatus(false);
+
+                                    AppInfo.firebaseAuth.signOut();
                                     startActivity(new Intent(LessonActivity.this,LoginActivity.class));
                                     finish();
                                 break;
