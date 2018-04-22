@@ -41,9 +41,9 @@ public class SplashActivity extends Activity {
         l.startAnimation(anim);
         anim=AnimationUtils.loadAnimation(this,R.anim.translate);
         anim.reset();
-        ImageView iv=(ImageView) findViewById(R.id.splash);
-        iv.clearAnimation();
-        iv.startAnimation(anim);
+//        ImageView iv=(ImageView) findViewById(R.id.splash);
+//        iv.clearAnimation();
+//        iv.startAnimation(anim);
         TextView tv=(TextView) findViewById(R.id.splashtagline);
         tv.clearAnimation();
         tv.startAnimation(anim);
