@@ -191,7 +191,8 @@ public class RegisterActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-
+        registerMVPView.hideDialog();
         super.onDestroy();
+
     }
 }
