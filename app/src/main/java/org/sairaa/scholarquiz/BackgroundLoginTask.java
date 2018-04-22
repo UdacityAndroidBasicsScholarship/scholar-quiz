@@ -28,8 +28,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-
+/*
 public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
+
     private final String LOGIN_URL = "http://sairaa.org/ScholarQuiz/login.php";
     private final String REGISTER_URL = "http://sairaa.org/ScholarQuiz/register_test.php";
 
@@ -229,4 +230,7 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
         alertDialog.show();
 
     }
+
+
 }
+*/

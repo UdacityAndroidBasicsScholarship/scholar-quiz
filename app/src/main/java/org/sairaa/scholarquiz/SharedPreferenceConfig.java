@@ -13,6 +13,7 @@ public class SharedPreferenceConfig {
         sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.login_prferance), Context.MODE_PRIVATE);
 
     }
+/*
     public void writeLoginStatus(boolean status){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(context.getResources().getString(R.string.login_status_preference), status);
@@ -26,4 +27,5 @@ public class SharedPreferenceConfig {
         Log.i("SharedPreferanceRead: ",""+status);
         return status;
     }
+    */
 }

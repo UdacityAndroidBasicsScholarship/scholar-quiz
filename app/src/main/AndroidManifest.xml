@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".SplashActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +25,14 @@
             android:name=".LessonActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".SubscribeActivity" />
-        <activity android:name=".ForgotPasswordActivity"></activity>
-        <activity android:name=".SubscribeActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity" />
 
         <provider
             android:name=".data.QuizProvider"
             android:authorities="org.sairaa.scholarquiz"
             android:exported="false" />
+
+        <activity android:name=".UserChannelActivity"/>
     </application>
 
 </manifest>

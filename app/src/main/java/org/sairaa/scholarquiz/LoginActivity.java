@@ -1,120 +1,124 @@
 package org.sairaa.scholarquiz;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String LOG_LOGIN = "LoginActivity";
-    private SharedPreferenceConfig sharedPreferenceConfig;
-    private CheckBox saveLoginCheckBox;
-    private SharedPreferences loginPreferences;
-    private SharedPreferences.Editor loginPrefsEditor;
-    private Boolean saveLogin;
-    private String username, pass;
-    private TextView register;
-    private EditText email, password;
-    private Button signIn;
-    private AlertDialog.Builder alertBuilder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class LoginActivity extends AppCompatActivity{
+
+    // Declare an instance of FirebaseAuth
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize FirebaseAuth instance
+        mAuth = FirebaseAuth.getInstance();
 
-        // check wheather the user already logged in or not
+        // Check if the user is already signed in
 
-        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
-        Log.i(LOG_LOGIN, "" + sharedPreferenceConfig.readLoginStatus());
-        if (sharedPreferenceConfig.readLoginStatus()) {
-           startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            this.finish();
+        if (mAuth.getCurrentUser() != null) {
+            // Call Function to move user to next screen as user is already Signed In
+            signInUser();
         }
 
-        register = findViewById(R.id.register);
-        register.setOnClickListener(this);
+        // When Sign Up button is pressed move to SignUp Screen
+        findViewById(R.id.button_SignUp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
 
-        email = findViewById(R.id.email_login);
-        password = findViewById(R.id.password_login);
-        //Use this checkBox ID
-        saveLoginCheckBox = findViewById(R.id.rememberMe_CheckBox);
-        signIn = findViewById(R.id.signin_login);
-        signIn.setOnClickListener(this);
-        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        loginPrefsEditor = loginPreferences.edit();
+        });
 
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
-            email.setText(loginPreferences.getString("username", ""));
-            password.setText(loginPreferences.getString("password", ""));
-            saveLoginCheckBox.setChecked(true);
-        }
+
+        /**
+         * When Sign In button is clicked perform the actions
+         * - Check if Email ID and Password are provided
+         * - Check if Email ID is of correct format
+         * - Sign In user on succeesful Login Else show Message to the user
+         * */
+        findViewById(R.id.button_SignIn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Declare variable to fetch values entered in email and password field
+                EditText emailId_EditText = findViewById(R.id.editText_EmailId);
+                EditText password_EditText = findViewById(R.id.editText_Password);
+
+                // Store the value in variables after converting them to string
+                String email = String.valueOf(emailId_EditText.getText());
+                String password = String.valueOf(password_EditText.getText());
+
+                /*
+                 * - Check if the values were entered in the fields by the user
+                 * - Check if the Email id entered in correct Format
+                 */
+
+                if ((email.isEmpty()) || (password.isEmpty())) {
+
+                    Toast.makeText(LoginActivity.this, "Email ID/ Password are required to Sign In!!", Toast.LENGTH_LONG).show();
+                } else if (!isValidEmail(email)) {
+
+                    Toast.makeText(LoginActivity.this, "Please provide Valid Email Id..!!", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    // Email Id is in correct format , try to Login the User
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+
+                                        // Call function to move user to next screen on successful Sign In
+                                        signInUser();
+
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                }
+                            });
+                }
+            }
+        });
+
     }
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.register:
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                break;
-            case R.id.signin_login:
-                if (email.getText().toString().equals("")
-                        || password.getText().equals("")) {
-                    alertBuilder = new AlertDialog.Builder(LoginActivity.this);
-                    alertBuilder.setTitle("User Datails");
-                    alertBuilder.setMessage("Please Fill all required field");
-                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    AlertDialog alertDialog = alertBuilder.create();
-                    alertDialog.show();
-                } else {
-                    BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
-                    backgroundLoginTask.execute("login", email.getText().toString(), password.getText().toString());
-                }
+    /** Function to Move the User to Next screen on Successful Sign In or
+     *  if user is already Signed In
+     */
 
+    public void signInUser() {
 
-                break;
-            case R.id.forgotPassword_TextView:
-                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
-                break;
-            default:
-        }
+        // Sign in success, take signed-in user's information to channel activity
+        Intent channelIntent = new Intent(LoginActivity.this,UserChannelActivity.class);
+        startActivity(channelIntent);
+        finish();
+    }
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
-
-        username = email.getText().toString();
-        pass = password.getText().toString();
-
-        if (saveLoginCheckBox.isChecked()) {
-            loginPrefsEditor.putBoolean("saveLogin", true);
-            loginPrefsEditor.putString("username", username);
-            loginPrefsEditor.putString("password", pass);
-            loginPrefsEditor.commit();
-        } else {
-            loginPrefsEditor.clear();
-            loginPrefsEditor.commit();
-        }
-
-
+    /**
+     * Function to check if the Email Id entered is in valid format i.e contains @ and .com
+     */
+    private static boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 }
