@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LoginActivity"
+    tools:context=".ui.Register.RegisterActivity"
     android:background="@drawable/backgroundwall">
 
     <LinearLayout
@@ -83,14 +83,14 @@
                 android:textSize="15sp"/>
 
             <Button
-                android:id="@+id/register_reg"
+                android:id="@+id/register_button"
                 style="@style/buttonStyle"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/button_design"
-                android:text="@string/signup" />
+                android:text="@string/signup"/>
 
         </LinearLayout>
 
@@ -116,7 +116,6 @@
                 android:theme="@style/checkBoxStyle" />
 
             <Button
-                android:clickable="true"
                 android:id="@+id/register"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="150dp"

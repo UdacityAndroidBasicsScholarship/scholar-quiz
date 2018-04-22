@@ -7,41 +7,35 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/headerbackgroundwall2">
-
-    </ImageView>
-
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_lesson"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/gradient"
-            app:title="Lessons"
-            app:titleTextColor="#ffffff" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/test"
-            android:text=""
-            android:layout_marginTop="100dp"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
-        <ListView
-            android:id="@+id/lesson_listview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp">
+            android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_lesson"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
 
-        </ListView>
+                android:background="@color/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:title="Lessons"
+                app:titleTextColor="#ffffff" />
+
+            <ListView
+                android:id="@+id/lesson_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/headerbackgroundwall2">
+
+            </ListView>
+        </LinearLayout>
+
+
     </FrameLayout>
 
 
@@ -54,7 +48,7 @@
         android:layout_gravity="start"
         android:background="#ffffff"
         android:fitsSystemWindows="true"
-        app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/navigation_header"/>
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/drawer_view"/>
 
 </android.support.v4.widget.DrawerLayout>

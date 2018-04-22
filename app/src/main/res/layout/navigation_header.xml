@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="192dp"
     android:background="@drawable/headerbackgroundwall"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/profile" />
+        android:src="@drawable/profile" />-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="25dp"
         android:text="User Name"
         android:textColor="@android:color/white"
         android:textSize="16sp"
