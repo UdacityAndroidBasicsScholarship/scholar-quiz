@@ -4,9 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:fromXDelta="0%"
     android:toXDelta="0%"
-    android:fromYDelta="200"
+    android:fromYDelta="400"
     android:toYDelta="0%"
-    android:duration="2000"
+    android:duration="2500"
     android:zAdjustment="top"
     />
 </set>

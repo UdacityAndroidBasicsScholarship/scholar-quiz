@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/spalshtextcolor"
+    android:background="@drawable/backgroundwall3d"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,7 +13,7 @@
         android:id="@+id/splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/splashlogo"/>
+        android:background="@drawable/splashlogo3d"/>
 
     <TextView
         android:id="@+id/splashtagline"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="160dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#808080"
         android:text="Developed By:Udacity Scholarship Students"/>
