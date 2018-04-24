@@ -20,8 +20,8 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
         String SQL_CREATE_SUBSCRIPTION_TABLE = "CREATE TABLE "+ subscriptionEntry.TABLE_NAME + " ("
                 + subscriptionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + subscriptionEntry.S_ID + " INTEGER NOT NULL, "
-                + subscriptionEntry.L_ID + " INTEGER NOT NULL, "
+                + subscriptionEntry.S_ID + " VARCHAR(50) NOT NULL, "
+                + subscriptionEntry.L_ID + " VARCHAR(50) NOT NULL, "
                 + subscriptionEntry.L_NAME + " TEXT NOT NULL, "
                 + subscriptionEntry.TIME_STAMP + " TEXT);";
 

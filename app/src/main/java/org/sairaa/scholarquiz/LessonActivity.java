@@ -60,9 +60,12 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                         drawerLayout.closeDrawers();
                         switch (menuItem.getItemId()){
                             case R.id.logout_nav:
-                                    sharedPreferenceConfig.writeLoginStatus(false);
-                                    startActivity(new Intent(LessonActivity.this,LoginActivity.class));
-                                    finish();
+//                                    sharedPreferenceConfig.writeLoginStatus(false);
+//                                    startActivity(new Intent(LessonActivity.this,LoginActivity.class));
+//                                    finish();
+                                AppInfo.firebaseAuth.signOut();
+                                startActivity(new Intent(LessonActivity.this,LoginActivity.class));
+                                finish();
                                 break;
                             case R.id.subscribe_nav:
                                 startActivity(new Intent(LessonActivity.this,SubscribeActivity.class));
@@ -88,77 +91,6 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
         getLoaderManager().initLoader(LESSON_LOADER,null,this);
     }
 
-//    private void insertLesson() {
-//        // insert dummy data
-//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-//        // Inserting dummy data to subscription table
-//        ContentValues values = new ContentValues();
-//
-//        values.put(subscriptionEntry.S_ID, 1001);
-//        values.put(subscriptionEntry.L_ID, 2001);
-//        values.put(subscriptionEntry.L_NAME, "Lesson 1");
-//        values.put(subscriptionEntry.TIME_STAMP, "10/04/2018");
-//
-//        //long newRowId =  db.insert(subscriptionEntry.TABLE_NAME,null,values);
-//        //Log.i("Subscription inserted "," "+newRowId);
-//        Uri newUri = getContentResolver().insert(subscriptionEntry.CONTENT_URI_SUBSCRIBE,values);
-//
-//        // Show a toast message depending on whether or not the insertion was successful
-//        if (newUri == null) {
-//            // If the new content URI is null, then there was an error with insertion.
-//            Toast.makeText(this, "Insertion failed",
-//                    Toast.LENGTH_SHORT).show();
-//        } else {
-//            // Otherwise, the insertion was successful and we can display a toast.
-//            Toast.makeText(this, "saved",
-//                    Toast.LENGTH_SHORT).show();
-//        }
-//
-//        // Inserting dummy data to quiz Table table
-//        ContentValues valuesQuiz = new ContentValues();
-//
-//        //valuesQuiz.put(quizQuestionEntry._ID, 1);
-//        valuesQuiz.put(quizQuestionEntry.Q_ID, 3001);
-//        valuesQuiz.put(quizQuestionEntry.Q_NO, 2);
-//        valuesQuiz.put(quizQuestionEntry.QUESTION, "How");
-//        valuesQuiz.put(quizQuestionEntry.OPTION1, "now");
-//        valuesQuiz.put(quizQuestionEntry.OPTION2, "yes");
-//        valuesQuiz.put(quizQuestionEntry.OPTION3, "wow");
-//        valuesQuiz.put(quizQuestionEntry.OPTION4, "no");
-//        valuesQuiz.put(quizQuestionEntry.ANSWER, 2);
-//        Uri newUriq = getContentResolver().insert(quizQuestionEntry.CONTENT_URI_QUIZ,valuesQuiz);
-//        //long newquizId = db.insert(quizQuestionEntry.TABLE_NAME,null,valuesQuiz);
-//
-//        //Log.i("Quiz inserted "," "+newquizId);
-//
-//        // Inserting dummy data to lessonQuiz Table table
-//        ContentValues valueslessonQuiz = new ContentValues();
-//
-//
-//        //valueslessonQuiz.put(lessonQuizEntry._ID, 1);
-//        valueslessonQuiz.put(lessonQuizEntry.L_ID, 4001);
-//        valueslessonQuiz.put(lessonQuizEntry.Q_ID, 3001);
-//        valueslessonQuiz.put(lessonQuizEntry.Q_NAME,"Lesson1");
-//
-//
-//        //long newlessonquizId = db.insert(lessonQuizEntry.TABLE_NAME,null,valueslessonQuiz);
-//
-//        //Log.i("Lesson Quiz inserted "," "+newlessonquizId);
-//        Uri newUrilq = getContentResolver().insert(lessonQuizEntry.CONTENT_URI_LESSONQUIZ,valueslessonQuiz);
-//        // Inserting dummy data to scoreboard table
-//        ContentValues valuesScoreBoard = new ContentValues();
-//
-//        valuesScoreBoard.put(scoreBoardEntry.S_ID, 1001);
-//        valuesScoreBoard.put(scoreBoardEntry.L_ID, 2001);
-//        valuesScoreBoard.put(scoreBoardEntry.Q_ID, 3001);
-//        valuesScoreBoard.put(scoreBoardEntry.SCORE, 7);
-//        valuesScoreBoard.put(scoreBoardEntry.TOTAL, 10);
-//
-//
-//        //long newvalueScoreId =  db.insert(scoreBoardEntry.TABLE_NAME,null,valuesScoreBoard);
-//        //Log.i("ScoreBoard inserted "," "+newvalueScoreId);
-//        Uri newUrisc = getContentResolver().insert(scoreBoardEntry.CONTENT_URI_SCOREBOARD,valuesScoreBoard);
-//    }
 
 
 
