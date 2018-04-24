@@ -1,7 +1,6 @@
 package org.sairaa.scholarquiz.ui.Login;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,7 +27,14 @@ import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.SharedPreferenceConfig;
 import org.sairaa.scholarquiz.ui.Register.RegisterActivity;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginMVPView {
+import java.util.List;
+
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+public class LoginActivity extends AppCompatActivity implements LoginMVPView {
 
     private final String LOG_LOGIN = "LoginActivity";
     private SharedPreferenceConfig sharedPreferenceConfig;
@@ -45,110 +50,102 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     LoginMVPView loginMVPView = this;
     ProgressDialog progressDialog;
 
+    Unbinder unbinder;
+    @BindViews({R.id.email_login, R.id.password_login})
+    List<EditText> edittexts;
+
+
+    private boolean checkEmptyField(){
+
+        for(EditText editText: edittexts){
+
+            if(editText.getText().toString().isEmpty())
+                return true;
+        }
+
+        return false;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        unbinder = ButterKnife.bind(this);
 
         // check wheather the user already logged in or not
 
-        /*sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
         Log.i(LOG_LOGIN, "" + sharedPreferenceConfig.readLoginStatus());
+
         if (sharedPreferenceConfig.readLoginStatus()) {
-           startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             this.finish();
-        }*/
-
-        register = findViewById(R.id.register);
-        register.setOnClickListener(this);
-
-        email = findViewById(R.id.email_login);
-        password = findViewById(R.id.password_login);
-
-
-        forgotpassword_TextView =findViewById(R.id.forgotPassword_TextView);
-        forgotpassword_TextView.setOnClickListener(this);
+        }
 
         //Use this checkBox ID
         saveLoginCheckBox = findViewById(R.id.rememberMe_CheckBox);
-        signIn = findViewById(R.id.signin_login);
-        signIn.setOnClickListener(this);
-        //loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        //loginPrefsEditor = loginPreferences.edit();
+//        signIn = findViewById(R.id.signin_login);
+//        signIn.setOnClickListener(this);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
 
-        //saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
 
         if(AppInfo.firebaseAuth.getCurrentUser() != null){
             finish();
             startActivity(new Intent(LoginActivity.this, LessonActivity.class));
-            Log.i(LOG_LOGIN,"User Already Logged in");
         }
-        /*if (saveLogin == true) {
+        if (saveLogin == true) {
             email.setText(loginPreferences.getString("username", ""));
             password.setText(loginPreferences.getString("password", ""));
             saveLoginCheckBox.setChecked(true);
-        }*/
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-
-            case R.id.register:
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                break;
-
-            case R.id.signin_login:
-                if (email.getText().toString().equals("")
-                        || password.getText().equals("")) {
-                    alertBuilder = new AlertDialog.Builder(LoginActivity.this);
-                    alertBuilder.setTitle("User Datails");
-                    alertBuilder.setMessage("Please Fill all required field");
-                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    AlertDialog alertDialog = alertBuilder.create();
-                    alertDialog.show();
-                } else {
-                    /*BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(LoginActivity.this);
-                    backgroundLoginTask.execute("login", email.getText().toString(), password.getText().toString());*/
-
-                    loginMVPView.showDialog();
-                    loginMVPView.authtication(email.getText().toString(), password.getText().toString());
-                }
-
-
-                break;
-            case R.id.forgotPassword_TextView:
-                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
-                break;
-            default:
         }
-
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
-
-        username = email.getText().toString();
-        pass = password.getText().toString();
-
-        /*if (saveLoginCheckBox.isChecked()) {
-            loginPrefsEditor.putBoolean("saveLogin", true);
-            loginPrefsEditor.putString("username", username);
-            loginPrefsEditor.putString("password", pass);
-            loginPrefsEditor.commit();
-        } else {
-            loginPrefsEditor.clear();
-            loginPrefsEditor.commit();
-        }*/
-
-
     }
+
+
+    @OnClick(R.id.register)
+    public void registerClickButton(View view){
+
+        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+    }
+
+    @OnClick(R.id.forgotPassword_TextView)
+    public void forgotPasswordTextView (View view) {
+
+        startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
+    }
+
+    @OnClick(R.id.signin_login)
+    public void signInTextView(View view){
+
+        if(checkEmptyField()){
+            ButterKnife.apply(edittexts, EMPTY_FIELD);
+        } else {
+
+            loginMVPView.showDialog();
+            loginMVPView.authtication(edittexts.get(0).getText().toString(), edittexts.get(1).getText().toString());
+        }
+    }
+
+    final ButterKnife.Action<View> EMPTY_FIELD = new ButterKnife.Action<View>() {
+        @Override public void apply(View view, int index) {
+
+            alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+            alertBuilder.setTitle("User Datails");
+            alertBuilder.setMessage("Please Fill all required field");
+            alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            AlertDialog alertDialog = alertBuilder.create();
+            alertDialog.show();
+        }
+    };
 
     @Override
     public void showDialog() {
@@ -166,17 +163,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void authtication(String email, String password) {
-        AppInfo.firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    loginMVPView.authenticationSucced();
-                }else{
-                    loginMVPView.authenticationFailed(task.getException());
-                }
-            }
-        });
-        /*AppInfo.firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        AppInfo.firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -187,34 +174,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loginMVPView.authenticationFailed(task.getException());
                 }
             }
-        });*/
+        });
     }
 
     @Override
-    public void authenticationSucced() {
-        loginMVPView.hideDialog();
-        finish();
-        startActivity(new Intent(LoginActivity.this,LessonActivity.class));
-    }
-
-    @Override
-    public void authenticationFailed(Exception e) {
-        loginMVPView.hideDialog();
-        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-    }
-
-   /* @Override
     public void authenticationSucced() {
 
         loginMVPView.hideDialog();
         finish();
         startActivity(new Intent(LoginActivity.this, LessonActivity.class));
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void authenticationFailed(Exception e) {
         loginMVPView.hideDialog();
         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-    }*/
+    }
+
+    @Override
+    protected void onDestroy() {
+        loginMVPView.hideDialog();
+        unbinder.unbind();
+
+        super.onDestroy();
+    }
 }
 
