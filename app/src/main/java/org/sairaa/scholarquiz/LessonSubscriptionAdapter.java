@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.sairaa.scholarquiz.model.LessonListModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonSubscriptionAdapter extends ArrayAdapter<LessonInfo> {
+public class LessonSubscriptionAdapter extends ArrayAdapter<LessonListModel> {
 
     private static final String LOG_ADAPTER = LessonSubscriptionAdapter.class.getName();
 
-    public LessonSubscriptionAdapter(@NonNull Context context, ArrayList<LessonInfo> lessonList) {
+    public LessonSubscriptionAdapter(@NonNull Context context, ArrayList<LessonListModel> lessonList) {
         super(context, 0, lessonList);
     }
 
@@ -32,13 +34,13 @@ public class LessonSubscriptionAdapter extends ArrayAdapter<LessonInfo> {
                     R.layout.lesson_list, parent, false);
         }
         // getting object of lesson info
-        LessonInfo dataToDisplay = getItem(position);
+        LessonListModel dataToDisplay = getItem(position);
         TextView lName = listItemView.findViewById(R.id.lesson_name);
         // set lesson name
-        lName.setText(dataToDisplay.getlName());
-        Log.i(LOG_ADAPTER,dataToDisplay.getlName());
+        lName.setText(dataToDisplay.getChannelName());
+        Log.i(LOG_ADAPTER,dataToDisplay.getChannelName());
         TextView subscribeText = listItemView.findViewById(R.id.subscribe_list);
-        subscribeText.setText("Subscribe");
+        subscribeText.setText(dataToDisplay.getModeratorName());
         return listItemView;
         //return super.getView(position, convertView, parent);
     }

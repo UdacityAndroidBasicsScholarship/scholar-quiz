@@ -6,12 +6,12 @@ package org.sairaa.scholarquiz.model;
 
 public class RegisterModel {
 
-    String slack_id, name, phoneno="";
+    String slack_id, name, createdOn;
 
     public RegisterModel(String slack_id, String name, String phoneno) {
         this.slack_id = slack_id;
         this.name = name;
-        this.phoneno = phoneno;
+        this.createdOn = phoneno;
     }
 
     public String getSlack_id() {
@@ -22,7 +22,7 @@ public class RegisterModel {
         return name;
     }
 
-    public String getPhoneno() {
-        return phoneno;
+    public String getCreatedOn() {
+        return createdOn;
     }
 }

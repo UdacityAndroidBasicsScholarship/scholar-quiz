@@ -54,12 +54,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // check wheather the user already logged in or not
 
-        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+        /*sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
         Log.i(LOG_LOGIN, "" + sharedPreferenceConfig.readLoginStatus());
         if (sharedPreferenceConfig.readLoginStatus()) {
            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             this.finish();
-        }
+        }*/
 
         register = findViewById(R.id.register);
         register.setOnClickListener(this);
@@ -75,20 +75,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         saveLoginCheckBox = findViewById(R.id.rememberMe_CheckBox);
         signIn = findViewById(R.id.signin_login);
         signIn.setOnClickListener(this);
-        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        loginPrefsEditor = loginPreferences.edit();
+        //loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        //loginPrefsEditor = loginPreferences.edit();
 
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        //saveLogin = loginPreferences.getBoolean("saveLogin", false);
 
         if(AppInfo.firebaseAuth.getCurrentUser() != null){
             finish();
             startActivity(new Intent(LoginActivity.this, LessonActivity.class));
+            Log.i(LOG_LOGIN,"User Already Logged in");
         }
-        if (saveLogin == true) {
+        /*if (saveLogin == true) {
             email.setText(loginPreferences.getString("username", ""));
             password.setText(loginPreferences.getString("password", ""));
             saveLoginCheckBox.setChecked(true);
-        }
+        }*/
     }
 
 
@@ -136,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         username = email.getText().toString();
         pass = password.getText().toString();
 
-        if (saveLoginCheckBox.isChecked()) {
+        /*if (saveLoginCheckBox.isChecked()) {
             loginPrefsEditor.putBoolean("saveLogin", true);
             loginPrefsEditor.putString("username", username);
             loginPrefsEditor.putString("password", pass);
@@ -144,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } else {
             loginPrefsEditor.clear();
             loginPrefsEditor.commit();
-        }
+        }*/
 
 
     }
@@ -165,7 +166,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void authtication(String email, String password) {
-        AppInfo.firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        AppInfo.firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    loginMVPView.authenticationSucced();
+                }else{
+                    loginMVPView.authenticationFailed(task.getException());
+                }
+            }
+        });
+        /*AppInfo.firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -176,15 +187,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loginMVPView.authenticationFailed(task.getException());
                 }
             }
-        });
+        });*/
     }
 
     @Override
     public void authenticationSucced() {
-
         loginMVPView.hideDialog();
         finish();
-        startActivity(new Intent(LoginActivity.this, LessonActivity.class));
+        startActivity(new Intent(LoginActivity.this,LessonActivity.class));
     }
 
     @Override
@@ -192,5 +202,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginMVPView.hideDialog();
         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
+
+   /* @Override
+    public void authenticationSucced() {
+
+        loginMVPView.hideDialog();
+        finish();
+        startActivity(new Intent(LoginActivity.this, LessonActivity.class));
+    }*/
+
+    /*@Override
+    public void authenticationFailed(Exception e) {
+        loginMVPView.hideDialog();
+        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+    }*/
 }
 
