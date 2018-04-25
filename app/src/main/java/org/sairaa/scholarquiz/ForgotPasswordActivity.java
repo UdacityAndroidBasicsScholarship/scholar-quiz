@@ -12,49 +12,57 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 public class ForgotPasswordActivity extends AppCompatActivity {
     EditText forgotEmail, forgotSlackId, forgotEmail2, forgotSlackId2, forgotNewPwd, forgotConfPwd;
     TextView forgotPwdTextView;
     private LinearLayout forgotBeforeValidateLayout, forgotAfterValidateLayout;
+
+    Unbinder unbinder;
+
+    @BindView(R.id.forgot_pwd_email)
+    EditText forgotEmail_Edittext;
+
+
+    private boolean checkEmptyField(){
+
+        return forgotEmail_Edittext.getText().toString().trim().isEmpty() ? true : false;
+
+    }
+
+    final ButterKnife.Action<View> EMPTY_FIELD = new ButterKnife.Action<View>() {
+        @Override public void apply(View view, int index) {
+
+            Toast.makeText(ForgotPasswordActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+            forgotEmail_Edittext.setError("enter email");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        forgotEmail = findViewById(R.id.forgot_pwd_email);
-        forgotSlackId = findViewById(R.id.forgot_pwd_slack);
-        forgotEmail2 = findViewById(R.id.forgot_pwd_email2);
-        forgotSlackId2 = findViewById(R.id.forgot_pwd_slack2);
-        forgotNewPwd = findViewById(R.id.forgot_pwd_new_pwd);
-        forgotConfPwd = findViewById(R.id.forgot_pwd_conf_pwd);
-        forgotBeforeValidateLayout = findViewById(R.id.forgot_before_validate_layout);
-        forgotAfterValidateLayout = findViewById(R.id.forgot_after_validate_layout);
+
+        unbinder = ButterKnife.bind(this);
+
     }
 
-    public void checkEmailSlackIds(View view) {
-        TextView forgotNote = findViewById(R.id.forgotNote);
-        /*if (forgotEmail.getText().toString().isEmpty() && forgotSlackId.getText().toString().isEmpty()) {
-            forgotNote.setText(getResources().getString(R.string.forgotEmptyfield1));
-        } else if (forgotEmail.getText().toString().isEmpty()) {
-            forgotNote.setText(getResources().getString(R.string.forgotEmptyfield2));
-        } else if (forgotSlackId.getText().toString().isEmpty()) {
-            forgotNote.setText(getResources().getString(R.string.forgotEmptyfield3));
-        } else {
-            forgotBeforeValidateLayout.setVisibility(View.INVISIBLE);
-            forgotAfterValidateLayout.setVisibility(View.VISIBLE);
-            forgotEmail2.setText(forgotEmail.getText().toString());
-            forgotSlackId2.setText(forgotSlackId.getText().toString());
-        }*/
 
-        if(forgotEmail.getText().toString().isEmpty()){
-            Toast.makeText(ForgotPasswordActivity.this, "Enter email", Toast.LENGTH_LONG).show();
-            forgotEmail.setError("enter email");
+    @OnClick(R.id.forgot_pwd_submit)
+    public void forgotButton_Onclick(View view){
+
+        if(checkEmptyField()){
+
+            ButterKnife.apply(forgotEmail_Edittext, EMPTY_FIELD);
         } else {
-            forgetEmail(forgotEmail.getText().toString().trim());
+            forgetEmail(forgotEmail_Edittext.getText().toString().trim());
         }
     }
-
 
     private void forgetEmail(String email){
 
