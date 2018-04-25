@@ -6,8 +6,21 @@
 
  //Dummy Splash Screen
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_foreground"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/udacity"
+        android:layout_centerInParent="true"
+        android:id="@+id/udacity"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/udacity"
+        android:layout_marginTop="50dp"
+        android:textSize="26sp"
+        android:textStyle="italic"
+        android:layout_centerInParent="true"
+        android:textColor="#212121"
+        android:text="Scholar Quiz" />
 
 </RelativeLayout>
