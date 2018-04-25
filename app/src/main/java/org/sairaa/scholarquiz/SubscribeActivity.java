@@ -96,10 +96,11 @@ public class SubscribeActivity extends AppCompatActivity {
 //                intent.putExtra("name", lessonInfo.getlName());
 //                intent.putExtra("moderator",lessonInfo.getModId());
 
-                Toast.makeText(SubscribeActivity.this,"id : "+lessonInfo.getChannelId()+" ,"+lessonInfo.getChannelName(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SubscribeActivity.this,"id : "+lessonInfo.getChannelId()+" ,"+lessonInfo.getChannelName(),Toast.LENGTH_SHORT).show();
                 // Insert into Sqlite
                 //insertSubscriptionList(user.getUid(),lessonInfo.getChannelId(),lessonInfo.getChannelName(),lessonInfo.getModeratorName());
                 //startActivity(intent);
+                //insert clicked item to firebase database
                 insertSubscriptionList(lessonInfo);
                 finish();
 //                mMessageDatabaseReferance.removeEventListener(mChildEventListener);
@@ -124,7 +125,7 @@ public class SubscribeActivity extends AppCompatActivity {
     }
 
     private void attachToBeSubscribedChannelListner() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("ChannelList").orderByKey()
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -138,7 +139,7 @@ public class SubscribeActivity extends AppCompatActivity {
                                             for (final DataSnapshot subscriptionListSnapshot : subscriptionSnapshot.getChildren()) {
                                                 if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
                                                     channelExist = "Y";
-                                                    Toast.makeText(SubscribeActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+//                                                    Toast.makeText(SubscribeActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
                                                     break;
                                                 }else {
                                                     channelExist = "N";

@@ -14,10 +14,24 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.data.QuizDbHelper;
 import org.sairaa.scholarquiz.data.QuizContract.*;
+import org.sairaa.scholarquiz.model.LessonListModel;
 import org.sairaa.scholarquiz.ui.Login.LoginActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LessonActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -29,15 +43,50 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
 
     private static final int LESSON_LOADER = 1;
 
+    private LessonSubscriptionAdapter adapterList;
+    private ListView lessonListView;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMessageDatabaseReferance;
+    private ChildEventListener mChildEventListener;
+
     LessonCursorAdapter adapter;
 
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Toast.makeText(LessonActivity.this,"On post Resume",Toast.LENGTH_SHORT).show();
+//        adapterList.clear();
+//        attachSubscribedLessonListListner();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(LessonActivity.this,"On Resume",Toast.LENGTH_SHORT).show();
+        adapterList.clear();
+//        Attach all subscribed channel to adapter
+        attachSubscribedLessonListListner();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(LessonActivity.this,"On Pause",Toast.LENGTH_SHORT).show();
+        adapterList.clear();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        mMessageDatabaseReferance = mFirebaseDatabase.getReference().child("Subscription").child(user.getUid().toString());
 
         drawerLayout = findViewById(R.id.drawer_layout);
         //Toolbar toolbar = findViewById(R.id.toolbar);
@@ -84,14 +133,58 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
         mDbHelper = new QuizDbHelper(this);
         //displayDatabaseInfo();
         ListView lessonListView = findViewById(R.id.lesson_listview);
-        adapter = new LessonCursorAdapter(this,null);
-        lessonListView.setAdapter(adapter);
+//        adapter = new LessonCursorAdapter(this,null);
+//        lessonListView.setAdapter(adapter);
 
+
+        List<LessonListModel> lessonListModels = new ArrayList<>();
+        adapterList = new LessonSubscriptionAdapter(this, new ArrayList<LessonListModel>());
+        lessonListView.setAdapter(adapterList);
+        adapterList.clear();
         // kick off the loader
-        getLoaderManager().initLoader(LESSON_LOADER,null,this);
+//        getLoaderManager().initLoader(LESSON_LOADER,null,this);
+        Toast.makeText(LessonActivity.this,"On Create",Toast.LENGTH_SHORT).show();
+        //attachSubscribedLessonListListner();
     }
 
+    private void attachSubscribedLessonListListner() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance().getReference().child("Subscription").child(String.valueOf(user.getUid()))
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (final DataSnapshot subscriptionListSnapshot : dataSnapshot.getChildren()) {
+//                            Toast.makeText(LessonActivity.this," 2"+subscriptionListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
 
+                            FirebaseDatabase.getInstance().getReference().child("ChannelList").orderByKey()
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot channelSnapshot) {
+                                            for ( final DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
+
+                                                if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
+//                                                    Toast.makeText(LessonActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+                                                    String channelId = channelListSnapshot.getKey().toString();
+                                                    LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
+                                                    adapterList.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
 
 
     @Override
