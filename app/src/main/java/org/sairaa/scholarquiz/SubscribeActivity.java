@@ -102,7 +102,7 @@ public class SubscribeActivity extends AppCompatActivity {
                 //startActivity(intent);
                 insertSubscriptionList(lessonInfo);
                 finish();
-                mMessageDatabaseReferance.removeEventListener(mChildEventListener);
+//                mMessageDatabaseReferance.removeEventListener(mChildEventListener);
             }
         });
 
@@ -125,53 +125,41 @@ public class SubscribeActivity extends AppCompatActivity {
 
     private void attachToBeSubscribedChannelListner() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase.getInstance().getReference().child("Subscription").child(String.valueOf(user.getUid()))
+        FirebaseDatabase.getInstance().getReference().child("ChannelList").orderByKey()
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(final DataSnapshot subscriptionSnapshot) {
-                        String channelId = String.valueOf(subscriptionSnapshot.getKey());
-                        Toast.makeText(SubscribeActivity.this," 0"+channelId,Toast.LENGTH_SHORT).show();
-                        if(subscriptionSnapshot.hasChildren()){
-                            for (final DataSnapshot subscriptionListSnapshot : subscriptionSnapshot.getChildren()) {
+                    public void onDataChange(DataSnapshot channelSnapshot) {
+                        for ( final DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            FirebaseDatabase.getInstance().getReference().child("Subscription").child(String.valueOf(user.getUid()))
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot subscriptionSnapshot) {
+                                            for (final DataSnapshot subscriptionListSnapshot : subscriptionSnapshot.getChildren()) {
+                                                if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
+                                                    channelExist = "Y";
+                                                    Toast.makeText(SubscribeActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+                                                    break;
+                                                }else {
+                                                    channelExist = "N";
 
-                                FirebaseDatabase.getInstance().getReference().child("ChannelList")
-                                        .addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot channelSnapshot) {
-
-                                                LessonListModel friendlyMessage = channelSnapshot.getValue(LessonListModel.class);
-
-
-                                                for ( DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
-                                                    if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
-                                                        channelExist = "Y";
-                                                        break;
-                                                    }else {
-                                                        channelExist = "N";
-
-                                                    }
                                                 }
-//                                                if (channelExist.equals("N")){
-//                                                    String channelId = String.valueOf(.getKey());
-//                                                    LessonListModel friendlyMessage = channelSnapshot.getValue(LessonListModel.class);
-//
-//                                                    Toast.makeText(SubscribeActivity.this," 0"+channelId,Toast.LENGTH_SHORT).show();
-//                                                    //adapter.add(new LessonListModel(friendlyMessage.getModeratorName(),friendlyMessage.getChannelName(),channelId));
-//                                                }
-
+                                            }
+                                            if (channelExist.equals("N")){
+                                                String channelId = channelListSnapshot.getKey().toString();
+                                                LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
+                                                adapter.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
                                             }
 
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
 
-                                            }
-                                        });
-                                Toast.makeText(SubscribeActivity.this,""+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
-                            }
-                        }else{
-                            attachDatabaseListner();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                         }
-
 
                     }
 
@@ -180,6 +168,65 @@ public class SubscribeActivity extends AppCompatActivity {
 
                     }
                 });
+//        FirebaseDatabase.getInstance().getReference().child("Subscription").child(String.valueOf(user.getUid()))
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(final DataSnapshot subscriptionSnapshot) {
+//                        String channelId = String.valueOf(subscriptionSnapshot.getKey());
+//
+//                        if(subscriptionSnapshot.hasChildren()){
+//                            for (final DataSnapshot subscriptionListSnapshot : subscriptionSnapshot.getChildren()) {
+//
+//                                FirebaseDatabase.getInstance().getReference().child("ChannelList").orderByKey()
+//                                        .addValueEventListener(new ValueEventListener() {
+//                                            @Override
+//                                            public void onDataChange(DataSnapshot channelSnapshot) {
+////                                                String key = channelSnapshot.getRef().getKey().toString();
+////                                                LessonListModel friendlyMessage = channelSnapshot.getValue(LessonListModel.class);
+//
+////                                                Toast.makeText(SubscribeActivity.this," 1"+key,Toast.LENGTH_SHORT).show();
+//                                                for ( DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
+//                                                    if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
+//                                                        channelExist = "Y";
+//                                                        Toast.makeText(SubscribeActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+//                                                        break;
+//                                                    }else {
+//                                                        channelExist = "N";
+//                                                        String channelId = channelListSnapshot.getKey().toString();
+//                                                        LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
+//                                                        adapter.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
+//                                                        break;
+//                                                    }
+//                                                }
+////                                                if (channelExist.equals("N")){
+////                                                    String channelId = String.valueOf(.getKey());
+////                                                    LessonListModel friendlyMessage = channelSnapshot.getValue(LessonListModel.class);
+////
+////                                                    Toast.makeText(SubscribeActivity.this," 0"+channelId,Toast.LENGTH_SHORT).show();
+////                                                    //adapter.add(new LessonListModel(friendlyMessage.getModeratorName(),friendlyMessage.getChannelName(),channelId));
+////                                                }
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onCancelled(DatabaseError databaseError) {
+//
+//                                            }
+//                                        });
+////                                Toast.makeText(SubscribeActivity.this,""+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+//                            }
+//                        }else{
+//                            attachDatabaseListner();
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
 //                .addListenerForSingleValueEvent(new ValueEventListener() {
 //                    @Override
 //                    public void onDataChange(DataSnapshot dataSnapshot) {
@@ -211,7 +258,7 @@ public class SubscribeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(SubscribeActivity.this,"inserted"+lessonInfo.getChannelId(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SubscribeActivity.this,"Subscribed : "+lessonInfo.getChannelId(),Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
