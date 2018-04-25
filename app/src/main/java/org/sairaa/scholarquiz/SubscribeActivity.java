@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.LoaderManager;
@@ -19,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -34,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
 import org.sairaa.scholarquiz.model.LessonListModel;
+import org.sairaa.scholarquiz.model.SubscribedListModel;
 
 public class SubscribeActivity extends AppCompatActivity {
 
@@ -41,6 +45,7 @@ public class SubscribeActivity extends AppCompatActivity {
     private static final String LOG_SUBSCRIBEACTIVITY = SubscribeActivity.class.getName();
     private static final String LESSON_URL = "";
     private LessonSubscriptionAdapter adapter;
+    private ListView lessonListView;
     //databse reference
 //    private DatabaseReference mChannelRef;
 //    private DatabaseReference mChannelListRef;
@@ -48,11 +53,9 @@ public class SubscribeActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessageDatabaseReferance;
     private ChildEventListener mChildEventListener;
-//    DatabaseReference mDatabase;
 
     String channelExist = "N";
-    ArrayList<LessonListModel> userChannelList;
-    LessonListModel userChannel = new LessonListModel();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +72,13 @@ public class SubscribeActivity extends AppCompatActivity {
 //        List<FriendlyMessage> friendlyMessages = new ArrayList<>();
 //        mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);
 //        mMessageListView.setAdapter(mMessageAdapter);
-        final ListView lessonListView = findViewById(R.id.lesson_list);
+        lessonListView = findViewById(R.id.lesson_list);
         List<LessonListModel> lessonListModels = new ArrayList<>();
         adapter = new LessonSubscriptionAdapter(this, new ArrayList<LessonListModel>());
         lessonListView.setAdapter(adapter);
 
-        attachDatabaseListner();
-
+        //attachDatabaseListner();
+        attachToBeSubscribedChannelListner();
 
 
 
@@ -93,10 +96,13 @@ public class SubscribeActivity extends AppCompatActivity {
 //                intent.putExtra("name", lessonInfo.getlName());
 //                intent.putExtra("moderator",lessonInfo.getModId());
 
-                Toast.makeText(SubscribeActivity.this,"id : "+lessonInfo.channelId+" ,"+lessonInfo.Name,Toast.LENGTH_SHORT).show();
-                insertSubscriptionList(user.getUid(),lessonInfo.getChannelId(),lessonInfo.getChannelName(),lessonInfo.getModeratorName());
+                Toast.makeText(SubscribeActivity.this,"id : "+lessonInfo.getChannelId()+" ,"+lessonInfo.getChannelName(),Toast.LENGTH_SHORT).show();
+                // Insert into Sqlite
+                //insertSubscriptionList(user.getUid(),lessonInfo.getChannelId(),lessonInfo.getChannelName(),lessonInfo.getModeratorName());
                 //startActivity(intent);
+                insertSubscriptionList(lessonInfo);
                 finish();
+                mMessageDatabaseReferance.removeEventListener(mChildEventListener);
             }
         });
 
@@ -112,89 +118,103 @@ public class SubscribeActivity extends AppCompatActivity {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
-            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-            // because this activity implements the LoaderCallbacks interface).
-//            loaderManager.initLoader(LESSON_LOADER_ID, null, this);
-            // To get User id of Current user so we can travel to Subscription List of User
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-//            mDatabase = FirebaseDatabase.getInstance().getReference();
-//
-//            mSubscriptionListRef = mDatabase.child("Subscription/" + String.valueOf(user.getUid()));
-//
-//            mChannelRef = mDatabase.child("ChannelList/");
+        }
+
+    }
+
+    private void attachToBeSubscribedChannelListner() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance().getReference().child("Subscription").child(String.valueOf(user.getUid()))
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(final DataSnapshot subscriptionSnapshot) {
+                        String channelId = String.valueOf(subscriptionSnapshot.getKey());
+                        Toast.makeText(SubscribeActivity.this," 0"+channelId,Toast.LENGTH_SHORT).show();
+                        if(subscriptionSnapshot.hasChildren()){
+                            for (final DataSnapshot subscriptionListSnapshot : subscriptionSnapshot.getChildren()) {
+
+                                FirebaseDatabase.getInstance().getReference().child("ChannelList")
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot channelSnapshot) {
+
+                                                LessonListModel friendlyMessage = channelSnapshot.getValue(LessonListModel.class);
 
 
+                                                for ( DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
+                                                    if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
+                                                        channelExist = "Y";
+                                                        break;
+                                                    }else {
+                                                        channelExist = "N";
 
-//            // Read all the channels name from Firebase
-//            mChannelRef.addValueEventListener(new ValueEventListener() {
+                                                    }
+                                                }
+//                                                if (channelExist.equals("N")){
+//                                                    String channelId = String.valueOf(.getKey());
+//                                                    LessonListModel friendlyMessage = channelSnapshot.getValue(LessonListModel.class);
 //
-//                @Override
-//                public void onDataChange(DataSnapshot channelSnapshot) {
-//
-//                    // Clear the Channel List View
-//                    //AllChannelList.clear();
-//
-//                    // Check the count of Channels to subscribe to. If no channel, show message else show list of channels
-//                    if (channelSnapshot.getChildrenCount() < 1) {
-//                        Toast.makeText(SubscribeActivity.this, "Not Subscribed to any Channel!!", Toast.LENGTH_LONG).show();
-//
-//                    } else {
-//
-//                        // Loop through all channel lists
-//                        for (final DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
-//
-//                            // Read all the channels that user has subscribed to
-//                            mSubscriptionListRef.addValueEventListener(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot subscriptionSnapshot) {
-//
-//                                    for (DataSnapshot subscriptionListSnapshot : subscriptionSnapshot.getChildren()) {
-//                                        // If channel is already subscribed to by user ser the channelExist to Y
-//                                        if (channelListSnapshot.getKey().equals(subscriptionListSnapshot.getKey())) {
-//                                            //Toast.makeText(ChannelListActivity.this, "Channel Key Exists:" + String.valueOf(subscriptionListSnapshot.getValue()), Toast.LENGTH_LONG).show();
-//                                            channelExist = "Y";
-//                                            break;
-//                                        } else {
-//                                            channelExist = "N";
-//                                        }
-//
-//                                    }
-//
-//                                    // If channelExist = Y i.e channel is  subscribed then add it to channel list adapter to show it to user else set it to N
-//                                    if (channelExist.equals("Y")) {
-//
-//                                        String channelId = String.valueOf(channelListSnapshot.getKey());
-//                                        // Show channels available to user
-//                                        userChannel = channelListSnapshot.getValue(LessonListModel.class);
-//                                        userChannelList.add(new LessonListModel(userChannel.getModeratorName(), userChannel.getChannelName(), channelId));
-//                                        adapter = new LessonSubscriptionAdapter(getApplicationContext(), userChannelList);
-//                                        lessonListView.setAdapter(adapter);
-//
-//                                    }
-//
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {
-//                                    System.out.println("The read failed: " + databaseError.getMessage());
-//                                }
-//                            });
+//                                                    Toast.makeText(SubscribeActivity.this," 0"+channelId,Toast.LENGTH_SHORT).show();
+//                                                    //adapter.add(new LessonListModel(friendlyMessage.getModeratorName(),friendlyMessage.getChannelName(),channelId));
+//                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                Toast.makeText(SubscribeActivity.this,""+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            attachDatabaseListner();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        if(dataSnapshot.hasChildren()){
+//                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                SubscribedListModel subscribedList = snapshot.getValue(SubscribedListModel.class);
+////                            System.out.println(user.email);
+//                                Toast.makeText(SubscribeActivity.this,""+dataSnapshot.getKey()+" : "+subscribedList.getChannelId(),
+//                                        Toast.LENGTH_SHORT).show();
+//                            }
+//                        }else{
+//                            attachDatabaseListner();
 //                        }
 //
 //                    }
 //
-//                }
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
 //
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    System.out.println("The read failed: " + databaseError.getMessage());
-//                }
-//
-//            });
+//                    }
+//                });
+    }
 
-        }
+    private void insertSubscriptionList(final LessonListModel lessonInfo) {
+        // To get User id of Current user so we can travel to Subscription List of User
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        AppInfo.databaseReference.child("Subscription").child(String.valueOf(user.getUid())).child(lessonInfo.getChannelId()).setValue("Y")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(SubscribeActivity.this,"inserted"+lessonInfo.getChannelId(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
     }
 
@@ -203,8 +223,11 @@ public class SubscribeActivity extends AppCompatActivity {
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    String channelId = String.valueOf(dataSnapshot.getKey());
                     LessonListModel friendlyMessage = dataSnapshot.getValue(LessonListModel.class);
-                    adapter.add(friendlyMessage);
+
+//                    Toast.makeText(SubscribeActivity.this," 0"+channelId,Toast.LENGTH_SHORT).show();
+                    adapter.add(new LessonListModel(friendlyMessage.getModeratorName(),friendlyMessage.getChannelName(),channelId));
                 }
 
                 @Override
