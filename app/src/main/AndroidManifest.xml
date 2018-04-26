@@ -24,9 +24,9 @@
 
         <activity android:name=".ui.Login.LoginActivity">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
 
@@ -51,6 +51,9 @@
             android:name=".data.QuizProvider"
             android:authorities="org.sairaa.scholarquiz"
             android:exported="false" />
+
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".QuizModeratorActivity"></activity>
     </application>
 
 </manifest>
