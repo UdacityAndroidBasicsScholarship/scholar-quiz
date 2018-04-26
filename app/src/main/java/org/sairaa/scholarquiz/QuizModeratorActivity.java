@@ -3,26 +3,27 @@ package org.sairaa.scholarquiz;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.model.LessonQuizModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QuizModeratorActivity extends AppCompatActivity {
 
@@ -30,7 +31,13 @@ public class QuizModeratorActivity extends AppCompatActivity {
 //    private ArrayAdapter adapter;
 //    private ArrayList<String> quizList;
     public LessonQuizModel quizModel;
+    private Button newQuizButton;
+    private EditText newQuizEditText;
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMessageDatabaseReferance;
+    private SharedPreferenceConfig sharedPreferenceConfig;
+    private TextView quizNotPublished;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,16 +47,80 @@ public class QuizModeratorActivity extends AppCompatActivity {
         String channelId = intent.getStringExtra("channelId");
         Toast.makeText(QuizModeratorActivity.this,"Moderator Page "+channelId,Toast.LENGTH_SHORT).show();
 
-//        ArrayAdapter<String> itemsAdapter =
-//                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quizList);
-//
-//        modListView = findViewById(R.id.moderator_lesson_list);
-//        quizList.add("Quiz 1");
-//        quizList.add("Quiz 2");
-//        adapter = new ArrayAdapter<String>(this,R.layout.subscrived_lesson_list,quizList);
-//        modListView.setAdapter(adapter);
+        newQuizButton = findViewById(R.id.go_create_new_quiz_button);
+        newQuizEditText = findViewById(R.id.mod_new_quiz_name_edittext);
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
+        quizNotPublished = findViewById(R.id.quiz_not_published_textview);
+
+        String newQuiz = sharedPreferenceConfig.readNewQuizName();
+        if(newQuiz != null){
+           quizNotPublished.setText(newQuiz);
+        }
+        quizNotPublished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!sharedPreferenceConfig.readPublishedOrNot()){
+                    String quizId = sharedPreferenceConfig.readQuizId();
+                    String quizName = sharedPreferenceConfig.readNewQuizName();
+                    Intent intent = new Intent(QuizModeratorActivity.this,QuestionListActivity.class);
+                    intent.putExtra("quizId",quizId);
+                    intent.putExtra("quizName",quizName);
+                    startActivity(intent);
+                }
+
+            }
+        });
+        newQuizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(newQuizEditText.getText().toString().trim().equals("")){
+                    //please enter the Quiz name
+                }else {
+
+
+
+//                    Check whether the last quiz published or not
+                    if(sharedPreferenceConfig.readPublishedOrNot()){
+                        sharedPreferenceConfig.writePublishedOrNot(false);
+                        Toast.makeText(QuizModeratorActivity.this,"on Way in : "+sharedPreferenceConfig.readPublishedOrNot(),Toast.LENGTH_SHORT).show();
+                        mMessageDatabaseReferance = mFirebaseDatabase.getReference().child("Quiz");
+                        String quizId = mMessageDatabaseReferance.push().getKey();//.setValue(mMessageDatabaseReferance.push().getKey().toString());//.push().setValue(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
+//                    mMessageDatabaseReferance.child(quizId).child("2").setValue(new QuizModel("How are you ?","Fine","Well","Good","Very Fine",1));
+                        Toast.makeText(QuizModeratorActivity.this,"quiz Id : "+quizId,Toast.LENGTH_SHORT).show();
+                        // store the quizid and quiz name in shared preference till published.
+
+                        sharedPreferenceConfig.writeQuizId(quizId);
+//                        String qa = sharedPreferenceConfig.readQuizId();
+//                        Toast.makeText(QuizModeratorActivity.this,"quiz share : "+qa,Toast.LENGTH_SHORT).show();
+                        sharedPreferenceConfig.writeNewQuizName(newQuizEditText.getText().toString().trim());
+                        String quizName = sharedPreferenceConfig.readNewQuizName();
+//                        Toast.makeText(QuizModeratorActivity.this,"quiz Name : "+quizName,Toast.LENGTH_SHORT).show();
+
+                        quizNotPublished.setText(quizName);
+                        // store the quizid in shared preference till published.
+                        // go to another activity to create question and answer.
+                        Intent intent = new Intent(QuizModeratorActivity.this,QuestionAddActivity.class);
+                        intent.putExtra("quizId",quizId);
+                        intent.putExtra("quizName",quizName);
+                        startActivity(intent);
+                    }else{
+                        //first complete the not published quiz
+                    }
+
+                    Toast.makeText(QuizModeratorActivity.this,"on Way out: "+sharedPreferenceConfig.readPublishedOrNot(),Toast.LENGTH_SHORT).show();
+                    // create new quiz id
+
+
+                }
+            }
+        });
 
         final ArrayList<String> arrayOfQuiz = new ArrayList<String>();
+        // Retribing quizes that exist in the channel
         FirebaseDatabase.getInstance().getReference().child("ChannelQuiz").child(channelId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override

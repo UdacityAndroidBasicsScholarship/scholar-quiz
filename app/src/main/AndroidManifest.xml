@@ -40,7 +40,9 @@
             android:exported="false" />
 
         <activity android:name=".QuizActivity" />
-        <activity android:name=".QuizModeratorActivity"></activity>
+        <activity android:name=".QuizModeratorActivity" />
+        <activity android:name=".QuestionListActivity" />
+        <activity android:name=".QuestionAddActivity"></activity>
     </application>
 
 </manifest>

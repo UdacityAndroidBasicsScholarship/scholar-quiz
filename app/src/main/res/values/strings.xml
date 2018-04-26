@@ -2,6 +2,9 @@
     <string name="app_name">Scholar Quiz</string>
     <string name="login_prferance">org.sairaa.scholarquiz.login_preference</string>
     <string name="login_status_preference">org.sairaa.scholarquiz.login_status_preference</string>
+    <string name="quizId_moderator">org.sairaa.scholarquiz.quizId_moderator</string>
+    <string name="quizName_moderator">org.sairaa.scholarquiz.quizName_moderator</string>
+    <string name="quiz_published_or_not">org.sairaa.scholarquiz.quizId_published_moderator</string>
     <string name="login_heading">Log In</string>
     <string name="login_email_hint">Enter Email Id</string>
     <string name="login_pwd_hint">Enter Password</string>
