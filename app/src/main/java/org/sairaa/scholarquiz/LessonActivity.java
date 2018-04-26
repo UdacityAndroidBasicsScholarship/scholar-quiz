@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -53,13 +55,13 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     LessonCursorAdapter adapter;
 
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Toast.makeText(LessonActivity.this,"On post Resume",Toast.LENGTH_SHORT).show();
-//        adapterList.clear();
-//        attachSubscribedLessonListListner();
-    }
+//    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        Toast.makeText(LessonActivity.this,"On post Resume",Toast.LENGTH_SHORT).show();
+////        adapterList.clear();
+////        attachSubscribedLessonListListner();
+//    }
 
     @Override
     protected void onResume() {
@@ -132,9 +134,33 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                 });
         mDbHelper = new QuizDbHelper(this);
         //displayDatabaseInfo();
-        ListView lessonListView = findViewById(R.id.lesson_listview);
+        final ListView lessonListView = findViewById(R.id.lesson_listview);
 //        adapter = new LessonCursorAdapter(this,null);
 //        lessonListView.setAdapter(adapter);
+
+        lessonListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Intent intentUser = new Intent(LessonActivity.this,QuizActivity.class);
+                Intent intentModerator = new Intent(LessonActivity.this,QuizModeratorActivity.class);
+
+                LessonListModel lessonInfo = (LessonListModel) lessonListView.getItemAtPosition(position);
+                intentModerator.putExtra("channelId", lessonInfo.getChannelId());
+                intentUser.putExtra("channelId", lessonInfo.getChannelId());
+                Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
+                if(user.getUid().toString().equals(lessonInfo.getModeratorName())){
+//                    Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
+                    startActivity(intentModerator);
+                }else{
+//                    Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
+                    startActivity(intentUser);
+                }
+
+
+//                startActivity(intent);
+            }
+        });
 
 
         List<LessonListModel> lessonListModels = new ArrayList<>();
