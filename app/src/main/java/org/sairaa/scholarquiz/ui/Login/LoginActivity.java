@@ -22,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.ForgotPasswordActivity;
-import org.sairaa.scholarquiz.LessonActivity;
+import org.sairaa.scholarquiz.ui.Lesson.LessonActivity;
 import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.SharedPreferenceConfig;
 import org.sairaa.scholarquiz.ui.Register.RegisterActivity;
@@ -81,10 +81,19 @@ public class LoginActivity extends AppCompatActivity implements LoginMVPView {
 
         Log.i(LOG_LOGIN, "" + sharedPreferenceConfig.readLoginStatus());
 
-        if (sharedPreferenceConfig.readLoginStatus()) {
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            this.finish();
+//        if (sharedPreferenceConfig.readLoginStatus()) {
+//            startActivity(new Intent(LoginActivity.this, LessonActivity.class));
+//            this.finish();
+//            Toast.makeText(LoginActivity.this, "sharedPreerence", Toast.LENGTH_SHORT).show();
+//        }
+
+        if(AppInfo.firebaseAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(LoginActivity.this, LessonActivity.class));
+            Toast.makeText(LoginActivity.this, "firebase", Toast.LENGTH_SHORT).show();
         }
+
+
 
         //Use this checkBox ID
         saveLoginCheckBox = findViewById(R.id.rememberMe_CheckBox);
@@ -95,10 +104,6 @@ public class LoginActivity extends AppCompatActivity implements LoginMVPView {
 
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
 
-        if(AppInfo.firebaseAuth.getCurrentUser() != null){
-            finish();
-            startActivity(new Intent(LoginActivity.this, LessonActivity.class));
-        }
 //        if (saveLogin == true) {
 //            email.setText(loginPreferences.getString("username", ""));
 //            password.setText(loginPreferences.getString("password", ""));

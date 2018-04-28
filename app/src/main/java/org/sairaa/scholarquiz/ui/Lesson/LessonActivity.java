@@ -1,4 +1,4 @@
-package org.sairaa.scholarquiz;
+package org.sairaa.scholarquiz.ui.Lesson;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -27,6 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.sairaa.scholarquiz.AppInfo;
+import org.sairaa.scholarquiz.LessonCursorAdapter;
+import org.sairaa.scholarquiz.ui.Subscription.LessonSubscriptionAdapter;
+import org.sairaa.scholarquiz.ui.User.QuizActivity;
+import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
+import org.sairaa.scholarquiz.R;
+import org.sairaa.scholarquiz.SharedPreferenceConfig;
+import org.sairaa.scholarquiz.ui.Subscription.SubscribeActivity;
 import org.sairaa.scholarquiz.data.QuizDbHelper;
 import org.sairaa.scholarquiz.data.QuizContract.*;
 import org.sairaa.scholarquiz.model.LessonListModel;
@@ -148,7 +156,7 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                 LessonListModel lessonInfo = (LessonListModel) lessonListView.getItemAtPosition(position);
                 intentModerator.putExtra("channelId", lessonInfo.getChannelId());
                 intentUser.putExtra("channelId", lessonInfo.getChannelId());
-                Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
                 if(user.getUid().toString().equals(lessonInfo.getModeratorName())){
 //                    Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
                     startActivity(intentModerator);

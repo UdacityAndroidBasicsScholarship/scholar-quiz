@@ -1,4 +1,4 @@
-package org.sairaa.scholarquiz;
+package org.sairaa.scholarquiz.ui.User;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +8,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.sairaa.scholarquiz.model.LessonQuizModel;
-import org.sairaa.scholarquiz.model.QuizModel;
+import org.sairaa.scholarquiz.R;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -39,6 +38,9 @@ public class QuizActivity extends AppCompatActivity {
 
 //        mMessageDatabaseReferance = mFirebaseDatabase.getReference().child("ChannelQuiz").child(channelId);
 //        mMessageDatabaseReferance.push().setValue(new LessonQuizModel("Quiz 1","Praful"));
+
+//        mMessageDatabaseReferance = mFirebaseDatabase.getReference().child("ChannelQuiz").child("-LAYtZvh3d3ECaP7yIdd").child("-LB1ryDQxZKu6WcPcVHe");
+//        mMessageDatabaseReferance.setValue(new LessonQuizModel("Quiz 2","Praful Nayak"));
 
     }
 }

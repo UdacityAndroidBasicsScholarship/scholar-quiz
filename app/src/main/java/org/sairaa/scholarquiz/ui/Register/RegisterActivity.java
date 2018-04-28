@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
 import org.sairaa.scholarquiz.AppInfo;
-import org.sairaa.scholarquiz.LessonActivity;
 import org.sairaa.scholarquiz.ui.Login.LoginActivity;
 import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.model.RegisterModel;
@@ -29,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity
         implements View.OnClickListener, RegisterMVPView{
 
     private EditText name,emailId,slackId,password,conPasword,info;
-    private Button registerB;
+    private Button registerB, registerSingIn;
     // Alert dialog
     AlertDialog.Builder alertBuilder;
     ProgressDialog progressDialog;
@@ -48,6 +47,8 @@ public class RegisterActivity extends AppCompatActivity
         conPasword = findViewById(R.id.confirm_password_reg);
         info = findViewById(R.id.info_reg);
         registerB = findViewById(R.id.register_button);
+        registerSingIn = findViewById(R.id.register_sign_in);
+        registerSingIn.setOnClickListener(this);
         //set register to onClick event
         registerB.setOnClickListener(this);
         registerMVPView = (RegisterMVPView) this;
@@ -119,6 +120,9 @@ public class RegisterActivity extends AppCompatActivity
 
                 }
                 break;
+            case R.id.register_sign_in:
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+            break;
 
         }
 
@@ -153,6 +157,7 @@ public class RegisterActivity extends AppCompatActivity
                 }else {
                     //display some message here
                     registerMVPView.authenticationFailed(task.getException());
+
                 }
             }
         });

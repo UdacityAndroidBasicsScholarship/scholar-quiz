@@ -1,4 +1,4 @@
-package org.sairaa.scholarquiz;
+package org.sairaa.scholarquiz.ui.Moderator;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.sairaa.scholarquiz.ui.Moderator.Question.ModeratorQuestionListAdapter;
+import org.sairaa.scholarquiz.ui.Moderator.Question.QuestionAddActivity;
+import org.sairaa.scholarquiz.ui.Moderator.Question.QuestionListActivity;
+import org.sairaa.scholarquiz.R;
+import org.sairaa.scholarquiz.SharedPreferenceConfig;
 import org.sairaa.scholarquiz.model.LessonQuizModel;
 
 import java.util.ArrayList;
@@ -38,19 +43,30 @@ public class QuizModeratorActivity extends AppCompatActivity {
     private DatabaseReference mMessageDatabaseReferance;
     private SharedPreferenceConfig sharedPreferenceConfig;
     private TextView quizNotPublished;
+    //public ListView questionListView;
+    private ModeratorQuestionListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_moderator);
 
+
+
         Intent intent = getIntent();
-        String channelId = intent.getStringExtra("channelId");
+        final String channelId = intent.getStringExtra("channelId");
         Toast.makeText(QuizModeratorActivity.this,"Moderator Page "+channelId,Toast.LENGTH_SHORT).show();
 
         newQuizButton = findViewById(R.id.go_create_new_quiz_button);
         newQuizEditText = findViewById(R.id.mod_new_quiz_name_edittext);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+
+
+//
+//        adapter = new ModeratorQuestionListAdapter(this,questionListModels);
+//        questionListView.setAdapter(adapter);
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
@@ -67,6 +83,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                     String quizId = sharedPreferenceConfig.readQuizId();
                     String quizName = sharedPreferenceConfig.readNewQuizName();
                     Intent intent = new Intent(QuizModeratorActivity.this,QuestionListActivity.class);
+                    intent.putExtra("channelId",channelId);
                     intent.putExtra("quizId",quizId);
                     intent.putExtra("quizName",quizName);
                     startActivity(intent);
