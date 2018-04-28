@@ -32,4 +32,10 @@
     <string name="forgotEmptyfield1">Note: Please enter your E-mail and Slack Ids.</string>
     <string name="forgotEmptyfield2">Note: Please enter your E-mail Id also.</string>
     <string name="forgotEmptyfield3">Note: Please enter your Slack Id also.</string>
+    <string-array name="mod_correct_answer">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

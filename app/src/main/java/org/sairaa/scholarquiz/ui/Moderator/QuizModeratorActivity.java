@@ -46,6 +46,8 @@ public class QuizModeratorActivity extends AppCompatActivity {
     //public ListView questionListView;
     private ModeratorQuestionListAdapter adapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +169,16 @@ public class QuizModeratorActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.moderator_lesson_list);
         listView.setAdapter(quizAdapter);
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     private class QuizAdapter extends ArrayAdapter<String>{
