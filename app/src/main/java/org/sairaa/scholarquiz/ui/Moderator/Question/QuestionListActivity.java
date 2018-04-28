@@ -23,21 +23,15 @@ import java.util.ArrayList;
 public class QuestionListActivity extends AppCompatActivity {
 
 
-
     private Button addNewQuestion, publish;
     private ArrayList<QuizModel> questionListModels;
     private String quizId;
     private ModeratorQuestionListAdapter adapter;
 
-
-    ListView questionListView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
-
 
         Intent intent = getIntent();
         String channelId = intent.getStringExtra("channelId");
@@ -55,24 +49,11 @@ public class QuestionListActivity extends AppCompatActivity {
 //        questionListModels.add(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
 //        questionListModels.add(new QuizModel(2,"How are you ?","Fine","Well","Good","Very Fine",1));
 
-        final ListView questionListView = (ListView)findViewById(R.id.mod_quiz_question_listview);
-        ArrayList<QuizModel> questionListModels = new ArrayList<>();
-        questionListModels.add(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
-        ModeratorQuestionListAdapter adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
-
-
-        questionListView = (ListView)findViewById(R.id.mod_quiz_question_listview);
-
-        ArrayList<QuizModel> questionListModels = new ArrayList<>();
-        ModeratorQuestionListAdapter adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
-
-
         // retriveing question from quiz database structure and add it to List view
 //        adapter.clear();
 //        addQuestionToList();
         adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
         questionListView.setAdapter(adapter);
-
 
         //
         addNewQuestion.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +82,7 @@ public class QuestionListActivity extends AppCompatActivity {
         super.onResume();
         adapter.clear();
         addQuestionToList();
+        adapter.notifyDataSetChanged();
         Toast.makeText(QuestionListActivity.this,"onResume question",Toast.LENGTH_SHORT).show();
     }
 
@@ -113,6 +95,7 @@ public class QuestionListActivity extends AppCompatActivity {
                     qModel.questionNo = Integer.parseInt(questionListSnapshot.getKey().toString());
 //                    Toast.makeText(QuestionListActivity.this,"quiz "+qModel.getQuestionNo()+qModel.getQuestion(),Toast.LENGTH_SHORT).show();
                     questionListModels.add(qModel);
+                    adapter.notifyDataSetChanged();
 
 //                    QuestionAnswerModel qModel = questionListSnapshot.getValue(QuestionAnswerModel.class);
 //                    Toast.makeText(QuestionListActivity.this,"quiz "+qModel.getQuestion(),Toast.LENGTH_SHORT).show();
@@ -125,20 +108,5 @@ public class QuestionListActivity extends AppCompatActivity {
 
             }
         });
-
-        Intent intent = getIntent();
-        String quizId = intent.getStringExtra("quizId");
-        String quizName = intent.getStringExtra("quizName");
-        Toast.makeText(QuestionListActivity.this,"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
-
-        questionListModels.add(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
-
-        adapter.notifyDataSetChanged();
-        Intent intent = getIntent();
-        String quizId = intent.getStringExtra("quizId");
-        String quizName = intent.getStringExtra("quizName");
-        Toast.makeText(QuestionListActivity.this,"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
-
     }
-
 }
