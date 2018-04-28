@@ -22,23 +22,22 @@ import java.util.ArrayList;
 
 public class QuestionListActivity extends AppCompatActivity {
 
-<<<<<<< HEAD
+
 
     private Button addNewQuestion, publish;
     private ArrayList<QuizModel> questionListModels;
     private String quizId;
     private ModeratorQuestionListAdapter adapter;
 
-||||||| merged common ancestors
-=======
+
     ListView questionListView;
 
->>>>>>> 7620fc83e5f1df2e8fd22e6e451516e85cf92608
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
-<<<<<<< HEAD
+
 
         Intent intent = getIntent();
         String channelId = intent.getStringExtra("channelId");
@@ -55,18 +54,18 @@ public class QuestionListActivity extends AppCompatActivity {
 
 //        questionListModels.add(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
 //        questionListModels.add(new QuizModel(2,"How are you ?","Fine","Well","Good","Very Fine",1));
-||||||| merged common ancestors
+
         final ListView questionListView = (ListView)findViewById(R.id.mod_quiz_question_listview);
         ArrayList<QuizModel> questionListModels = new ArrayList<>();
         questionListModels.add(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
         ModeratorQuestionListAdapter adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
-=======
+
 
         questionListView = (ListView)findViewById(R.id.mod_quiz_question_listview);
 
         ArrayList<QuizModel> questionListModels = new ArrayList<>();
         ModeratorQuestionListAdapter adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
->>>>>>> 7620fc83e5f1df2e8fd22e6e451516e85cf92608
+
 
         // retriveing question from quiz database structure and add it to List view
 //        adapter.clear();
@@ -74,7 +73,7 @@ public class QuestionListActivity extends AppCompatActivity {
         adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
         questionListView.setAdapter(adapter);
 
-<<<<<<< HEAD
+
         //
         addNewQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,12 +125,12 @@ public class QuestionListActivity extends AppCompatActivity {
 
             }
         });
-||||||| merged common ancestors
+
         Intent intent = getIntent();
         String quizId = intent.getStringExtra("quizId");
         String quizName = intent.getStringExtra("quizName");
         Toast.makeText(QuestionListActivity.this,"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
-=======
+
         questionListModels.add(new QuizModel(1,"How are you ?","Fine","Well","Good","Very Fine",1));
 
         adapter.notifyDataSetChanged();
@@ -139,7 +138,7 @@ public class QuestionListActivity extends AppCompatActivity {
         String quizId = intent.getStringExtra("quizId");
         String quizName = intent.getStringExtra("quizName");
         Toast.makeText(QuestionListActivity.this,"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
->>>>>>> 7620fc83e5f1df2e8fd22e6e451516e85cf92608
+
     }
 
 }
