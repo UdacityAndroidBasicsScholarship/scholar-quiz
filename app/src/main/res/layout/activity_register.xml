@@ -116,7 +116,7 @@
                 android:theme="@style/checkBoxStyle" />
 
             <Button
-                android:id="@+id/register"
+                android:id="@+id/register_sign_in"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="150dp"
                 android:layout_height="40dp"

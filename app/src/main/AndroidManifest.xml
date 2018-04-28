@@ -29,9 +29,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LessonActivity"
+            android:name=".ui.Lesson.LessonActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".SubscribeActivity" />
+        <activity android:name=".ui.Subscription.SubscribeActivity" />
         <activity android:name=".ForgotPasswordActivity" />
 
         <provider
@@ -39,10 +39,10 @@
             android:authorities="org.sairaa.scholarquiz"
             android:exported="false" />
 
-        <activity android:name=".QuizActivity" />
-        <activity android:name=".QuizModeratorActivity" />
-        <activity android:name=".QuestionListActivity" />
-        <activity android:name=".QuestionAddActivity"></activity>
+        <activity android:name=".ui.User.QuizActivity" />
+        <activity android:name=".ui.Moderator.QuizModeratorActivity" />
+        <activity android:name=".ui.Moderator.Question.QuestionListActivity" />
+        <activity android:name=".ui.Moderator.Question.QuestionAddActivity"></activity>
     </application>
 
 </manifest>

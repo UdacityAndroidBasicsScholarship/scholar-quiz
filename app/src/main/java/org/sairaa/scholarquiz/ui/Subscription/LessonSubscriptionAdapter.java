@@ -1,4 +1,4 @@
-package org.sairaa.scholarquiz;
+package org.sairaa.scholarquiz.ui.Subscription;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.model.LessonListModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LessonSubscriptionAdapter extends ArrayAdapter<LessonListModel> {
 

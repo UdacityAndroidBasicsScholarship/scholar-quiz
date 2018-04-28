@@ -1,9 +1,8 @@
-package org.sairaa.scholarquiz;
+package org.sairaa.scholarquiz.ui.Subscription;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,9 +10,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,13 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.sairaa.scholarquiz.AppInfo;
+import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.data.QuizDbHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
 import org.sairaa.scholarquiz.model.LessonListModel;
-import org.sairaa.scholarquiz.model.SubscribedListModel;
 
 public class SubscribeActivity extends AppCompatActivity {
 
