@@ -1,22 +1,39 @@
 <resources>
+    <!--App Name [CHAR LIMIT = 20]-->
     <string name="app_name">Scholar Quiz</string>
+    <!--Preferences should be stored in java file and not in res file-->
     <string name="login_prferance">org.sairaa.scholarquiz.login_preference</string>
     <string name="login_status_preference">org.sairaa.scholarquiz.login_status_preference</string>
+    <!--Screen title being shown for Log In screen [CHAR LIMIT = 20]-->
     <string name="login_heading">Log In</string>
+    <!--Hint being shown for the text field asking to enter email id in "Log In" screen [CHAR LIMIT = 20]-->
     <string name="login_email_hint">Enter Email Id</string>
+    <!--Hint being shown for the text field asking to enter password in "Log In" screen [CHAR LIMIT = 20]-->
     <string name="login_pwd_hint">Enter Password</string>
+    <!--A Checkbox text being shown in "Log In" screen [CHAR LIMIT = 20]-->
     <string name="remem_checkbox">Remember me</string>
+    <!--A text being shown in "Log In" screen [CHAR LIMIT = 20]-->
     <string name="forgot_textview">Forgot Password?</string>
+    <!--A text being shown in "Log In" screen [CHAR LIMIT = 30]-->
     <string name="newUser">Don\'t have an account yet?</string>
-    <string name="regLogIn">Sign Up</string>
-    <string name="regHeading">Sign Up</string>
+    <!--A text being shown in "Log In" screen and a title in "Sign Up" (Register) screen [CHAR LIMIT = 20]-->
+    <string name="label_sign_up">Sign Up</string>
+    <string name="regHeading">@string/label_sign_up</string>
+    <!--A hint being shown in "Sign Up" (Register) screen asking to enter full name [CHAR LIMIT = 20]-->
     <string name="user_name">Your Full Name</string>
+    <!--A hint being shown in "Sign Up" (Register) screen asking to enter "Email Id" [CHAR LIMIT = 20]-->
     <string name="reg_Email_id">Your E-mail id</string>
+    <!--A hint being shown in "Sign Up" (Register) screen asking to enter "Slack Id" [CHAR LIMIT = 20]-->
     <string name="slack_id">Your Slack id</string>
+    <!--A hint being shown in "Sign Up" (Register) screen to create password [CHAR LIMIT = 20]-->
     <string name="password1">Create Password</string>
+    <!--A hint being shown in "Sign Up" (Register) screen to confirm the password [CHAR LIMIT = 20]-->
     <string name="password2">Confirm Password</string>
+    <!--A hint being shown in "Sign Up" (Register) screen asking to enter additional information [CHAR LIMIT = 20]-->
     <string name="additional_info">Phone No./ Other Info</string>
-    <string name="signup">Sign Up</string>
+    <string name="signup">@string/label_sign_up</string>
+    <!--A text being shown in "Sign Up" (Register) screen [CHAR LIMIT = 20]-->
     <string name="alreadyUser">Already a User?</string>
+    <!--A text being shown in "Sign Up" (Register) screen [CHAR LIMIT = 20]-->
     <string name="loginHere">Sign In</string>
 </resources>

@@ -117,7 +117,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:background="@drawable/button_login"
                 android:fontFamily="@font/google_sans_bold"
-                android:text="@string/regLogIn"
+                android:text="@string/label_sign_up"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@android:color/black"
