@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.R;
+import org.sairaa.scholarquiz.SharedPreferenceConfig;
 import org.sairaa.scholarquiz.model.LessonQuizModel;
 import org.sairaa.scholarquiz.model.QuestionAnswerModel;
 import org.sairaa.scholarquiz.model.QuizModel;
@@ -38,6 +39,8 @@ public class QuestionListActivity extends AppCompatActivity {
     private ModeratorQuestionListAdapter adapter;
     private int questionNo = 0;
 
+    private SharedPreferenceConfig sharedPreferenceConfig;
+
     AlertDialog.Builder alertBuilder;
 
     @Override
@@ -50,6 +53,8 @@ public class QuestionListActivity extends AppCompatActivity {
         quizId = intent.getStringExtra("quizId");
         final String quizName = intent.getStringExtra("quizName");
 //        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
+
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
 
         addNewQuestion = findViewById(R.id.mod_question_list_add_new_question);
@@ -102,6 +107,9 @@ public class QuestionListActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     Toast.makeText(QuestionListActivity.this,"Quiz Published Succesfully",Toast.LENGTH_SHORT).show();
                                     adapter.clear();
+                                    sharedPreferenceConfig.writePublishedOrNot(true);
+                                    sharedPreferenceConfig.writeNewQuizName(null);
+                                    finish();
                                 }
                                 else {
                                     Toast.makeText(QuestionListActivity.this,"Quiz Not Published",Toast.LENGTH_SHORT).show();
