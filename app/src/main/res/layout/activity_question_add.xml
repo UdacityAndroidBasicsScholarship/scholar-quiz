@@ -4,28 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".ui.Moderator.Question.QuestionAddActivity"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_question_no"
-            android:text="1. "/>
+            android:text="1. "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_question"
-            android:hint="Type your question Here"/>
+            android:hint="Type your question Here"
+            android:background="@drawable/edittextdesign"
+            android:padding="6dp"
+            />
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/list_item_outline"
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,27 +64,40 @@
             android:id="@+id/mod_add_option4"
             android:hint="4th Option"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Answer "/>
+            android:text="Correct Answer : "
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <Spinner
             android:id="@+id/mod_answer_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+           >
 
         </Spinner>
-
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="32dp">
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
