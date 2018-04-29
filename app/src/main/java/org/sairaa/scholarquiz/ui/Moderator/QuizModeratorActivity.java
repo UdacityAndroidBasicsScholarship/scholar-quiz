@@ -64,7 +64,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-
+        final QuizAdapter quizAdapter;
 
 //
 //        adapter = new ModeratorQuestionListAdapter(this,questionListModels);
@@ -89,6 +89,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                     intent.putExtra("quizId",quizId);
                     intent.putExtra("quizName",quizName);
                     startActivity(intent);
+//                    quizAdapter.clear();
                 }
 
             }
@@ -122,7 +123,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                         quizNotPublished.setText(quizName);
                         // store the quizid in shared preference till published.
                         // go to another activity to create question and answer.
-                        Intent intent = new Intent(QuizModeratorActivity.this,QuestionAddActivity.class);
+                        Intent intent = new Intent(QuizModeratorActivity.this,QuestionListActivity.class);
                         intent.putExtra("quizId",quizId);
                         intent.putExtra("quizName",quizName);
                         startActivity(intent);
@@ -151,7 +152,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                             String quizName = quizListSnapshot.child("quizName").getValue(String.class);
                             arrayOfQuiz.add(quizName);
 //                              quizModel = dataSnapshot.getValue(LessonQuizModel.class);
-//                              Toast.makeText(QuizModeratorActivity.this,"quiz "+createdBy,Toast.LENGTH_SHORT).show();
+                              Toast.makeText(QuizModeratorActivity.this,"quiz "+createdBy,Toast.LENGTH_SHORT).show();
 //
                         }
 //                        LessonQuizModel quizModel = dataSnapshot.getChildren(LessonQuizModel)
@@ -165,7 +166,8 @@ public class QuizModeratorActivity extends AppCompatActivity {
 //        arrayOfQuiz.add("Quiz 1");
 //        arrayOfQuiz.add("Quiz 2");
 //        arrayOfQuiz.add("Quiz 3");
-        QuizAdapter quizAdapter = new QuizAdapter(this, arrayOfQuiz);
+        quizAdapter = new QuizAdapter(this, arrayOfQuiz);
+        quizAdapter.notifyDataSetChanged();
         ListView listView = findViewById(R.id.moderator_lesson_list);
         listView.setAdapter(quizAdapter);
 
@@ -173,12 +175,14 @@ public class QuizModeratorActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
+//        quizAdapter.clear();
     }
 
     private class QuizAdapter extends ArrayAdapter<String>{

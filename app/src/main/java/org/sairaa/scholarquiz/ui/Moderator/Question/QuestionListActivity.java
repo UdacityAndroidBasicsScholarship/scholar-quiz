@@ -1,6 +1,9 @@
 package org.sairaa.scholarquiz.ui.Moderator.Question;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,12 +11,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.R;
+import org.sairaa.scholarquiz.model.LessonQuizModel;
 import org.sairaa.scholarquiz.model.QuestionAnswerModel;
 import org.sairaa.scholarquiz.model.QuizModel;
 import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
@@ -27,6 +36,9 @@ public class QuestionListActivity extends AppCompatActivity {
     private ArrayList<QuizModel> questionListModels;
     private String quizId;
     private ModeratorQuestionListAdapter adapter;
+    private int questionNo = 0;
+
+    AlertDialog.Builder alertBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +46,9 @@ public class QuestionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_list);
 
         Intent intent = getIntent();
-        String channelId = intent.getStringExtra("channelId");
+        final String channelId = intent.getStringExtra("channelId");
         quizId = intent.getStringExtra("quizId");
-        String quizName = intent.getStringExtra("quizName");
+        final String quizName = intent.getStringExtra("quizName");
 //        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
 
 
@@ -60,9 +72,54 @@ public class QuestionListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionListActivity.this,QuestionAddActivity.class);
-                intent.putExtra("questionNo",1);
+//                intent.putExtra("channelId",channelId);
                 intent.putExtra("quizId",quizId);
+//                intent.putExtra("quizName",quizName);
+                intent.putExtra("questionNo",questionNo);
+//                Toast.makeText(QuestionListActivity.this," llll"+questionNo,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+            }
+        });
+
+        publish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                alertBuilder = new AlertDialog.Builder(QuestionListActivity.this);
+                alertBuilder.setTitle("Publishing Quiz");
+                alertBuilder.setMessage("Do you really want to bublish the quiz for now");
+                alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                        Toast.makeText(QuestionListActivity.this," Yes"+channelId+":"+quizId+" : "+quizName+" : "+user.getUid().toString(),Toast.LENGTH_SHORT).show();
+                        AppInfo.databaseReference.child("ChannelQuiz")
+                                .child(channelId).child(quizId)
+                                .setValue(new LessonQuizModel(quizName,user.getUid().toString()))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(QuestionListActivity.this,"Quiz Published Succesfully",Toast.LENGTH_SHORT).show();
+                                    adapter.clear();
+                                }
+                                else {
+                                    Toast.makeText(QuestionListActivity.this,"Quiz Not Published",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        dialogInterface.dismiss();
+                    }
+                });
+                alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(QuestionListActivity.this," NO",Toast.LENGTH_SHORT).show();
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.show();
             }
         });
 
@@ -93,6 +150,8 @@ public class QuestionListActivity extends AppCompatActivity {
                 for (final DataSnapshot questionListSnapshot : dataSnapshot.getChildren()) {
                     QuizModel qModel = questionListSnapshot.getValue(QuizModel.class);
                     qModel.questionNo = Integer.parseInt(questionListSnapshot.getKey().toString());
+                    //question number is global and passed to the questionAddActivity to know the question no
+                    questionNo = qModel.questionNo;
 //                    Toast.makeText(QuestionListActivity.this,"quiz "+qModel.getQuestionNo()+qModel.getQuestion(),Toast.LENGTH_SHORT).show();
                     questionListModels.add(qModel);
                     adapter.notifyDataSetChanged();

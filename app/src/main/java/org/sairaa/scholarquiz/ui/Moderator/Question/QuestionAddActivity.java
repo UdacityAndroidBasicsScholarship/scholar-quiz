@@ -1,5 +1,7 @@
 package org.sairaa.scholarquiz.ui.Moderator.Question;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.model.QuestionAnswerModel;
+import org.sairaa.scholarquiz.ui.Register.RegisterActivity;
 
 public class QuestionAddActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,14 +31,17 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
     private Button save,exit;
     private String answer;
     private String quizId;
-    private String questionNumber;
+    private int questionNumber;
+
+    AlertDialog.Builder alertBuilder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_add);
 
         Intent intent = getIntent();
-        questionNumber = intent.getStringExtra("questionNo");
+        questionNumber = intent.getIntExtra("questionNo",0);
+
         quizId = intent.getStringExtra("quizId");
 
         questionNo = findViewById(R.id.mod_add_question_no);
@@ -51,8 +57,8 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
         exit = findViewById(R.id.mod_add_exit);
         exit.setOnClickListener(this);
 
-
-
+        questionNo.setText(String.valueOf(questionNumber+1));
+        Toast.makeText(QuestionAddActivity.this," an: "+questionNumber,Toast.LENGTH_SHORT).show();
         answerSpinner = findViewById(R.id.mod_answer_spinner);
 
         answerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,21 +86,47 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()){
             case R.id.mod_question_save:
                 // Insert the question answer to firebase
-                AppInfo.databaseReference.child("Quiz").child(quizId).child("2").setValue(new QuestionAnswerModel("What is the minimum size",
-                        "48sp", "56sp","60sp","16sp",1)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(QuestionAddActivity.this,"Inserted quiz",Toast.LENGTH_SHORT).show();
+
+                //check all the field empty or not
+                if(question.getText().toString().trim().length() == 0  && option1.getText().toString().length() == 0 &&
+                        option2.getText().toString().length() == 0 && option3.getText().toString().length() == 0 &&
+                        option4.getText().toString().length() == 0 ){
+                    alertBuilder = new AlertDialog.Builder(QuestionAddActivity.this);
+                    alertBuilder.setTitle("Something Wrong");
+                    alertBuilder.setMessage("Please Fill all required field");
+                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
                         }
-                    }
-                });
-                Toast.makeText(QuestionAddActivity.this," an: "+answer,Toast.LENGTH_SHORT).show();
+                    });
+                    AlertDialog alertDialog = alertBuilder.create();
+                    alertDialog.show();
+                }else{
+                    AppInfo.databaseReference.child("Quiz").child(quizId).child(questionNo.getText().toString())
+                            .setValue(new QuestionAnswerModel(question.getText().toString().trim(),
+                            option1.getText().toString().trim(),
+                                    option2.getText().toString().trim(),
+                                    option3.getText().toString().trim(),
+                                    option4.getText().toString().trim(),
+                                    Integer.parseInt(answer))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(QuestionAddActivity.this,""+answer+" number of question saved",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+//                    Toast.makeText(QuestionAddActivity.this," an: "+answer,Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
                 break;
             case  R.id.mod_add_exit:
                 // back to Question List activity
                 finish();
                 break;
+
         }
     }
 }
