@@ -41,7 +41,7 @@
 
         <activity
             android:name=".ui.Lesson.LessonActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.YellowStatusBar" />
         <activity android:name=".ui.Subscription.SubscribeActivity" />
         <activity android:name=".ForgotPasswordActivity" />
 
