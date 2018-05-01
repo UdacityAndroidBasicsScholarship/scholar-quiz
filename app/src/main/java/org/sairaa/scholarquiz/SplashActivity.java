@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -38,7 +39,7 @@ public class SplashActivity extends Activity {
     private void StartAnimation(){
         Animation anim = AnimationUtils.loadAnimation(this,R.anim.alpha);
         anim.reset();
-        LinearLayout l=(LinearLayout)findViewById(R.id.lin_lay);
+        ConstraintLayout l=(ConstraintLayout)findViewById(R.id.lin_lay);
         l.clearAnimation();
         l.startAnimation(anim);
         anim=AnimationUtils.loadAnimation(this,R.anim.translate);
