@@ -49,6 +49,9 @@ public class QuestionListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_list);
 
         Intent intent = getIntent();
+        // the read write option to check whether the buttons AddNewQuiz and Publish
+        // to remain active or not
+        int readWrite = intent.getIntExtra("readWrite",0);
         final String channelId = intent.getStringExtra("channelId");
         quizId = intent.getStringExtra("quizId");
         final String quizName = intent.getStringExtra("quizName");
@@ -59,6 +62,18 @@ public class QuestionListActivity extends AppCompatActivity {
 
         addNewQuestion = findViewById(R.id.mod_question_list_add_new_question);
         publish = findViewById(R.id.mod_quiz_publish);
+
+        if(readWrite == 200){
+            // inactive the buttons
+            // no edit or not allowed to add new question to published quiz
+            addNewQuestion.setVisibility(View.INVISIBLE);
+            publish.setVisibility(View.INVISIBLE);
+        }else{
+            addNewQuestion.setVisibility(View.VISIBLE);
+            publish.setVisibility(View.VISIBLE);
+        }
+
+
         // setting adapter
         final ListView questionListView = (ListView)findViewById(R.id.mod_quiz_question_listview);
         questionListModels = new ArrayList<>();
