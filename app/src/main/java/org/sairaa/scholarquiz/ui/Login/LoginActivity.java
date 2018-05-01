@@ -99,11 +99,11 @@ public class LoginActivity extends AppCompatActivity implements LoginMVPView {
             finish();
             startActivity(new Intent(LoginActivity.this, LessonActivity.class));
         }
-        if (saveLogin == true) {
-            email.setText(loginPreferences.getString("username", ""));
-            password.setText(loginPreferences.getString("password", ""));
-            saveLoginCheckBox.setChecked(true);
-        }
+//        if (saveLogin == true) {
+//            email.setText(loginPreferences.getString("username", ""));
+//            password.setText(loginPreferences.getString("password", ""));
+//            saveLoginCheckBox.setChecked(true);
+//        }
     }
 
 
