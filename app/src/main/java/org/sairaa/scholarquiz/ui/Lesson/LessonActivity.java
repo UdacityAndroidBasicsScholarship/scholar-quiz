@@ -1,10 +1,13 @@
 package org.sairaa.scholarquiz.ui.Lesson;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -74,16 +77,38 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(LessonActivity.this,"On Resume",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LessonActivity.this,"On Resume",Toast.LENGTH_SHORT).show();
         adapterList.clear();
+
+
 //        Attach all subscribed channel to adapter
-        attachSubscribedLessonListListner();
+        if(isNetworkAvailable(LessonActivity.this)){
+            attachSubscribedLessonListListner();
+        }else{
+            Toast.makeText(LessonActivity.this,"Check Your Internet Connection",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public static boolean isNetworkAvailable(Context con) {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) con
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+            if (networkInfo != null && networkInfo.isConnected()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(LessonActivity.this,"On Pause",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LessonActivity.this,"On Pause",Toast.LENGTH_SHORT).show();
         adapterList.clear();
     }
 
@@ -201,6 +226,7 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                                                     String channelId = channelListSnapshot.getKey().toString();
                                                     LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
                                                     adapterList.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
+                                                    adapterList.notifyDataSetChanged();
                                                 }
                                             }
                                         }

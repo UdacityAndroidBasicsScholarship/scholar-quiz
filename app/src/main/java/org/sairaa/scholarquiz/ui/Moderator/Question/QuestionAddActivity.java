@@ -39,11 +39,6 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_add);
 
-        Intent intent = getIntent();
-        questionNumber = intent.getIntExtra("questionNo",0);
-
-        quizId = intent.getStringExtra("quizId");
-
         questionNo = findViewById(R.id.mod_add_question_no);
         question = findViewById(R.id.mod_add_question);
         option1 = findViewById(R.id.mod_add_option1);
@@ -51,13 +46,30 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
         option3 = findViewById(R.id.mod_add_option3);
         option4 = findViewById(R.id.mod_add_option4);
 
+        Intent intent = getIntent();
+        int edit = intent.getIntExtra("edit",0);
+        if(edit == 111){
+            // Edit the existing question
+            //set the passed value
+            question.setText(intent.getStringExtra("question"));
+            option1.setText(intent.getStringExtra("option1"));
+            option2.setText(intent.getStringExtra("option2"));
+            option3.setText(intent.getStringExtra("option3"));
+            option4.setText(intent.getStringExtra("option4"));
+        }
+        questionNumber = intent.getIntExtra("questionNo",0);
+
+        quizId = intent.getStringExtra("quizId");
+
+
+
         save = findViewById(R.id.mod_question_save);
         save.setOnClickListener(this);
 
         exit = findViewById(R.id.mod_add_exit);
         exit.setOnClickListener(this);
 
-        questionNo.setText(String.valueOf(questionNumber+1));
+        questionNo.setText(String.valueOf(questionNumber));
         Toast.makeText(QuestionAddActivity.this," an: "+questionNumber,Toast.LENGTH_SHORT).show();
         answerSpinner = findViewById(R.id.mod_answer_spinner);
 

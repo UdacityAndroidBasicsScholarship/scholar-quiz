@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import org.sairaa.scholarquiz.model.QuestionAnswerModel;
 import org.sairaa.scholarquiz.model.QuizModel;
 import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class QuestionListActivity extends AppCompatActivity {
@@ -87,15 +89,40 @@ public class QuestionListActivity extends AppCompatActivity {
         adapter = new ModeratorQuestionListAdapter(QuestionListActivity.this,questionListModels);
         questionListView.setAdapter(adapter);
 
+        questionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Check readWrite or Only Read
+                if(addNewQuestion.getVisibility() == View.VISIBLE){
+                    // Moderator can edit the question
+                    QuizModel questionAnswer = (QuizModel)questionListView.getItemAtPosition(position);
+                    Intent intent = new Intent(QuestionListActivity.this,QuestionAddActivity.class);
+                    intent.putExtra("edit",111);
+                    intent.putExtra("questionNo",questionAnswer.getQuestionNo());
+                    intent.putExtra("question",questionAnswer.getQuestion());
+                    intent.putExtra("option1",questionAnswer.getOption1());
+                    intent.putExtra("option2",questionAnswer.getOption2());
+                    intent.putExtra("option3",questionAnswer.getOption3());
+                    intent.putExtra("option4",questionAnswer.getOption4());
+                    intent.putExtra("answerOption",questionAnswer.getAnswerOption());
+                    intent.putExtra("quizId",quizId);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(QuestionListActivity.this,"Already Published Can't edited",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         //
         addNewQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(QuestionListActivity.this,QuestionAddActivity.class);
 //                intent.putExtra("channelId",channelId);
+                intent.putExtra("edit",222);
                 intent.putExtra("quizId",quizId);
 //                intent.putExtra("quizName",quizName);
-                intent.putExtra("questionNo",questionNo);
+                intent.putExtra("questionNo",questionNo+1);
 //                Toast.makeText(QuestionListActivity.this," llll"+questionNo,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
