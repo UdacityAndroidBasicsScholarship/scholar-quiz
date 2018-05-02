@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.Moderator.Question.QuestionAddActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/ylow">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,27 +33,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_option1"
-            android:hint="1st Option"/>
+            android:hint="1st Option"
+            android:layout_margin="4dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_option2"
-            android:hint="2nd Option"/>
+            android:hint="2nd Option"
+            android:layout_margin="4dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_option3"
-            android:hint="3rd Option"/>
+            android:hint="3rd Option"
+            android:layout_margin="4dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_option4"
-            android:hint="4th Option"/>
+            android:hint="4th Option"
+            android:layout_margin="4dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="16dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,15 +77,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/mod_question_save"
+            style="@style/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/mod_question_save"
-            android:text="save"/>
+            android:text="save" />
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/buttonStyle"
             android:id="@+id/mod_add_exit"
             android:text="exit"/>
     </LinearLayout>
