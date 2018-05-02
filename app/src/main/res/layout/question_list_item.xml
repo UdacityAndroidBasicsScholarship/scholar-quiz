@@ -1,47 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@drawable/row_bgone"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1."
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
             android:id="@+id/mod_question_no"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="question"
-            android:id="@+id/mod_question"/>
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/mod_question"
+            android:layout_marginStart="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:textAllCaps="true"
+            />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="option1"
-            android:id="@+id/mod_question_option1"/>
+            android:textStyle="bold|italic"
+            android:textSize="14sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            android:id="@+id/mod_question_option1"
+            android:textAllCaps="true"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="option2"
-            android:id="@+id/mod_question_option2"/>
+            android:id="@+id/mod_question_option2"
+            android:textStyle="bold|italic"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:textAllCaps="true"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="option3"
-            android:id="@+id/mod_question_option3"/>
+            android:id="@+id/mod_question_option3"
+            android:textStyle="bold|italic"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:textAllCaps="true"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="option4"
-            android:id="@+id/mod_question_option4"/>
+            android:id="@+id/mod_question_option4"
+            android:textStyle="bold|italic"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:layout_marginTop="5dp"
+            android:textAllCaps="true"
+            />
     </LinearLayout>
 
 

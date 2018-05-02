@@ -32,6 +32,13 @@
     <string name="forgotEmptyfield1">Note: Please enter your E-mail and Slack Ids.</string>
     <string name="forgotEmptyfield2">Note: Please enter your E-mail Id also.</string>
     <string name="forgotEmptyfield3">Note: Please enter your Slack Id also.</string>
+    <string name="goCreateNewQuiz">go</string>
+    <string name="modQuizNameHint">Type New Quiz Name and Go</string>
+    <string name="modQuizNotPublished">Not Published</string>
+    <string name="modAlredyPublished">Already Published</string>
+    <string name="questionsListTextView">Questions</string>
+    <string name="addNewQuestionButton">Add New Question</string>
+    <string name="publishButton">publish</string>
     <string-array name="mod_correct_answer">
         <item>1</item>
         <item>2</item>

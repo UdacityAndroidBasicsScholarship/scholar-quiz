@@ -1,36 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.Moderator.Question.QuestionListActivity">
-    <ListView
+    tools:context=".ui.Moderator.Question.QuestionListActivity"
+    android:background="@drawable/headerbackgroundwall2">
+
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/dummyLinearLayout"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:orientation="vertical"
+            />
+
+        <RelativeLayout
+            android:id="@+id/quizAlreadyPublished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/alreadyPublishedTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/questionsListTextView"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/black"/>
+
+    <ListView
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:id="@+id/mod_quiz_question_listview">
-
+        android:layout_marginTop="5dp"
+        android:id="@+id/mod_quiz_question_listview"
+        android:dividerHeight="2dp"
+        android:divider="#212121"
+        >
     </ListView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/black"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp"
+        >
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:id="@+id/mod_question_list_add_new_question"
-            android:text="Add New Question"/>
+            android:text="@string/addNewQuestionButton"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            style="@style/buttonStyle"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="10dp"
+
+            />
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/mod_quiz_publish"
-            android:text="publish"/>
+            android:text="@string/publishButton"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            style="@style/buttonStyle"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            />
 
     </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
