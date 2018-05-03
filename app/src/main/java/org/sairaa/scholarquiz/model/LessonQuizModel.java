@@ -2,17 +2,17 @@ package org.sairaa.scholarquiz.model;
 
 public class LessonQuizModel {
 //    public String quizId;
-    public String createdBy;
+    public String publishedOn;
     public String quizName;
 
     public LessonQuizModel(){
 
     }
 
-    public LessonQuizModel(String quizName, String createdBy){
+    public LessonQuizModel(String quizName, String publishedOn){
 //        this.quizId = quizId;
         this.quizName = quizName;
-        this.createdBy = createdBy;
+        this.publishedOn = publishedOn;
     }
 
 //    public String getQuizId() {
@@ -23,7 +23,7 @@ public class LessonQuizModel {
         return quizName;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getPublishedOn() {
+        return publishedOn;
     }
 }

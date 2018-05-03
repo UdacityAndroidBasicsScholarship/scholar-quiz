@@ -30,7 +30,9 @@ import org.sairaa.scholarquiz.model.QuizModel;
 import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class QuestionListActivity extends AppCompatActivity {
 
@@ -140,9 +142,10 @@ public class QuestionListActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //                        Toast.makeText(QuestionListActivity.this," Yes"+channelId+":"+quizId+" : "+quizName+" : "+user.getUid().toString(),Toast.LENGTH_SHORT).show();
+                        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                         AppInfo.databaseReference.child("ChannelQuiz")
                                 .child(channelId).child(quizId)
-                                .setValue(new LessonQuizModel(quizName,user.getUid().toString()))
+                                .setValue(new LessonQuizModel(quizName,currentDateTimeString))
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
