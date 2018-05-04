@@ -9,15 +9,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        style="@style/entryStyle"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_question_no"
+            android:textColor="#ffff"
+            android:textSize="15dp"
             android:text="1. "/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="#ffff"
             android:id="@+id/mod_add_question"
             android:hint="Type your question Here"/>
 
@@ -25,6 +32,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+        android:padding="10dp"
         android:orientation="vertical">
         <EditText
             android:layout_width="match_parent"
@@ -50,6 +59,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        style="@style/entryStyle"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -67,15 +80,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_corners"
         android:orientation="horizontal">
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/buttonStyle"
             android:id="@+id/mod_question_save"
             android:text="save"/>
         <Button
             android:layout_width="0dp"
+            style="@style/buttonStyle"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/mod_add_exit"
