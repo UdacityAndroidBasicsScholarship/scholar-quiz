@@ -13,7 +13,6 @@ import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.model.QuizModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModeratorQuestionListAdapter extends ArrayAdapter<QuizModel> {
 
@@ -36,7 +35,7 @@ public class ModeratorQuestionListAdapter extends ArrayAdapter<QuizModel> {
         QuizModel dataToDisplay = getItem(position);
 
         TextView questionNo = listItemView.findViewById(R.id.mod_question_no);
-        questionNo.setText(String.valueOf(dataToDisplay.getQuestionNo()));
+        questionNo.setText(String.valueOf(dataToDisplay.getQuestionNo())+".");
 
         TextView question = listItemView.findViewById(R.id.mod_question);
         question.setText(dataToDisplay.getQuestion());
