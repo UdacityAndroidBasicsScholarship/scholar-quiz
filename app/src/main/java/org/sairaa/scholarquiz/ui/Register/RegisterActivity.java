@@ -63,62 +63,73 @@ public class RegisterActivity extends AppCompatActivity
 
                 // Check all requir field empty or not
                 //Apply the validation in each field including slack Id
-                if (name.getText().toString().length() == 0) {
-                    name.setError("Name cannot be blank");
-                }
-                if (emailId.getText().toString().equals("")) {
-                    emailId.setError("Email cannot be blank");
-                }
-                if (!slackId.getText().toString().contains("@")) {
-                    slackId.setError("@ is essential");
-                }
-                if (password.getText().toString().equals("")) {
-                    password.setError("password cannot be blank");
-                }
-                if (conPasword.getText().toString().equals("")) {
-                    conPasword.setError("confirm password cannot be blank");
-                    // if any of the required field empty "Show Dialog to fill the required field
-                    alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
-                    alertBuilder.setTitle("Something Wrong");
-                    alertBuilder.setMessage("Please Fill all required field");
-                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    AlertDialog alertDialog = alertBuilder.create();
-                    alertDialog.show();
-                } else if (!(password.getText().toString().equals(conPasword.getText().toString()))) {
-                    //check pasword and confirm pasword mismatch
-                    alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
-                    alertBuilder.setTitle("Something Wrong");
-                    alertBuilder.setMessage("Pasword Mismatch");
-                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                            password.setText("");
-                            conPasword.setText("");
-                        }
-                    });
-                    AlertDialog alertDialog = alertBuilder.create();
-                    alertDialog.show();
-                } else {
-                    // Background task to insert user information into database
-                    // BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
+
+                if (!name.getText().toString().trim().equals("")) {
+                    if (!emailId.getText().toString().trim().equals("")) {
+                        if (slackId.getText().toString().contains("@")) {
+                            if (!password.getText().toString().trim().equals("")) {
+                                if (conPasword.getText().toString().trim().equals("")) {
+                                    conPasword.setError("confirm password cannot be blank");
+                                    // if any of the required field empty "Show Dialog to fill the required field
+                                    alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
+                                    alertBuilder.setTitle("Something Wrong");
+                                    alertBuilder.setMessage("Please Fill all required field");
+                                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alertDialog = alertBuilder.create();
+                                    alertDialog.show();
+                                } else if (!(password.getText().toString().equals(conPasword.getText().toString()))) {
+                                    //check pasword and confirm pasword mismatch
+                                    alertBuilder = new AlertDialog.Builder(RegisterActivity.this);
+                                    alertBuilder.setTitle("Something Wrong");
+                                    alertBuilder.setMessage("Pasword Mismatch");
+                                    alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                            password.setText("");
+                                            conPasword.setText("");
+                                        }
+                                    });
+                                    AlertDialog alertDialog = alertBuilder.create();
+                                    alertDialog.show();
+                                } else {
+                                    // Background task to insert user information into database
+                                    // BackgroundLoginTask backgroundLoginTask = new BackgroundLoginTask(RegisterActivity.this);
                     /*backgroundLoginTask.execute("register",name.getText().toString(),
                             emailId.getText().toString(),
                             slackId.getText().toString(),
                             password.getText().toString(),
                             info.getText().toString());*/
 
-                    registerMVPView.showDialog();
-                    registerMVPView.authtication(emailId.getText().toString().trim(),
-                            password.getText().toString().trim());
+                                    registerMVPView.showDialog();
+                                    registerMVPView.authtication(emailId.getText().toString().trim(),
+                                            password.getText().toString().trim());
 
 
+                                }
+                            }else{
+                                password.setError("password cannot be blank");
+                            }
+
+                        }else{
+                            slackId.setError("@ is essential");
+                        }
+
+                    }else{
+                        emailId.setError("Email cannot be blank");
+                    }
+                }else {
+                    name.setError("Name cannot be blank");
                 }
+
+
+
+
                 break;
             case R.id.register_sign_in:
                 startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
