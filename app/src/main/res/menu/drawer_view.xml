@@ -14,8 +14,14 @@
             android:icon="@drawable/ic_scorecard24"
             android:title="Score Card" />
         <item
+            android:id="@+id/admin"
+            android:icon="@drawable/ic_logout24"
+            android:title="Admin" />
+        <item
             android:id="@+id/logout_nav"
             android:icon="@drawable/ic_logout24"
             android:title="Logout" />
+
+
     </group>
 </menu>

@@ -160,10 +160,11 @@ public class RegisterActivity extends AppCompatActivity
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     String udid = task.getResult().getUser().getUid();
+                    String email = task.getResult().getUser().getEmail();
                     AppInfo.firebaseAuth.signOut();
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     RegisterModel registerModel = new RegisterModel(slackId.getText().toString().trim(),
-                            name.getText().toString().trim(),currentDateTimeString);
+                            name.getText().toString().trim(),email,currentDateTimeString);
                     registerMVPView.authenticationSucced(udid,registerModel);
                 }else {
                     //display some message here
@@ -185,6 +186,9 @@ public class RegisterActivity extends AppCompatActivity
                     finish();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 //                    Toast.makeText(RegisterActivity.this, "login Email: "+model.getName(), Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(RegisterActivity.this, "login failed: "+model.getEmail(), Toast.LENGTH_LONG).show();
+
                 }
             }
         });

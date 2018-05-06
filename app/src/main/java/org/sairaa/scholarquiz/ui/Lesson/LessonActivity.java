@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.LessonCursorAdapter;
+import org.sairaa.scholarquiz.ui.Admin.MasterAdminActivity;
 import org.sairaa.scholarquiz.ui.Subscription.LessonSubscriptionAdapter;
 import org.sairaa.scholarquiz.ui.User.QuizActivity;
 import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
@@ -113,13 +114,19 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(LessonActivity.this,"On destroy",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         mMessageDatabaseReferance = mFirebaseDatabase.getReference().child("Subscription").child(user.getUid().toString());
 
@@ -157,6 +164,16 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                             case R.id.score_nav:
                                 //insertLesson();
                                 //displayDatabaseInfo();
+                                break;
+                            case R.id.admin:
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if(user.getEmail().equals("udacity123@gmail.com") || user.getEmail().equals("akshit@udacity.com") ){
+                                    startActivity(new Intent(LessonActivity.this, MasterAdminActivity.class));
+                                }else{
+                                    Toast.makeText(LessonActivity.this, "You are not admin",Toast.LENGTH_SHORT).show();
+
+                                }
+
                                 break;
                         }
                         // Add code here to update the UI based on the item selected
