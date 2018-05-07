@@ -11,6 +11,15 @@
     android:background="@drawable/background_splash"
     tools:context=".ui.Admin.MasterAdminActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_admin"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title=" "
+        app:titleTextColor="@android:color/black" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="16dp"
+            android:paddingTop="16dp"
             android:src="@drawable/admin_logo"/>
 
         <TextView

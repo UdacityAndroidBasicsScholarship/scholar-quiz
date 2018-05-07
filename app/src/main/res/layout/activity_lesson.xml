@@ -20,7 +20,7 @@
                 android:id="@+id/toolbar_lesson"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:title="Lessons"
                 app:titleTextColor="@android:color/black" />
