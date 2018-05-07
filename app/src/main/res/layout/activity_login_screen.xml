@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Login.LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="100dp"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="PlayQuiz"
+            android:textColor="#00BFA5"
+            android:textSize="50sp"
+            android:textStyle="italic" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#00BFA5">
+
+            <EditText
+                android:id="@+id/Email-Id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="@string/app_name" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#00BFA5">
+
+            <EditText
+                android:id="@+id/Email_Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/password" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/Button"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Email_Password"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login"
+            android:text="login"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/Button"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"
+            android:text="Don't have an account"
+            android:textColor="#00BFA5"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+</RelativeLayout>

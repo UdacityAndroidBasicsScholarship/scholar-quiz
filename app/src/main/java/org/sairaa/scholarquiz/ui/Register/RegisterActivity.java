@@ -157,7 +157,6 @@ public class RegisterActivity extends AppCompatActivity
                 }else {
                     //display some message here
                     registerMVPView.authenticationFailed(task.getException());
-
                 }
             }
         });

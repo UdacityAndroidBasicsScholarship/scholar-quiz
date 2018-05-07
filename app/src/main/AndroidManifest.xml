@@ -6,42 +6,31 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".AppInfo"
         android:allowBackup="true"
         android:icon="@mipmap/ic_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".AppInfo">
-
-        <activity android:name=".SplashActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".SplashActivity" />
+        <activity android:name=".ui.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.Login.LoginActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".ui.Register.RegisterActivity"
-            >
+        <activity android:name=".ui.Register.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.Lesson.LessonActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.YellowStatusBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".ui.Subscription.SubscribeActivity" />
         <activity android:name=".ForgotPasswordActivity" />
 
@@ -50,10 +39,14 @@
             android:authorities="org.sairaa.scholarquiz"
             android:exported="false" />
 
-        <activity android:name=".ui.User.QuizActivity" />
+        <activity
+            android:name=".ui.User.QuizActivity"
+            android:theme="@style/StypeWithActionBar" />
         <activity android:name=".ui.Moderator.QuizModeratorActivity" />
         <activity android:name=".ui.Moderator.Question.QuestionListActivity" />
-        <activity android:name=".ui.Moderator.Question.QuestionAddActivity"></activity>
+        <activity android:name=".ui.Moderator.Question.QuestionAddActivity" />
+        <activity android:name=".ui.quiz.QuestionActivity" />
+        <activity android:name=".ui.attemptedquiz.AttemptedQuizActivity"></activity>
     </application>
 
 </manifest>

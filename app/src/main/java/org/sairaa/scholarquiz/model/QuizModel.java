@@ -53,4 +53,8 @@ public class QuizModel {
     public int getAnswerOption() {
         return answerOption;
     }
+
+    public void setQuestionNo(int questionNo) {
+        this.questionNo = questionNo;
+    }
 }

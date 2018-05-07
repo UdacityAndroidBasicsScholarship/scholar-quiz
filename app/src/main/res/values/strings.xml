@@ -16,7 +16,6 @@
     <string name="user_name">Your Full Name</string>
     <string name="reg_Email_id">Your E-mail id</string>
     <string name="slack_id">Your Slack id</string>
-    <string name="spash_screen_bt">Made with \u2764 by Udacitians</string>
     <string name="password1">Create Password</string>
     <string name="password2">Confirm Password</string>
     <string name="additional_info">Phone No./ Other Info</string>

@@ -26,7 +26,7 @@ public class AppInfo extends Application {
 
         firebaseAuth = GetFirebaseAuth_Instance.getFirebaseAuth_Instance();
         databaseReference = GetFirebaseAuth_Instance.getFirebaseDatabase_Instance();
-
     }
+
 
 }

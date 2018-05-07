@@ -1,19 +1,17 @@
 package org.sairaa.scholarquiz.ui.Lesson;
 
 import android.app.LoaderManager;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,21 +30,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.LessonCursorAdapter;
-import org.sairaa.scholarquiz.ui.Subscription.LessonSubscriptionAdapter;
-import org.sairaa.scholarquiz.ui.User.QuizActivity;
-import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
 import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.SharedPreferenceConfig;
-import org.sairaa.scholarquiz.ui.Subscription.SubscribeActivity;
+import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
 import org.sairaa.scholarquiz.data.QuizDbHelper;
-import org.sairaa.scholarquiz.data.QuizContract.*;
 import org.sairaa.scholarquiz.model.LessonListModel;
 import org.sairaa.scholarquiz.ui.Login.LoginActivity;
+import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
+import org.sairaa.scholarquiz.ui.Subscription.LessonSubscriptionAdapter;
+import org.sairaa.scholarquiz.ui.Subscription.SubscribeActivity;
+import org.sairaa.scholarquiz.ui.User.QuizActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class LessonActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, LessonActivityInterface{
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbarr;
@@ -64,51 +62,23 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     private ChildEventListener mChildEventListener;
 
     LessonCursorAdapter adapter;
-
-
-//    @Override
-//    protected void onPostResume() {
-//        super.onPostResume();
-//        Toast.makeText(LessonActivity.this,"On post Resume",Toast.LENGTH_SHORT).show();
-////        adapterList.clear();
-////        attachSubscribedLessonListListner();
-//    }
+    ProgressDialog progressDialog;
+    LessonActivityInterface lessonActivityInterface ;
 
     @Override
     protected void onResume() {
         super.onResume();
-//        Toast.makeText(LessonActivity.this,"On Resume",Toast.LENGTH_SHORT).show();
+        Toast.makeText(LessonActivity.this,"On Resume",Toast.LENGTH_SHORT).show();
         adapterList.clear();
-
-
+        lessonActivityInterface = this;
 //        Attach all subscribed channel to adapter
-        if(isNetworkAvailable(LessonActivity.this)){
-            attachSubscribedLessonListListner();
-        }else{
-            Toast.makeText(LessonActivity.this,"Check Your Internet Connection",Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    public static boolean isNetworkAvailable(Context con) {
-        try {
-            ConnectivityManager cm = (ConnectivityManager) con
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-            if (networkInfo != null && networkInfo.isConnected()) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        attachSubscribedLessonListListner();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        Toast.makeText(LessonActivity.this,"On Pause",Toast.LENGTH_SHORT).show();
+        Toast.makeText(LessonActivity.this,"On Pause",Toast.LENGTH_SHORT).show();
         adapterList.clear();
     }
 
@@ -174,6 +144,7 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
         lessonListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Intent intentUser = new Intent(LessonActivity.this,QuizActivity.class);
                 Intent intentModerator = new Intent(LessonActivity.this,QuizModeratorActivity.class);
@@ -207,6 +178,9 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void attachSubscribedLessonListListner() {
+
+        lessonActivityInterface.showDialog();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Subscription").child(String.valueOf(user.getUid()))
                 .addValueEventListener(new ValueEventListener() {
@@ -226,14 +200,15 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                                                     String channelId = channelListSnapshot.getKey().toString();
                                                     LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
                                                     adapterList.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
-                                                    adapterList.notifyDataSetChanged();
                                                 }
                                             }
+                                            lessonActivityInterface.hideDialog();
                                         }
 
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
 
+                                            lessonActivityInterface.hideDialog();
                                         }
                                     });
                         }
@@ -286,6 +261,30 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(Loader<Cursor> loader) {
 
         adapter.swapCursor(null);
+
+    }
+
+    @Override
+    public void hideDialog() {
+
+        if(progressDialog != null && progressDialog.isShowing()) {
+
+            progressDialog.cancel();
+        }
+
+    }
+
+    @Override
+    public void showDialog() {
+
+        hideDialog();
+
+        progressDialog = ProgressDialog.show(this, null, "fetching subscribed channels", true, false);
+
+    }
+
+    @Override
+    public void onError(Exception e) {
 
     }
 }
