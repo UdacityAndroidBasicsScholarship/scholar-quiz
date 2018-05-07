@@ -1,35 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background_splash"
     tools:context=".ui.Admin.MasterAdminActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:id="@+id/new_channel_name"
-            android:hint="Enter New Channel Name"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:src="@drawable/admin_logo"/>
 
+        <TextView
+            android:id="@+id/admintext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/google_sans_bold"
+            android:text="Admin Panel"
+            android:textAlignment="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="30sp"
+            android:padding="18dp"/>
+
+        <LinearLayout
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corners"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <EditText
+                android:id="@+id/new_channel_name"
+                android:hint="Enter New Channel Name"
+                style="@style/editTextStyle"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/google_sans"
+                android:textSize="15sp"/>
+
+            <EditText
+                style="@style/editTextStyle"
+                android:layout_width="match_parent"
+                android:textSize="15sp"
+                android:fontFamily="@font/google_sans"
+                android:id="@+id/assign_mod"
+                android:hint="Enter moderator Email"
+                android:inputType="textEmailAddress"/>
+
+            <Button
+                android:id="@+id/create_new_channel"
+                android:text="Create"
+                style="@style/buttonStyle"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
     </LinearLayout>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/assign_mod"
-        android:hint="Enter moderator Email"
-        android:inputType="textEmailAddress"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/create_new_channel"
 
-        android:text="Create"/>
-
-</LinearLayout>
+</RelativeLayout>
