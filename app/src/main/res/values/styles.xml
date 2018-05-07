@@ -52,6 +52,4 @@
         <item name="android:textColor">#eff1ec</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="Theme.AppCompat.Light.NoActionBar.YellowStatusBar" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>
