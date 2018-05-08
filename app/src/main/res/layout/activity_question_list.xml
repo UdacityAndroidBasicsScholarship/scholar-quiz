@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:id="@+id/mod_quiz_question_listview">
+        android:id="@+id/mod_quiz_question_listview"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp">
 
     </ListView>
     <LinearLayout
