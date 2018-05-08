@@ -43,15 +43,19 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_corners"
             android:id="@+id/mod_new_quiz_name_edittext"
             android:hint="Type New Quiz name and Go"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_corners"
             android:id="@+id/go_create_new_quiz_button"
             android:text="go"/>
 
