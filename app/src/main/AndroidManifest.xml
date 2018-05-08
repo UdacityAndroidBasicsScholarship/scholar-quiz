@@ -52,6 +52,10 @@
         <activity android:name=".ui.Moderator.Question.QuestionListActivity" />
         <activity android:name=".ui.Moderator.Question.QuestionAddActivity" />
         <activity android:name=".ui.Admin.MasterAdminActivity"></activity>
+
+        <activity android:name=".ui.quiz.QuestionActivity" />
+        <activity android:name=".ui.attemptedquiz.AttemptedQuizActivity"></activity>
+
     </application>
 
 </manifest>
