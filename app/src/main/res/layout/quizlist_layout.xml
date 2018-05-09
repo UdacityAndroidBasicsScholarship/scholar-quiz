@@ -1,45 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="88dp"
+    android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/quiz_name"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:text="Qu 1"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/quiz_name"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/quiz_status"
-        android:textSize="15sp"
-        android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/quiz_name"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="105dp"
-        android:id="@+id/questionStatus"/>
+            <ImageView
+                android:id="@+id/bulb_icon"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:src="@drawable/ic_lightbulb" />
 
-    <ImageView
-        android:id="@+id/subscribe_nevigation"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:src="@drawable/ic_arrow_forward_black_24dp" />
-</RelativeLayout>
+            <TextView
+                android:id="@+id/quiz_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="2"
+                android:fontFamily="@font/google_sans_bold"
+                android:gravity="center"
+                android:text="Quiz 1"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/quiz_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quiz_name"
+                android:layout_weight="2"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/questionStatus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/subscribe_nevigation"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:src="@drawable/lead_pencil" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
