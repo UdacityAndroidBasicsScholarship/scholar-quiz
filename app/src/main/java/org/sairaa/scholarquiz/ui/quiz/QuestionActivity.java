@@ -2,15 +2,14 @@ package org.sairaa.scholarquiz.ui.quiz;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,13 +37,14 @@ public class QuestionActivity extends AppCompatActivity {
     int i = 0, answer = 0, actualAnswer;
 
     String channelid, quizid;
+    boolean dialogVisible = false;
 
-    @BindView(R.id.tv_timer_question)
-    ProgressBar progressBar;
-
-    CountDownTimer countDownTimer;
-    long timeDuraton;
-    long totalTimeForQuiz = 100;
+//    @BindView(R.id.tv_timer_question)
+//    ProgressBar progressBar;
+//
+//    CountDownTimer countDownTimer;
+//    long timeDuraton;
+//    long totalTimeForQuiz = 100;
     int totalCorrectAnswer = 0;
 
     @Override
@@ -61,7 +61,7 @@ public class QuestionActivity extends AppCompatActivity {
         channelid = intent.getStringExtra("channelid");
         quizid = intent.getStringExtra("quizid");
 
-        countDownTimer = new CountDownTimer(totalTimeForQuiz * 1000, 1000) {
+        /*countDownTimer = new CountDownTimer(totalTimeForQuiz * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -79,8 +79,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         };
 
-        countDownTimer.start();
-
+        countDownTimer.start(); */
     }
 
     @BindView(R.id.tv_question)
@@ -108,7 +107,7 @@ public class QuestionActivity extends AppCompatActivity {
             Toast.makeText(this, "nomore question left", Toast.LENGTH_LONG).show();
 
             AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("status").setValue("completed");
-            AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("timeTaken").setValue(String.valueOf(totalTimeForQuiz - timeDuraton));
+            AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("timeTaken").setValue("0");
 
             quizOverDialog();
         }
@@ -135,6 +134,16 @@ public class QuestionActivity extends AppCompatActivity {
         actualAnswer = quizModel.getAnswerOption();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(dialogVisible){
+
+            quizOverDialog();
+        }
+
+    }
 
     @SuppressLint("RestrictedApi")
     @OnClick({R.id.option1_tv, R.id.option2_tv, R.id.option3_tv, R.id.option4_tv})
@@ -267,7 +276,7 @@ public class QuestionActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("status").setValue("completed");
-                        AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("timeTaken").setValue(String.valueOf(totalTimeForQuiz));
+                        AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("timeTaken").setValue(String.valueOf("0"));
 
                         dialog.dismiss();
                         Intent intent = new Intent(QuestionActivity.this, QuizActivity.class);
@@ -287,6 +296,8 @@ public class QuestionActivity extends AppCompatActivity {
         AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("correctAnswer").setValue(String.valueOf(count));
 
     }
+
+    Dialog dialog;
 
     private void quizOverDialog(){
 
@@ -309,6 +320,22 @@ public class QuestionActivity extends AppCompatActivity {
 
 
                     }
-                }).show();
+                });
+
+        dialog = builder.show();
+    }
+
+    @Override
+    protected void onStop() {
+
+        if(dialogVisible){
+            hideDialog();
+        }
+        super.onStop();
+    }
+
+    private void hideDialog(){
+
+        dialog.cancel();
     }
 }

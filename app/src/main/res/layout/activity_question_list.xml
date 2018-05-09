@@ -20,6 +20,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <Button
             android:layout_margin="8dp"
             android:layout_width="0dp"
@@ -33,6 +34,7 @@
             android:background="@drawable/curved_button"
             android:id="@+id/mod_question_list_add_new_question"
             android:text="Add New Question"/>
+
         <Button
             android:layout_margin="8dp"
             android:layout_width="0dp"
