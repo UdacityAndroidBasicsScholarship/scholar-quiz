@@ -55,6 +55,7 @@
     <style name="questionHeading">
         <item name="android:fontFamily">@font/google_sans_bold</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center</item>
     </style>
     <style name="questionPart">
         <item name="android:fontFamily">@font/google_sans</item>
