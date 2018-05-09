@@ -109,6 +109,7 @@ public class QuestionActivity extends AppCompatActivity {
             AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("status").setValue("completed");
             AppInfo.databaseReference.child("Result").child(AppInfo.firebaseAuth.getUid()).child(channelid).child(quizid).child("timeTaken").setValue("0");
 
+            dialogVisible = true;
             quizOverDialog();
         }
     }
@@ -134,16 +135,6 @@ public class QuestionActivity extends AppCompatActivity {
         actualAnswer = quizModel.getAnswerOption();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if(dialogVisible){
-
-            quizOverDialog();
-        }
-
-    }
 
     @SuppressLint("RestrictedApi")
     @OnClick({R.id.option1_tv, R.id.option2_tv, R.id.option3_tv, R.id.option4_tv})
@@ -251,13 +242,10 @@ public class QuestionActivity extends AppCompatActivity {
         answer = userOption;
 
         if(actualAnswer == userOption) {
-            listTextView.get(actualAnswer - 1).setBackgroundColor(Color.GREEN);
             totalCorrectAnswer++;
             increaseCountOnFirebase(totalCorrectAnswer);
-        }else {
-            listTextView.get(actualAnswer-1).setBackgroundColor(Color.GREEN);
-            listTextView.get(userOption-1).setBackgroundColor(Color.RED);
         }
+        listTextView.get(userOption-1).setBackgroundColor(Color.RED);
     }
 
     AlertDialog.Builder builder;
@@ -323,6 +311,15 @@ public class QuestionActivity extends AppCompatActivity {
                 });
 
         dialog = builder.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(dialogVisible)
+            dialog.show();
+
     }
 
     @Override
