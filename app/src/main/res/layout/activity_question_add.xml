@@ -5,81 +5,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Moderator.Question.QuestionAddActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:background="@color/colorPrimaryDark">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:background="@android:color/black"
+        android:divider="@null">
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp"
+            android:layout_margin="6dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/mod_add_question_no"
-            android:text="1. "/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mod_add_question"
-            android:hint="Type your question Here"/>
+            android:text="1. "
+            android:padding="15dp"
+            android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/mod_add_question"
+                android:layout_width="match_parent"
+                android:layout_height="142dp"
+                android:hint="Type your question Here"
+                android:textAlignment="center" />
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:textAlignment="center"
+            android:layout_margin="16dp">
+
+            <EditText
+                android:id="@+id/mod_add_option1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:hint="1st Option"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/mod_add_option2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:hint="2nd Option"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/mod_add_option3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:hint="3rd Option"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/mod_add_option4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:hint="4th Option"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mod_add_option1"
-            android:hint="1st Option"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mod_add_option2"
-            android:hint="2nd Option"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mod_add_option3"
-            android:hint="3rd Option"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mod_add_option4"
-            android:hint="4th Option"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Answer "/>
+            android:text="Answer: "
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
         <Spinner
             android:id="@+id/mod_answer_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
         </Spinner>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_margin="10dp"
             android:id="@+id/mod_question_save"
-            android:text="save"/>
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:shadowDx="7"
+            android:shadowDy="6"
+            android:shadowRadius="5"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="save"
+            android:background="@drawable/curved_button"/>
+        <Button
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:id="@+id/mod_add_exit"
-            android:text="exit"/>
+            android:shadowRadius="5"
+            android:shadowDy="6"
+            android:shadowDx="7"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="exit"
+            android:background="@drawable/curved_button"/>
     </LinearLayout>
 
 </LinearLayout>
