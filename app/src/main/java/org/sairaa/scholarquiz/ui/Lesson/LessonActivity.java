@@ -242,6 +242,7 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
 //                                                    Toast.makeText(LessonActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
                                                     String channelId = channelListSnapshot.getKey().toString();
                                                     LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
+//                                                    String moderatorName = getModeratorNameFromUserDatabase(model.getModeratorName());
                                                     adapterList.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
                                                     adapterList.notifyDataSetChanged();
                                                 }
@@ -262,6 +263,23 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                     }
                 });
     }
+
+//    private String getModeratorNameFromUserDatabase(String moderatorName) {
+//        final String[] name = {null};
+//        AppInfo.databaseReference.child("Users").child(moderatorName).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                name[0] = dataSnapshot.getValue(String.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//        return name[0];
+//
+//    }
 
 
     @Override
