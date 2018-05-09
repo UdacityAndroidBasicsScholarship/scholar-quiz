@@ -40,7 +40,8 @@ public class LessonSubscriptionAdapter extends ArrayAdapter<LessonListModel> {
         lName.setText(dataToDisplay.getChannelName());
         Log.i(LOG_ADAPTER,dataToDisplay.getChannelName());
         TextView subscribeText = listItemView.findViewById(R.id.subscribe_list);
-        subscribeText.setText(dataToDisplay.getModeratorName());
+//        subscribeText.setText(dataToDisplay.getModeratorName());
+        subscribeText.setText("");
         notifyDataSetChanged();
         return listItemView;
         //return super.getView(position, convertView, parent);

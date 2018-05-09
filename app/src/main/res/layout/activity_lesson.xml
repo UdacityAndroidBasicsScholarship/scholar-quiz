@@ -20,17 +20,17 @@
                 android:id="@+id/toolbar_lesson"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"
+                android:textAlignment="center"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:title="Lessons"
-                app:titleTextColor="#ffffff" />
+                app:titleTextColor="@android:color/black" />
 
             <ListView
                 android:id="@+id/lesson_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_empty">
+                android:divider="@null">
 
             </ListView>
         </LinearLayout>

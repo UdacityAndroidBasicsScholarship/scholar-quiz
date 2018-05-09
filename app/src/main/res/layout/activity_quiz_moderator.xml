@@ -10,12 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Already Published"
+        style="@style/questionHeading"
         android:gravity="center"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
-        android:id="@+id/moderator_lesson_list">
+        android:id="@+id/moderator_lesson_list"
+        android:divider="@null"
+        android:dividerHeight="0dp">
 
     </ListView>
     <LinearLayout
@@ -27,12 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Not Published"
+            style="@style/questionHeading"
             android:gravity="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/quiz_not_published_textview"
+            style="@style/questionHeading"
             android:gravity="center"/>
 
     </LinearLayout>
@@ -41,17 +46,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_corners"
             android:id="@+id/mod_new_quiz_name_edittext"
             android:hint="Type New Quiz name and Go"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_corners"
             android:id="@+id/go_create_new_quiz_button"
             android:text="go"/>
 
