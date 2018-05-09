@@ -69,3 +69,4 @@ public class QuizListAdapter extends BaseAdapter {
         return convertView;
     }
 }
+
