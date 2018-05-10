@@ -55,11 +55,12 @@ public class QuestionListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // the read write option to check whether the buttons AddNewQuiz and Publish
         // to remain active or not
+        // 0 to write operation
         int readWrite = intent.getIntExtra("readWrite",0);
         final String channelId = intent.getStringExtra("channelId");
         quizId = intent.getStringExtra("quizId");
         final String quizName = intent.getStringExtra("quizName");
-//        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
+        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
@@ -144,7 +145,8 @@ public class QuestionListActivity extends AppCompatActivity {
 //                        Toast.makeText(QuestionListActivity.this," Yes"+channelId+":"+quizId+" : "+quizName+" : "+user.getUid().toString(),Toast.LENGTH_SHORT).show();
                             String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                             AppInfo.databaseReference.child("ChannelQuiz")
-                                    .child(channelId).child(quizId)
+                                    .child(channelId)
+                                    .child(quizId)
                                     .setValue(new LessonQuizModel(quizName,currentDateTimeString))
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
