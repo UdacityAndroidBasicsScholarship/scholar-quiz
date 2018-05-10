@@ -133,46 +133,51 @@ public class QuestionListActivity extends AppCompatActivity {
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                alertBuilder = new AlertDialog.Builder(QuestionListActivity.this);
-                alertBuilder.setTitle("Publishing Quiz");
-                alertBuilder.setMessage("Do you really want to bublish the quiz for now");
-                alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(!questionListModels.isEmpty()){
+                    alertBuilder = new AlertDialog.Builder(QuestionListActivity.this);
+                    alertBuilder.setTitle("Publishing Quiz");
+                    alertBuilder.setMessage("Do you really want to bublish the quiz for now");
+                    alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //                        Toast.makeText(QuestionListActivity.this," Yes"+channelId+":"+quizId+" : "+quizName+" : "+user.getUid().toString(),Toast.LENGTH_SHORT).show();
-                        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                        AppInfo.databaseReference.child("ChannelQuiz")
-                                .child(channelId).child(quizId)
-                                .setValue(new LessonQuizModel(quizName,currentDateTimeString))
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(QuestionListActivity.this,"Quiz Published Succesfully",Toast.LENGTH_SHORT).show();
-                                            adapter.clear();
-                                            sharedPreferenceConfig.writePublishedOrNot(true);
-                                            sharedPreferenceConfig.writeNewQuizName(null);
-                                            finish();
+                            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                            AppInfo.databaseReference.child("ChannelQuiz")
+                                    .child(channelId).child(quizId)
+                                    .setValue(new LessonQuizModel(quizName,currentDateTimeString))
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(QuestionListActivity.this,"Quiz Published Succesfully",Toast.LENGTH_SHORT).show();
+                                                adapter.clear();
+                                                sharedPreferenceConfig.writePublishedOrNot(true);
+                                                sharedPreferenceConfig.writeNewQuizName(null);
+                                                finish();
+                                            }
+                                            else {
+                                                Toast.makeText(QuestionListActivity.this,"Quiz Not Published",Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                        else {
-                                            Toast.makeText(QuestionListActivity.this,"Quiz Not Published",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                        dialogInterface.dismiss();
-                    }
-                });
-                alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(QuestionListActivity.this," NO",Toast.LENGTH_SHORT).show();
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = alertBuilder.create();
-                alertDialog.show();
+                                    });
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(QuestionListActivity.this," NO",Toast.LENGTH_SHORT).show();
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = alertBuilder.create();
+                    alertDialog.show();
+                }else {
+                    Toast.makeText(QuestionListActivity.this," No Question Added. Can not be published",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
