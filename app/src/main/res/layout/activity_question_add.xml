@@ -1,64 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Moderator.Question.QuestionAddActivity"
-    android:orientation="vertical">
+    android:background="#ffffb3"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context=".ui.Moderator.Question.QuestionAddActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/activity_horizontal_margin">
+
         <TextView
+            android:id="@+id/mod_add_question_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mod_add_question_no"
-            android:text="1. "/>
+            android:text="1. "
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <EditText
+            android:id="@+id/mod_add_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/mod_add_question"
-            android:hint="Type your question Here"/>
+            android:hint="Type your question Here"
+            android:paddingStart="10dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/mod_add_option1"
-            android:hint="1st Option"/>
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="1st Option" />
+
+        <EditText
             android:id="@+id/mod_add_option2"
-            android:hint="2nd Option"/>
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="2nd Option" />
+
+        <EditText
             android:id="@+id/mod_add_option3"
-            android:hint="3rd Option"/>
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="3rd Option" />
+
+        <EditText
             android:id="@+id/mod_add_option4"
-            android:hint="4th Option"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="4th Option" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Answer "/>
+            android:text="Answer " />
+
         <Spinner
             android:id="@+id/mod_answer_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:popupBackground="@color/colorPrimaryDark"
+           >
 
         </Spinner>
 
@@ -68,18 +92,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:id="@+id/mod_question_save"
-            android:text="save"/>
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_design"
+            android:backgroundTint="@color/colorAccent_2"
+            android:text="save" />
+
+        <Button
             android:id="@+id/mod_add_exit"
-            android:text="exit"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_design"
+            android:backgroundTint="@color/colorAccent_2"
+            android:text="exit" />
     </LinearLayout>
 
 </LinearLayout>

@@ -32,6 +32,10 @@
     <string name="forgotEmptyfield1">Note: Please enter your E-mail and Slack Ids.</string>
     <string name="forgotEmptyfield2">Note: Please enter your E-mail Id also.</string>
     <string name="forgotEmptyfield3">Note: Please enter your Slack Id also.</string>
+    <string name="already_published">Already Published</string>
+    <string name="not_published">Not Published</string>
+    <string name="type_new_quiz_name_and_go">Type New Quiz name and Go</string>
+    <string name="go">go</string>
     <string-array name="mod_correct_answer">
         <item>1</item>
         <item>2</item>

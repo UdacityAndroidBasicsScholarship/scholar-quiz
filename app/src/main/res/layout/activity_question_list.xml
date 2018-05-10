@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.Moderator.Question.QuestionListActivity">
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context=".ui.Moderator.Question.QuestionListActivity"
+    android:background="#ffffb3">
+
     <ListView
+        android:id="@+id/mod_quiz_question_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:id="@+id/mod_quiz_question_listview">
+        android:layout_weight="9">
 
     </ListView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <Button
+            android:id="@+id/mod_question_list_add_new_question"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:id="@+id/mod_question_list_add_new_question"
-            android:text="Add New Question"/>
+            android:background="@drawable/button_design"
+            android:backgroundTint="@color/colorAccent_2"
+            android:text="Add New Question" />
+
         <Button
+            android:id="@+id/mod_quiz_publish"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/mod_quiz_publish"
-            android:text="publish"/>
+            android:background="@drawable/button_design"
+
+            android:backgroundTint="@color/colorAccent_2"
+            android:text="publish" />
 
     </LinearLayout>
 

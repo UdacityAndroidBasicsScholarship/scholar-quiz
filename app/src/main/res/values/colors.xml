@@ -6,4 +6,6 @@
     <color name="colorHeading">#000000</color>
     <color name="colordarkgrey">#A9A9A9</color>
     <color name="colorPrimaryDark_1">#ffc400</color>
+    <color name="colorAccent_2">#ee4580</color>
+    <color name="lightYellow">#ffed5b</color>
 </resources>

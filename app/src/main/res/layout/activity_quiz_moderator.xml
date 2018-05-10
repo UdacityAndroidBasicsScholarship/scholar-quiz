@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.Moderator.QuizModeratorActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Already Published"
-        android:gravity="center"/>
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="@string/already_published"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <ListView
+        android:id="@+id/moderator_lesson_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
-        android:id="@+id/moderator_lesson_list">
+        android:layout_weight="7">
 
     </ListView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Not Published"
-            android:gravity="center"/>
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:text="@string/not_published"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/quiz_not_published_textview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/quiz_not_published_textview"
-            android:gravity="center"/>
+            android:gravity="center" />
 
     </LinearLayout>
 
@@ -42,18 +57,26 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <EditText
+            android:id="@+id/mod_new_quiz_name_edittext"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:id="@+id/mod_new_quiz_name_edittext"
-            android:hint="Type New Quiz name and Go"/>
+            android:layout_weight="3"
+            android:background="@drawable/edittextdesign"
+            android:backgroundTint="@color/lightYellow"
+            android:hint="@string/type_new_quiz_name_and_go"
+            android:paddingStart="10dp" />
+
         <Button
+            android:id="@+id/go_create_new_quiz_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/go_create_new_quiz_button"
-            android:text="go"/>
+            android:background="@drawable/button_design"
+            android:backgroundTint="@color/colorAccent_2"
+            android:baselineAligned="false"
+            android:text="@string/go" />
 
     </LinearLayout>
 </LinearLayout>
