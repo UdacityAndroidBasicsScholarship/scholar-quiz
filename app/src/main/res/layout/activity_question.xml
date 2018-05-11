@@ -107,18 +107,18 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="0"
-        android:progressDrawable="@drawable/progress_bar_black"
-        android:secondaryProgress="100"
-        android:id="@+id/tv_timer_question"
-        android:gravity="center"
-        android:padding="10dp" />
+    <!--<ProgressBar-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:indeterminate="false"-->
+        <!--android:max="100"-->
+        <!--android:progress="0"-->
+        <!--android:progressDrawable="@drawable/progress_bar_black"-->
+        <!--android:secondaryProgress="100"-->
+        <!--android:id="@+id/tv_timer_question"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="10dp" />-->
 
     <TextView
         android:id="@+id/tv_next_question"

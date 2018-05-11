@@ -10,6 +10,8 @@ public class QuizModel {
     public String option4;
     public int answerOption;
 
+    public int userOption;
+
     public QuizModel(){
 
     }
@@ -58,4 +60,11 @@ public class QuizModel {
         this.questionNo = questionNo;
     }
 
+    public int getUserOption() {
+        return userOption;
+    }
+
+    public void setUserOption(int userOption) {
+        this.userOption = userOption;
+    }
 }

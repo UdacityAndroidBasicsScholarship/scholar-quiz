@@ -144,6 +144,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                         // store the quizid in shared preference till published.
                         // go to another activity to create question and answer.
                         Intent intent = new Intent(QuizModeratorActivity.this,QuestionListActivity.class);
+                        intent.putExtra("channelId",channelId);
                         intent.putExtra("quizId",quizId);
                         intent.putExtra("quizName",quizName);
                         startActivity(intent);

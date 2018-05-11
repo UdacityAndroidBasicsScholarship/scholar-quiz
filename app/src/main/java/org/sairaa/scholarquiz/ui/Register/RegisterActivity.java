@@ -161,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity
                 if(task.isSuccessful()){
                     String udid = task.getResult().getUser().getUid();
                     String email = task.getResult().getUser().getEmail();
-                    AppInfo.firebaseAuth.signOut();
+//                    AppInfo.firebaseAuth.signOut();
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     RegisterModel registerModel = new RegisterModel(slackId.getText().toString().trim(),
                             name.getText().toString().trim(),email,currentDateTimeString);
