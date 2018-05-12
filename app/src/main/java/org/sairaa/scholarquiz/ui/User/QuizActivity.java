@@ -22,6 +22,8 @@ import org.sairaa.scholarquiz.model.QuizModel;
 import org.sairaa.scholarquiz.model.UserAttemptedModel;
 import org.sairaa.scholarquiz.ui.attemptedquiz.AttemptedQuizActivity;
 import org.sairaa.scholarquiz.ui.quiz.QuestionActivity;
+import org.sairaa.scholarquiz.util.CheckConnection;
+import org.sairaa.scholarquiz.util.DialogAction;
 import org.sairaa.scholarquiz.util.Question_Utility;
 
 import java.util.ArrayList;
@@ -44,10 +46,16 @@ public class QuizActivity extends AppCompatActivity {
 
     String channelId;
 
+    public CheckConnection connection;
+    public DialogAction dialogAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        connection = new CheckConnection(QuizActivity.this);
+        dialogAction = new DialogAction(QuizActivity.this);
 
         ButterKnife.bind(this);
         Intent intent = getIntent();
@@ -58,7 +66,12 @@ public class QuizActivity extends AppCompatActivity {
 //        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
 //        fetchChannelName(channelId);
-        fetchQuizs(channelId);
+        if(connection.isConnected()){
+            fetchQuizs(channelId);
+        }else {
+            Toast.makeText(QuizActivity.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
+        }
+
 
     }
 

@@ -24,33 +24,24 @@
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="false">
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:background="@drawable/round_gradient">
 
                 <TextView
                     android:id="@+id/moderator_quiz_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:text="Quiz 1"
                     android:fontFamily="@font/google_sans_bold"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/google_sans"
-                    android:text="No of questions"
-                    android:textSize="20sp"/>
-            </RelativeLayout>
+
+            </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
 

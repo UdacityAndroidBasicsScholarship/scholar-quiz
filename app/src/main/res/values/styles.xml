@@ -60,5 +60,33 @@
     <style name="questionPart">
         <item name="android:fontFamily">@font/google_sans</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+    <style name="channelStyle">
+        <item name="android:fontFamily">@font/google_sans_bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorHeading</item>
+    </style>
+    <style name="quizStyle">
+        <item name="android:fontFamily">@font/google_sans_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorHeading</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+    <style name="quizStatusStyle">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+    <style name="quizScoreStyle">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/holo_green_dark</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 </resources>

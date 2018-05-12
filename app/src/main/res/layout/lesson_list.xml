@@ -22,20 +22,17 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_lightbulb"
             android:id="@+id/bulb_icon"
             android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:text="Lesson 1"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            style="@style/questionHeading"
-            android:id="@+id/lesson_name"
-            android:layout_marginLeft="20dp"/>
+            style="@style/channelStyle"
+            android:id="@+id/lesson_name" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -47,7 +44,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:src="@drawable/checkbox_marked_circle"
             android:id="@+id/subscribe_nevigation"
             android:gravity="center"/>

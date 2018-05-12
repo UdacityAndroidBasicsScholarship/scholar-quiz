@@ -55,8 +55,44 @@ public class AttemptedQuizAdapter extends BaseAdapter {
         TextView userAnswerTextView = convertView.findViewById(R.id.attemped_useranswer);
 
         questionTextView.setText(quizModel.getQuestion());
-        answerTextView.setText("answer: ->" +getOptionString(i,quizModel.getAnswerOption()));
-        userAnswerTextView.setText("your choice: ->"+getOptionString(i,quizModel.getUserOption()));
+        int rightAnswer = Integer.parseInt(String.valueOf(quizModel.getAnswerOption()));
+        switch (rightAnswer){
+            case 1:
+                answerTextView.setText("Correct Answer : "+quizModel.getOption1());
+                break;
+            case 2:
+                answerTextView.setText("Correct Answer : "+quizModel.getOption2());
+                break;
+            case 3:
+                answerTextView.setText("Correct Answer : "+quizModel.getOption3());
+                break;
+            case 4:
+                answerTextView.setText("Correct Answer : "+quizModel.getOption4());
+                break;
+            default:
+                answerTextView.setText("Correct Answer : "+"not Attempted");
+        }
+//        answerTextView.setText("answer: ->" +getOptionString(i,quizModel.getAnswerOption()));
+//        answerTextView.setText(quizModel.getAnswerOption());
+        int userOption = Integer.parseInt(String.valueOf(quizModel.getUserOption()));
+        switch (userOption){
+            case 1:
+                userAnswerTextView.setText("Your Choice : "+quizModel.getOption1());
+                break;
+            case 2:
+                userAnswerTextView.setText("Your Choice : "+quizModel.getOption2());
+                break;
+            case 3:
+                userAnswerTextView.setText("Your Choice : "+quizModel.getOption3());
+                break;
+            case 4:
+                userAnswerTextView.setText("Your Choice : "+quizModel.getOption4());
+                break;
+            default:
+                userAnswerTextView.setText("Your Choice : Not answered");
+        }
+//        answerTextView.setText("answer: ->" +getOptionString(i,quizModel.getAnswerOption()));
+//        userAnswerTextView.setText("your choice: ->"+getOptionString(i,quizModel.getUserOption()));
 
         return convertView;
     }
