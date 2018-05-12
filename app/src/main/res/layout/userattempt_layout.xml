@@ -2,32 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="15dp"
+    android:gravity="left">
 
     <TextView
         android:id="@+id/attemped_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        style="@style/questionHeading"
+        android:textColor="@color/colorHeading"
+        android:layout_margin="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quiz_name"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
+        style="@style/questionPart"
+        android:layout_margin="5dp"
         android:id="@+id/attemped_answer"
-        android:textSize="20sp"
-        android:textColor="#00f1dd"
+        android:textColor="@android:color/holo_green_dark"
         android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textSize="20sp"
+        style="@style/questionPart"
+        android:layout_margin="5dp"
         android:id="@+id/attemped_useranswer"/>
 </LinearLayout>

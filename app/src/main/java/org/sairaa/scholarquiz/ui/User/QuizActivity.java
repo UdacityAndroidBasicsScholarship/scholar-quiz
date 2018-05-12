@@ -61,7 +61,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent intent = getIntent();
         channelId = intent.getStringExtra("channelId");
 
-        Toast.makeText(QuizActivity.this,"User Page "+channelId,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(QuizActivity.this,"User Page "+channelId,Toast.LENGTH_SHORT).show();
 
 //        mFirebaseDatabase = FirebaseDatabase.getInstance();
 

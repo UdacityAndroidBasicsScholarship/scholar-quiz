@@ -245,7 +245,7 @@ public class QuestionActivity extends AppCompatActivity {
             totalCorrectAnswer++;
             increaseCountOnFirebase(totalCorrectAnswer);
         }
-        listTextView.get(userOption-1).setBackgroundColor(Color.RED);
+        listTextView.get(userOption-1).setBackgroundColor(Color.GREEN);
     }
 
     AlertDialog.Builder builder;

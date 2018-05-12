@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -153,6 +154,7 @@ public class LessonActivity extends AppCompatActivity{
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -160,6 +162,7 @@ public class LessonActivity extends AppCompatActivity{
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
+
                         // close drawer when item is tapped
                         drawerLayout.closeDrawers();
                         switch (menuItem.getItemId()){
@@ -174,10 +177,10 @@ public class LessonActivity extends AppCompatActivity{
                             case R.id.subscribe_nav:
                                 startActivity(new Intent(LessonActivity.this,SubscribeActivity.class));
                                 break;
-                            case R.id.score_nav:
-                                //insertLesson();
-                                //displayDatabaseInfo();
-                                break;
+//                            case R.id.score_nav:
+//                                //insertLesson();
+//                                //displayDatabaseInfo();
+//                                break;
                             case R.id.admin:
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if(user.getEmail().equals("udacity123@gmail.com") || user.getEmail().equals("akshit@udacity.com") ){
