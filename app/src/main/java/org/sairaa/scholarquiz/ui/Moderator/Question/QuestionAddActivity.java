@@ -22,6 +22,7 @@ import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.model.QuestionAnswerModel;
 import org.sairaa.scholarquiz.ui.Register.RegisterActivity;
+import org.sairaa.scholarquiz.util.CheckConnection;
 
 public class QuestionAddActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -34,10 +35,13 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
     private int questionNumber;
 
     AlertDialog.Builder alertBuilder;
+    CheckConnection connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_add);
+
+        connection = new CheckConnection(QuestionAddActivity.this);
 
         questionNo = findViewById(R.id.mod_add_question_no);
         question = findViewById(R.id.mod_add_question);
@@ -115,22 +119,27 @@ public class QuestionAddActivity extends AppCompatActivity implements View.OnCli
                     AlertDialog alertDialog = alertBuilder.create();
                     alertDialog.show();
                 }else{
-                    AppInfo.databaseReference.child("Quiz").child(quizId).child(questionNo.getText().toString())
-                            .setValue(new QuestionAnswerModel(question.getText().toString().trim(),
-                                    option1.getText().toString().trim(),
-                                    option2.getText().toString().trim(),
-                                    option3.getText().toString().trim(),
-                                    option4.getText().toString().trim(),
-                                    Integer.parseInt(answer))).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(QuestionAddActivity.this,""+answer+" number of question saved",Toast.LENGTH_SHORT).show();
+                    if(connection.isConnected()){
+                        AppInfo.databaseReference.child("Quiz").child(quizId).child(questionNo.getText().toString())
+                                .setValue(new QuestionAnswerModel(question.getText().toString().trim(),
+                                        option1.getText().toString().trim(),
+                                        option2.getText().toString().trim(),
+                                        option3.getText().toString().trim(),
+                                        option4.getText().toString().trim(),
+                                        Integer.parseInt(answer))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(QuestionAddActivity.this,"Question Saved Successfully",Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
 //                    Toast.makeText(QuestionAddActivity.this," an: "+answer,Toast.LENGTH_SHORT).show();
-                    finish();
+                        finish();
+                    }else{
+                        Toast.makeText(QuestionAddActivity.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
                 break;

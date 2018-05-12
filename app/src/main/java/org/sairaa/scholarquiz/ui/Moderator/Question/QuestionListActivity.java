@@ -27,7 +27,10 @@ import org.sairaa.scholarquiz.SharedPreferenceConfig;
 import org.sairaa.scholarquiz.model.LessonQuizModel;
 import org.sairaa.scholarquiz.model.QuestionAnswerModel;
 import org.sairaa.scholarquiz.model.QuizModel;
+import org.sairaa.scholarquiz.ui.Lesson.LessonActivity;
 import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
+import org.sairaa.scholarquiz.util.CheckConnection;
+import org.sairaa.scholarquiz.util.DialogAction;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -47,10 +50,16 @@ public class QuestionListActivity extends AppCompatActivity {
 
     AlertDialog.Builder alertBuilder;
 
+    public CheckConnection connection;
+    public DialogAction dialogAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_list);
+
+        connection = new CheckConnection(QuestionListActivity.this);
+        dialogAction = new DialogAction(QuestionListActivity.this);
 
         Intent intent = getIntent();
         // the read write option to check whether the buttons AddNewQuiz and Publish
@@ -60,7 +69,7 @@ public class QuestionListActivity extends AppCompatActivity {
         final String channelId = intent.getStringExtra("channelId");
         quizId = intent.getStringExtra("quizId");
         final String quizName = intent.getStringExtra("quizName");
-        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
@@ -169,7 +178,7 @@ public class QuestionListActivity extends AppCompatActivity {
                     alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(QuestionListActivity.this," NO",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(QuestionListActivity.this," NO",Toast.LENGTH_SHORT).show();
                             dialogInterface.dismiss();
                         }
                     });
@@ -189,6 +198,12 @@ public class QuestionListActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        dialogAction.hideDialog();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         adapter.clear();
@@ -198,9 +213,15 @@ public class QuestionListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.clear();
-        addQuestionToList();
-        adapter.notifyDataSetChanged();
-        Toast.makeText(QuestionListActivity.this,"onResume question",Toast.LENGTH_SHORT).show();
+        if(connection.isConnected()){
+            dialogAction.showDialog("","Fatching Questions");
+            addQuestionToList();
+            adapter.notifyDataSetChanged();
+        }else {
+            Toast.makeText(QuestionListActivity.this,"Check Your Internet Connection",Toast.LENGTH_LONG).show();
+        }
+
+//        Toast.makeText(QuestionListActivity.this,"onResume question",Toast.LENGTH_SHORT).show();
     }
 
     private void addQuestionToList() {
@@ -219,7 +240,7 @@ public class QuestionListActivity extends AppCompatActivity {
 //                    QuestionAnswerModel qModel = questionListSnapshot.getValue(QuestionAnswerModel.class);
 //                    Toast.makeText(QuestionListActivity.this,"quiz "+qModel.getQuestion(),Toast.LENGTH_SHORT).show();
                 }
-
+                dialogAction.hideDialog();
             }
 
             @Override

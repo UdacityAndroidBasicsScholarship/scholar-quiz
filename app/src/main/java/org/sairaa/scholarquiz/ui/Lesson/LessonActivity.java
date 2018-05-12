@@ -1,6 +1,8 @@
 package org.sairaa.scholarquiz.ui.Lesson;
 
+import android.app.Activity;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -43,11 +45,13 @@ import org.sairaa.scholarquiz.data.QuizDbHelper;
 import org.sairaa.scholarquiz.data.QuizContract.*;
 import org.sairaa.scholarquiz.model.LessonListModel;
 import org.sairaa.scholarquiz.ui.Login.LoginActivity;
+import org.sairaa.scholarquiz.util.CheckConnection;
+import org.sairaa.scholarquiz.util.DialogAction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class LessonActivity extends AppCompatActivity{
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbarr;
@@ -63,6 +67,9 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessageDatabaseReferance;
     private ChildEventListener mChildEventListener;
+    ProgressDialog progressDialog;
+    public CheckConnection connection;
+    public DialogAction dialogAction;
 
     LessonCursorAdapter adapter;
 
@@ -83,28 +90,30 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
 
 
 //        Attach all subscribed channel to adapter
-        if(isNetworkAvailable(LessonActivity.this)){
+        if(connection.isConnected()){
+            dialogAction.showDialog("Fatching","Subscribed Channels");
             attachSubscribedLessonListListner();
         }else{
             Toast.makeText(LessonActivity.this,"Check Your Internet Connection",Toast.LENGTH_LONG).show();
+//            hideDialog();
         }
 
     }
 
-    public static boolean isNetworkAvailable(Context con) {
-        try {
-            ConnectivityManager cm = (ConnectivityManager) con
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-            if (networkInfo != null && networkInfo.isConnected()) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public static boolean isNetworkAvailable(Context con) {
+//        try {
+//            ConnectivityManager cm = (ConnectivityManager) con
+//                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+//            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+//
+//            if (networkInfo != null && networkInfo.isConnected()) {
+//                return true;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
     @Override
     protected void onPause() {
@@ -115,14 +124,18 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     protected void onDestroy() {
+        dialogAction.hideDialog();
         super.onDestroy();
-        Toast.makeText(LessonActivity.this,"On destroy",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LessonActivity.this,"On destroy",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson);
+
+        connection = new CheckConnection(LessonActivity.this);
+        dialogAction = new DialogAction(LessonActivity.this);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -219,7 +232,7 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
         adapterList.clear();
         // kick off the loader
 //        getLoaderManager().initLoader(LESSON_LOADER,null,this);
-        Toast.makeText(LessonActivity.this,"On Create",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LessonActivity.this,"On Create",Toast.LENGTH_SHORT).show();
         //attachSubscribedLessonListListner();
     }
 
@@ -255,13 +268,17 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
                                         }
                                     });
                         }
+                        dialogAction.hideDialog();
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
+
+
                 });
+//        hideDialog();
     }
 
 //    private String getModeratorNameFromUserDatabase(String moderatorName) {
@@ -292,35 +309,49 @@ public class LessonActivity extends AppCompatActivity implements LoaderManager.L
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String[] projection ={
-                subscriptionEntry._ID,
-                subscriptionEntry.S_ID,
-                subscriptionEntry.L_ID,
-                subscriptionEntry.L_NAME,
-                subscriptionEntry.TIME_STAMP
+//    public void showDialog() {
+////        Toast.makeText(LessonActivity.this,"On Resume",Toast.LENGTH_SHORT).show();
+//        progressDialog = ProgressDialog.show(LessonActivity.this, "Fatching ", "Subscribed Channel..Please wait..", true, false);
+//    }
+//
+//    public void hideDialog() {
+//
+//        if(progressDialog != null) {
+//            progressDialog.dismiss();
+//            progressDialog = null;
+//        }
+//    }
 
-        };
-        return new CursorLoader(this,subscriptionEntry.CONTENT_URI_SUBSCRIBE,
-                projection,
-                null,
-                null,
-                null);
 
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
-        adapter.swapCursor(cursor);
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-        adapter.swapCursor(null);
-
-    }
+//    @Override
+//    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+//        String[] projection ={
+//                subscriptionEntry._ID,
+//                subscriptionEntry.S_ID,
+//                subscriptionEntry.L_ID,
+//                subscriptionEntry.L_NAME,
+//                subscriptionEntry.TIME_STAMP
+//
+//        };
+//        return new CursorLoader(this,subscriptionEntry.CONTENT_URI_SUBSCRIBE,
+//                projection,
+//                null,
+//                null,
+//                null);
+//
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+//
+//        adapter.swapCursor(cursor);
+//
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<Cursor> loader) {
+//
+//        adapter.swapCursor(null);
+//
+//    }
 }

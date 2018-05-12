@@ -35,6 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
 import org.sairaa.scholarquiz.model.LessonListModel;
+import org.sairaa.scholarquiz.ui.Lesson.LessonActivity;
+import org.sairaa.scholarquiz.util.CheckConnection;
+import org.sairaa.scholarquiz.util.DialogAction;
 
 public class SubscribeActivity extends AppCompatActivity {
 
@@ -50,14 +53,24 @@ public class SubscribeActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessageDatabaseReferance;
     private ChildEventListener mChildEventListener;
+    public CheckConnection connection;
+    public DialogAction dialogAction;
 
     String channelExist = "N";
 
 
     @Override
+    protected void onDestroy() {
+        dialogAction.hideDialog();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
+        connection = new CheckConnection(SubscribeActivity.this);
+        dialogAction = new DialogAction(SubscribeActivity.this);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -75,7 +88,13 @@ public class SubscribeActivity extends AppCompatActivity {
         lessonListView.setAdapter(adapter);
 
         //attachDatabaseListner();
-        attachToBeSubscribedChannelListner();
+        if(connection.isConnected()){
+            dialogAction.showDialog("Fatching","Unsubscribed Channels");
+            attachToBeSubscribedChannelListner();
+        }else {
+            Toast.makeText(SubscribeActivity.this,"Check Your Internet Connection",Toast.LENGTH_LONG).show();
+        }
+
 
 
 
@@ -158,7 +177,7 @@ public class SubscribeActivity extends AppCompatActivity {
                                         }
                                     });
                         }
-
+                        dialogAction.hideDialog();
                     }
 
                     @Override

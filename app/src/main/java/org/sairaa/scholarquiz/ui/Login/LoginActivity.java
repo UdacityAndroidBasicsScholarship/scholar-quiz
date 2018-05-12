@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoginMVPView {
         if(AppInfo.firebaseAuth.getCurrentUser() != null){
             finish();
             startActivity(new Intent(LoginActivity.this, LessonActivity.class));
-            Toast.makeText(LoginActivity.this, "firebase", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "firebase", Toast.LENGTH_SHORT).show();
         }
 
 
