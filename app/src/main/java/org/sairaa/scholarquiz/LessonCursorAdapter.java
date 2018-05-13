@@ -19,7 +19,7 @@ public class LessonCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
 
-        return LayoutInflater.from(context).inflate(R.layout.subscrived_lesson_list, parent,false);
+        return LayoutInflater.from(context).inflate(R.layout.subscribed_lesson_list, parent,false);
 
 
     }

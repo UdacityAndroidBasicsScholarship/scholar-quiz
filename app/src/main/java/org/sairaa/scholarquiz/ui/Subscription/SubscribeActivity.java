@@ -7,14 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,15 +31,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.R;
+import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
 import org.sairaa.scholarquiz.data.QuizDbHelper;
+import org.sairaa.scholarquiz.model.LessonListModel;
+import org.sairaa.scholarquiz.util.CheckConnection;
+import org.sairaa.scholarquiz.util.DialogAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
-import org.sairaa.scholarquiz.model.LessonListModel;
-import org.sairaa.scholarquiz.ui.Lesson.LessonActivity;
-import org.sairaa.scholarquiz.util.CheckConnection;
-import org.sairaa.scholarquiz.util.DialogAction;
 
 public class SubscribeActivity extends AppCompatActivity {
 
@@ -53,6 +54,7 @@ public class SubscribeActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessageDatabaseReferance;
     private ChildEventListener mChildEventListener;
+    private Toolbar mToolbarSubscribe;
     public CheckConnection connection;
     public DialogAction dialogAction;
 
@@ -71,6 +73,15 @@ public class SubscribeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_subscribe);
         connection = new CheckConnection(SubscribeActivity.this);
         dialogAction = new DialogAction(SubscribeActivity.this);
+
+        // toolbar
+        mToolbarSubscribe = (Toolbar)findViewById(R.id.toolbar_subs);
+        setSupportActionBar(mToolbarSubscribe);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -357,4 +368,14 @@ public class SubscribeActivity extends AppCompatActivity {
 //    public void onLoaderReset(Loader<List<LessonInfo>> loader) {
 //
 //    }
+// connecting toolbar to menu item to return home
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+    }
+    return super.onOptionsItemSelected(item);
+}
 }
