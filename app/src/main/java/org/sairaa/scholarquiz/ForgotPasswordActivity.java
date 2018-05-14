@@ -28,19 +28,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     EditText forgotEmail_Edittext;
 
 
-    private boolean checkEmptyField(){
-
-        return forgotEmail_Edittext.getText().toString().trim().isEmpty() ? true : false;
-
-    }
-
     final ButterKnife.Action<View> EMPTY_FIELD = new ButterKnife.Action<View>() {
-        @Override public void apply(View view, int index) {
+        @Override
+        public void apply(View view, int index) {
 
             Toast.makeText(ForgotPasswordActivity.this, "Enter email", Toast.LENGTH_LONG).show();
             forgotEmail_Edittext.setError("enter email");
         }
     };
+
+    private boolean checkEmptyField() {
+
+        return forgotEmail_Edittext.getText().toString().trim().isEmpty() ? true : false;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +53,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     }
 
-
     @OnClick(R.id.forgot_pwd_submit)
-    public void forgotButton_Onclick(View view){
+    public void forgotButton_Onclick(View view) {
 
-        if(checkEmptyField()){
+        if (checkEmptyField()) {
 
             ButterKnife.apply(forgotEmail_Edittext, EMPTY_FIELD);
         } else {
@@ -64,13 +64,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
     }
 
-    private void forgetEmail(String email){
+    private void forgetEmail(String email) {
 
         AppInfo.firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     Toast.makeText(ForgotPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_LONG).show();
                     finish();

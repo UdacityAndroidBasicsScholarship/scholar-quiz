@@ -17,22 +17,15 @@ import org.sairaa.scholarquiz.ui.Lesson.LessonActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
 public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
-    private final String LOGIN_URL = "http://sairaa.org/ScholarQuiz/login.php";
-    private final String REGISTER_URL = "http://sairaa.org/ScholarQuiz/register_test.php";
 
     private final String LOG_BACKGROUNDLOGINTASK = "BackgroundLoginTask";
 
@@ -42,9 +35,10 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
     Activity activity;
     ProgressDialog progressDialog;
     AlertDialog.Builder alertBuilder;
+
     public BackgroundLoginTask(Context ctx) {
         this.context = ctx;
-        activity = (Activity)ctx;
+        activity = (Activity) ctx;
     }
 
     @Override
@@ -63,28 +57,24 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String method = params[0];
 
-        if(method.equals("register")){
+        if (method.equals("register")) {
             try {
-                URL register_url = new URL(REGISTER_URL);
+                URL register_url = new URL("http://sairaa.org/ScholarQuiz/register_test.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) register_url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
                 String name = params[1];
                 String email = params[2];
                 String slack = params[3];
                 String password = params[4];
                 String info = params[5];
-                Log.i("background",info);
-                String data = URLEncoder.encode("user_name", "UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
-                        URLEncoder.encode("mail_id", "UTF-8")+"="+URLEncoder.encode(email,"UTF-8")+"&"+
-                        URLEncoder.encode("slack_id", "UTF-8")+"="+URLEncoder.encode(slack,"UTF-8")+"&"+
-                        URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"+
-                        URLEncoder.encode("info", "UTF-8")+"="+URLEncoder.encode(info,"UTF-8");
+                Log.i("background", info);
+                String data = URLEncoder.encode("user_name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8") + "&" + URLEncoder.encode("mail_id", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") + "&" + URLEncoder.encode("slack_id", "UTF-8") + "=" + URLEncoder.encode(slack, "UTF-8") + "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") + "&" + URLEncoder.encode("info", "UTF-8") + "=" + URLEncoder.encode(info, "UTF-8");
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
@@ -95,38 +85,32 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
                 StringBuilder stringBuilder = new StringBuilder();
                 String line = "";
 
-                while((line = bufferedReader.readLine())!= null){
-                    stringBuilder.append(line+"\n");
-                    Log.i("background",line);
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                    Log.i("background", line);
                 }
                 httpURLConnection.disconnect();
                 return stringBuilder.toString().trim();
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e){
-                e.printStackTrace();
-
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else if(method.equals("login")){
+        } else if (method.equals("login")) {
             try {
-                URL register_url = new URL(LOGIN_URL);
+                URL register_url = new URL("http://sairaa.org/ScholarQuiz/login.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) register_url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String email =params[1];
+                String email = params[1];
                 String password = params[2];
-                Log.i(LOG_BACKGROUNDLOGINTASK,email);
+                Log.i(LOG_BACKGROUNDLOGINTASK, email);
 
-                String data = URLEncoder.encode("mail_id", "UTF-8")+"="+URLEncoder.encode(email,"UTF-8")+"&"+
-                        URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password,"UTF-8");
+                String data = URLEncoder.encode("mail_id", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") + "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
@@ -137,20 +121,14 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
                 StringBuilder stringBuilder = new StringBuilder();
                 String line = "";
 
-                while((line = bufferedReader.readLine())!= null){
-                    stringBuilder.append(line+"\n");
-                    Log.i("background",line);
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                    Log.i("background", line);
                 }
                 httpURLConnection.disconnect();
                 return stringBuilder.toString().trim();
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -173,21 +151,21 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
             String code = object.getString("code");
             String message = object.getString("message");
 
-            if(code.equals("reg_true")){
-                showDialog("Registration Successfull",message,code);
-            }else if(code.equals("reg_false")){
-                showDialog("Registration Failed",message,code);
-            }else if(code.equals("login_true")){
+            if (code.equals("reg_true")) {
+                showDialog("Registration Successfull", message, code);
+            } else if (code.equals("reg_false")) {
+                showDialog("Registration Failed", message, code);
+            } else if (code.equals("login_true")) {
 
-                Intent intent = new Intent(activity,LessonActivity.class);
-                intent.putExtra("message",message);
+                Intent intent = new Intent(activity, LessonActivity.class);
+                intent.putExtra("message", message);
                 activity.startActivity(intent);
                 sharedPreferenceConfig = new SharedPreferenceConfig(activity);
                 sharedPreferenceConfig.writeLoginStatus(true);
                 activity.finish();
 
-            }else if(code.equals("login_false")){
-                showDialog("Error in Login",message,code);
+            } else if (code.equals("login_false")) {
+                showDialog("Error in Login", message, code);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -199,7 +177,7 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
 
         alertBuilder.setTitle(result_message);
         alertBuilder.setMessage(message);
-        if(code.equals("reg_true")||code.equals("reg_false")){
+        if (code.equals("reg_true") || code.equals("reg_false")) {
             alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -209,7 +187,7 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
             });
 
 
-        }else if (code.equals("login_false")){
+        } else if (code.equals("login_false")) {
             alertBuilder.setMessage(message);
             alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
@@ -221,7 +199,6 @@ public class BackgroundLoginTask extends AsyncTask<String, Void, String> {
                     dialogInterface.dismiss();
                 }
             });
-
 
 
         }

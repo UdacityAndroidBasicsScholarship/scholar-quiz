@@ -8,18 +8,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+
 import org.sairaa.scholarquiz.data.QuizContract.subscriptionEntry;
 
 public class LessonCursorAdapter extends CursorAdapter {
     public LessonCursorAdapter(Context context, Cursor c) {
-        super(context, c, 0 );
+        super(context, c, 0);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
 
-        return LayoutInflater.from(context).inflate(R.layout.subscribed_lesson_list, parent,false);
+        return LayoutInflater.from(context).inflate(R.layout.subscribed_lesson_list, parent, false);
 
 
     }
