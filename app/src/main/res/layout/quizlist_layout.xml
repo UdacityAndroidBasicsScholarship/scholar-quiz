@@ -26,7 +26,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="0.8"
                 android:gravity="center"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_lightbulb"
                 android:layout_marginBottom="4dp"/>
 
@@ -59,7 +59,8 @@
                 android:layout_weight="0.8"
                 android:gravity="center"
                 android:src="@drawable/lead_pencil"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="16dp"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

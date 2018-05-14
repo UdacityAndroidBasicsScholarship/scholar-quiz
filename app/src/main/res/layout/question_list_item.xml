@@ -14,100 +14,113 @@
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
-    <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-        android:background="@android:color/black"
+            android:background="@android:color/black"
             android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimaryDark">
-        <android.support.v7.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            android:background="@android:color/black">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@android:color/background_dark"
-                android:padding="5dp"
-                android:layout_gravity="start"
-                android:textAlignment="center"
-                android:id="@+id/mod_question_no"
-                style="@style/questionHeading" />
+                android:orientation="horizontal"
+                android:background="@color/colorPrimaryDark">
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    android:background="@android:color/black">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/background_dark"
+                            android:padding="8dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_gravity="start"
+                            android:textAlignment="center"
+                            android:id="@+id/mod_question_no"
+                            style="@style/questionHeading" />
 
-            <TextView
-                android:id="@+id/mod_question"
-                style="@style/questionHeading"
-                android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/mod_question"
+                            style="@style/questionHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="question"
+                            android:textColor="@android:color/background_dark"
+                            android:textStyle="bold"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="question"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:textAlignment="center" />
-        </LinearLayout>
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:textAlignment="center">
 
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-        <android.support.v7.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            android:layout_gravity="center">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:textAlignment="center">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="option1"
-            style="@style/questionPart"
-            android:id="@+id/mod_question_option1"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/questionPart"
-            android:text="option2"
-            android:id="@+id/mod_question_option2"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/questionPart"
-            android:text="option3"
-            android:id="@+id/mod_question_option3"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/questionPart"
-            android:text="option4"
-            android:id="@+id/mod_question_option4"/>
-    </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="option1"
+                        style="@style/questionPart"
+                        android:padding="12dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/options_style"
+                        android:id="@+id/mod_question_option1"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/questionPart"
+                        android:text="option2"
+                        android:layout_margin="2dp"
+                        android:padding="12dp"
+                        android:background="@drawable/options_style"
+                        android:id="@+id/mod_question_option2"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/questionPart"
+                        android:text="option3"
+                        android:layout_margin="2dp"
+                        android:padding="12dp"
+                        android:background="@drawable/options_style"
+                        android:id="@+id/mod_question_option3"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/questionPart"
+                        android:text="option4"
+                        android:layout_margin="2dp"
+                        android:padding="12dp"
+                        android:background="@drawable/options_style"
+                        android:id="@+id/mod_question_option4"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

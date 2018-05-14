@@ -49,6 +49,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:padding="16dp"
                         android:text="question"
                         android:textColor="@android:color/background_dark"
                         android:textStyle="bold" />
@@ -79,6 +80,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/questionPart"
+                        android:padding="12dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/options_style"
                         android:text="test1"/>
 
                     <TextView
@@ -86,6 +90,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/questionPart"
+                        android:padding="12dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/options_style"
                         android:text="test1"/>
 
                     <TextView
@@ -93,6 +100,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/questionPart"
+                        android:padding="12dp"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/options_style"
                         android:text="test1"/>
 
                     <TextView
@@ -100,6 +110,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/questionPart"
+                        android:padding="12dp"
+                        android:layout_margin="2dp"
+
+                        android:background="@drawable/options_style"
                         android:text="test1"/>
 
                 </LinearLayout>
@@ -122,12 +136,19 @@
 
     <TextView
         android:id="@+id/tv_next_question"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/ll_option"
         android:layout_centerVertical="true"
+        android:layout_margin="12dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/button_login"
         android:gravity="center"
-        android:padding="10dp"
-        android:background="@drawable/ic_next" />
+        android:padding="12dp"
+        android:text="Next"
+        android:textColor="#ffffff"
+
+
+        android:textSize="28sp" />
 </LinearLayout>
