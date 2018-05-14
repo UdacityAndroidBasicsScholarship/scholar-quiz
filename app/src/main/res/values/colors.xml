@@ -6,4 +6,9 @@
     <color name="colorHeading">#000000</color>
     <color name="colordarkgrey">#A9A9A9</color>
     <color name="colorPrimaryDark_1">#ffc400</color>
+    <color name="menuPrimaryDark">#2f333f</color>
+    <color name="bluelight">#49acd5</color>
+    <color name="green">#45bc62</color>
+    <color name="orange">#eaad43</color>
+    <color name="white">#FFFFFF</color>
 </resources>

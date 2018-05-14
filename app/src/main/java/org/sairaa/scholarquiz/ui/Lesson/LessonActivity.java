@@ -32,9 +32,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.LessonCursorAdapter;
+import org.sairaa.scholarquiz.QuizActivity;
 import org.sairaa.scholarquiz.ui.Admin.MasterAdminActivity;
 import org.sairaa.scholarquiz.ui.Subscription.LessonSubscriptionAdapter;
-import org.sairaa.scholarquiz.ui.User.QuizActivity;
+
 import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
 import org.sairaa.scholarquiz.R;
 import org.sairaa.scholarquiz.SharedPreferenceConfig;

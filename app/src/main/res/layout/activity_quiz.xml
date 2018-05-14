@@ -1,9 +1,427 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.User.QuizActivity">
+    android:fillViewport="true">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ChannelActivity">
+
+        <ImageView
+            android:id="@+id/bg_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:background="#FFC107"
+            android:src="@drawable/scholar_quiz_logo" />
+
+        <ImageView
+            android:id="@+id/title_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/title_bg_yellow"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/button_Menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/menubutton_yellow"
+            android:onClick="showPopUp"
+            />
+
+        <TextView
+            android:id="@+id/textView_QuizTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Quiz"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/home_brown"
+            android:textColor="#E91E63"
+            android:textStyle="bold"
+            android:onClick="homeButton"
+            />
+
+        <!-- RADIO BUTTON Answers Layout -->
+
+        <LinearLayout
+            android:id="@+id/radio_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_bg_image"
+            android:layout_below="@id/title_ImageView"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <!-- QUESTIONS CARDVIEW  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/radiobutton_questions_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#000000"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp"
+                app:contentPadding="2dp">
+
+                <!-- QUESTION TEXTVIEW -->
+                <TextView
+                    android:id="@+id/radiobutton_question_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="Questions"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+
+            </android.support.v7.widget.CardView>
+
+            <!-- RADIOBUTTON ANSWERS CARDVIEW  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/radiobutton_answers_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                app:cardBackgroundColor="#000000"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp"
+                app:contentPadding="2dp">
+
+                <!-- ANSWERS BUTTON -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:id="@+id/radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#FFFFFF"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/answer1_Radio"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="1dp"
+                            android:layout_weight="1"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Answer 1"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/answer2_Radio"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="1dp"
+                            android:layout_weight="1"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Answer 2"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/answer3_Radio"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="1dp"
+                            android:layout_weight="1"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Answer 3"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/answer4_Radio"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="1dp"
+                            android:layout_weight="1"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Answer 4"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    </RadioGroup>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- CHECKBOX Questions Layout-->
+
+        <LinearLayout
+            android:id="@+id/checkbox_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_bg_image"
+            android:layout_below="@id/title_ImageView"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <!-- QUESTIONS CARDVIEW  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/checkbox_questions_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#000000"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp"
+                app:contentPadding="2dp">
+
+                <!-- QUESTION TEXTVIEW -->
+                <TextView
+                    android:id="@+id/checkbox_question_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="MEDIUM Questions"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+
+            </android.support.v7.widget.CardView>
+
+            <!-- CHECKBOX ANSWERS CARDVIEW  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/checkbox_answers_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp"
+                app:contentPadding="2dp">
+
+                <!-- ANSWERS BUTTON -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/answer1_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:onClick="onCheckBoxClicked"
+                        android:text="Answer 1"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/answer2_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:onClick="onCheckBoxClicked"
+                        android:text="Answer 2"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/answer3_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:onClick="onCheckBoxClicked"
+                        android:text="Answer 3"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/answer4_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:onClick="onCheckBoxClicked"
+                        android:text="Answer 4"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- USER INPUT Questions Layout-->
+
+        <LinearLayout
+            android:id="@+id/userinput_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_bg_image"
+            android:layout_below="@id/title_ImageView"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <!-- QUESTIONS CARDVIEW  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/userinput_question_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#000000"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp"
+                app:contentPadding="2dp">
+
+                <!-- QUESTION TEXTVIEW -->
+                <TextView
+                    android:id="@+id/userinput_question_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:text="ADVANCED Questions"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+
+            </android.support.v7.widget.CardView>
+
+            <!-- USER INPUT CARDVIEW  -->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/userinput_answers_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="5dp"
+                app:contentPadding="2dp">
+
+                <!-- ANSWERS BUTTON -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/answer_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:hint="Enter Answer Here"
+                        android:inputType="textCapCharacters"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/bottom_bg_image"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/bottom_bg_yellow" />
+
+
+        <Button
+            android:id="@+id/button_Back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/backbutton_yellow"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:id="@+id/button_Next"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/nextbutton_yellow"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:onClick="buttonNext"
+            />
+
+        <Button
+            android:id="@+id/button_StartQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/button_bg"
+            android:onClick="buttonStartQuiz"
+            android:text="START QUIZ"
+            android:textColor="#37474F"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+</ScrollView>

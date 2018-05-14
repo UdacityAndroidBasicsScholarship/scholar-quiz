@@ -28,8 +28,6 @@ public class SplashActivity extends Activity {
         window.setFormat(PixelFormat.RGBA_8888);
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +58,7 @@ public class SplashActivity extends Activity {
                         sleep(100);
                         waited+=100;
                     }
-                    Intent intent= new Intent(SplashActivity.this,LoginActivity.class);
+                    Intent intent= new Intent(SplashActivity.this,SignInActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     SplashActivity.this.finish();

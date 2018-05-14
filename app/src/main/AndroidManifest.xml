@@ -20,38 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Login.LoginActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".ui.Register.RegisterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.Lesson.LessonActivity"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".ui.Subscription.SubscribeActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
-
-        <provider
-            android:name=".data.QuizProvider"
-            android:authorities="org.sairaa.scholarquiz"
-            android:exported="false" />
-
-        <activity android:name=".ui.User.QuizActivity" />
-        <activity android:name=".ui.Moderator.QuizModeratorActivity" />
-        <activity android:name=".ui.Moderator.Question.QuestionListActivity" />
-        <activity android:name=".ui.Moderator.Question.QuestionAddActivity" />
-        <activity android:name=".ui.Admin.MasterAdminActivity"></activity>
+        <activity android:name=".SignInActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".SignUpActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".QuizListActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".QuizActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".UserChannelActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".AllChannelListActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".CreateQuizActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".CreateQuizQuestionActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".QuizScoreActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".HomeActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".MyScorecardChannelActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".MyScoreQuizListActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".MyScorecardActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".LeaderboardQuizListActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".LeaderboardChannelActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".LeaderScoreboardActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".AdminHomeActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".AdminCreateChannelActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".AdminChannelListActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".AdminUserListActivity" android:configChanges="orientation" android:screenOrientation="portrait"/>
+        <activity android:name=".UserProfileActivity" android:configChanges="orientation" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

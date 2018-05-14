@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="475dp"
+    android:background="@color/menuPrimaryDark"
+    android:padding="5dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/textview_CloseMenu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textColor="#FFC107"
+        android:text="X"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="end"
+        android:background="@drawable/circlebackground"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:onClick="closeMenu"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_UserProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/textview_CloseMenu"
+        >
+        <ImageView
+            android:id="@+id/imageview_UserImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/userimage_default"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/textview_UserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            />
+        <TextView
+            android:id="@+id/textview_EditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:textColor="@color/orange"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:onClick="editProfilePressed"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_Channel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/layout_UserProfile"
+        >
+
+        <TextView
+            android:id="@+id/textview_MyChannels"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="My Channels"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/mychannel_bg"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:onClick="myChannelPressed"
+            />
+        <TextView
+            android:id="@+id/textview_AllChannels"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="All Channels"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/allchannel_bg"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:onClick="allChannelPressed"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_Score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/layout_Channel"
+        >
+
+        <TextView
+            android:id="@+id/textview_MyScorecard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="My Scorecard"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/myscorecard_bg"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:onClick="myScorecardPressed"
+            />
+        <TextView
+            android:id="@+id/textview_Leaderboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Leaderboard"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/leaderboard_bg"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:onClick="leaderboardPressed"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textview_Logout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:background="@drawable/logout_yellow"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="logout"
+        />
+
+</RelativeLayout>
