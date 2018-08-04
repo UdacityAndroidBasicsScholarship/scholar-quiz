@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.R;
@@ -286,6 +287,7 @@ public class SubscribeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
+                            FirebaseMessaging.getInstance().subscribeToTopic(String.valueOf(lessonInfo.getChannelId()));
                             Toast.makeText(SubscribeActivity.this,"Subscribed : "+lessonInfo.getChannelId(),Toast.LENGTH_SHORT).show();
                         }
                     }
