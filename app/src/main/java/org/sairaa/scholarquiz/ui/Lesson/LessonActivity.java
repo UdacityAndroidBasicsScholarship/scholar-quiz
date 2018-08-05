@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.sairaa.scholarquiz.AppInfo;
 import org.sairaa.scholarquiz.LessonCursorAdapter;
@@ -214,6 +215,8 @@ public class LessonActivity extends AppCompatActivity{
                 LessonListModel lessonInfo = (LessonListModel) lessonListView.getItemAtPosition(position);
                 intentModerator.putExtra("channelId", lessonInfo.getChannelId());
                 intentUser.putExtra("channelId", lessonInfo.getChannelId());
+                intentModerator.putExtra("channelName",lessonInfo.getChannelName());
+                Toast.makeText(LessonActivity.this," 2"+lessonInfo.getChannelName(),Toast.LENGTH_SHORT).show();
 //                Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
                 if(user.getUid().toString().equals(lessonInfo.getModeratorName())){
 //                    Toast.makeText(LessonActivity.this,"ll "+user.getUid()+" Mod :"+lessonInfo.getModeratorName(),Toast.LENGTH_SHORT).show();
@@ -255,12 +258,15 @@ public class LessonActivity extends AppCompatActivity{
                                             for ( final DataSnapshot channelListSnapshot : channelSnapshot.getChildren()) {
 
                                                 if(subscriptionListSnapshot.getKey().equals(channelListSnapshot.getKey())){
-//                                                    Toast.makeText(LessonActivity.this," 2"+channelListSnapshot.getKey()+"3"+subscriptionListSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+
                                                     String channelId = channelListSnapshot.getKey().toString();
                                                     LessonListModel model = channelListSnapshot.getValue(LessonListModel.class);
 //                                                    String moderatorName = getModeratorNameFromUserDatabase(model.getModeratorName());
+//                                                    Toast.makeText(LessonActivity.this," 2"+model.getChannelName(),Toast.LENGTH_SHORT).show();
                                                     adapterList.add(new LessonListModel(model.getModeratorName(),model.getChannelName(),channelId));
+
                                                     adapterList.notifyDataSetChanged();
+                                                    FirebaseMessaging.getInstance().subscribeToTopic(channelId);
                                                 }
                                             }
                                         }

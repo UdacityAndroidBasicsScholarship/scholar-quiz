@@ -1,11 +1,14 @@
 package org.sairaa.scholarquiz.ui.Moderator.Question;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -32,14 +35,28 @@ import org.sairaa.scholarquiz.ui.Moderator.QuizModeratorActivity;
 import org.sairaa.scholarquiz.util.CheckConnection;
 import org.sairaa.scholarquiz.util.DialogAction;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class QuestionListActivity extends AppCompatActivity {
+public class
+QuestionListActivity extends AppCompatActivity {
 
 
+    private static final String LOG_QUESTION_LIST = "QuestinListActivity";
     private Button addNewQuestion, publish;
     private ArrayList<QuizModel> questionListModels;
     private String quizId;
@@ -47,7 +64,7 @@ public class QuestionListActivity extends AppCompatActivity {
     private int questionNo = 0;
 
     private SharedPreferenceConfig sharedPreferenceConfig;
-
+    private final String NOTIFYURL = "http://sairaa.org/ScholarQuizApp/trialindex.php";
     AlertDialog.Builder alertBuilder;
 
     public CheckConnection connection;
@@ -67,9 +84,10 @@ public class QuestionListActivity extends AppCompatActivity {
         // 0 to write operation
         int readWrite = intent.getIntExtra("readWrite",0);
         final String channelId = intent.getStringExtra("channelId");
+        final String channelName = intent.getStringExtra("channelName");
         quizId = intent.getStringExtra("quizId");
         final String quizName = intent.getStringExtra("quizName");
-//        Toast.makeText(QuestionListActivity.this,"channel Id "+channelId+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
+        Toast.makeText(QuestionListActivity.this,"channel Id "+channelName+"quiz id : "+quizId+" quiz name : "+quizName,Toast.LENGTH_SHORT).show();
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
@@ -165,6 +183,10 @@ public class QuestionListActivity extends AppCompatActivity {
                                                 adapter.clear();
                                                 sharedPreferenceConfig.writePublishedOrNot(true);
                                                 sharedPreferenceConfig.writeNewQuizName(null);
+                                                if(connection.isConnected()){
+                                                    new backgroundTask(this).execute(quizName, channelName,channelId);
+                                                }
+
                                                 finish();
                                             }
                                             else {
@@ -195,6 +217,100 @@ public class QuestionListActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void notifySubscriber(String quizName, String channelName, String channelId) throws IOException {
+//        Toast.makeText(QuestionListActivity.this,"Quiz Published Succesfully"+quizName+channelName,Toast.LENGTH_SHORT).show();
+        URL url = createUrl(NOTIFYURL);
+        String jsonResponse = null;
+        jsonResponse = makeHttpRequest(url,quizName,channelName,channelId);
+        Log.e(LOG_QUESTION_LIST,jsonResponse);
+    }
+
+    private String makeHttpRequest(URL url, String quizName, String channelName, String channelId) throws IOException {
+        String jsonResponse = "";
+        Log.i(LOG_QUESTION_LIST,"Test : makeHttp( ) is called");
+        // If the URL is null, then return early.
+        if (url == null) {
+            return jsonResponse;
+        }
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(60000 /* milliseconds */);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Connection", "close");
+            urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
+            OutputStream outputStream = urlConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            // This findLastRecord() method finds last record of SQLite database table
+            // @param context is passed
+//            String channelName = channelName ;
+            String post_data = URLEncoder.encode("message","UTF-8")+"="+URLEncoder.encode("A New Quiz ( "+quizName+" )"+
+                    "published in channel ( "+channelName+" )","UTF-8");
+            post_data += "&" + URLEncoder.encode("channelId", "UTF-8") + "="
+                    + URLEncoder.encode(channelId, "UTF-8");
+//                    URLEncoder.encode("quizName","UTF-8")+"="+URLEncoder.encode(quizName,"UTF-8")+
+//                    URLEncoder.encode("channelId","UTF-8")+"="+URLEncoder.encode(channelId,"UTF-8");
+
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            urlConnection.connect();
+
+            // If the request was successful (response code 200),
+            // then read the input stream and parse the response.
+            if (urlConnection.getResponseCode() == 200) {
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LOG_QUESTION_LIST, "Error response code: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e) {
+            Log.e(LOG_QUESTION_LIST, "Problem retrieving the News JSON results.", e);
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        return jsonResponse;
+    }
+
+    private String readFromStream(InputStream inputStream) throws IOException {
+        StringBuilder output = new StringBuilder();
+        if (inputStream != null) {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String line = null;
+            try {
+                line = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            while (line != null) {
+                output.append(line);
+                line = reader.readLine();
+            }
+        }
+        return output.toString();
+    }
+
+
+    private URL createUrl(String urlNews) {
+        URL url2 = null;
+        try{
+            url2 = new URL(urlNews);
+        }catch (MalformedURLException e) {
+            Log.e("QUESTIONlISTaCTIVITY : ", "Error with creating URL ", e);
+        }
+        return url2;
     }
 
     @Override
@@ -248,5 +364,21 @@ public class QuestionListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private class backgroundTask extends AsyncTask<String, Void, String>{
+        public backgroundTask(OnCompleteListener<Void> onCompleteListener) {
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                notifySubscriber(params[0], params[1],params[2]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.e(LOG_QUESTION_LIST,params[0]+params[1]+params[2]);
+            return null;
+        }
     }
 }

@@ -52,7 +52,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
     //public ListView questionListView;
     private ModeratorQuestionListAdapter adapter;
 
-    private String channelId;
+    private String channelId, channelName;
     private ListView listView;
     private String quizIdPublished;
     private final int ONLYREAD = 200;
@@ -73,7 +73,9 @@ public class QuizModeratorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         channelId = intent.getStringExtra("channelId");
-//        Toast.makeText(QuizModeratorActivity.this,"Moderator Page "+channelId,Toast.LENGTH_SHORT).show();
+        channelName = intent.getStringExtra("channelName");
+
+        Toast.makeText(QuizModeratorActivity.this,"Moderator Page "+channelName,Toast.LENGTH_SHORT).show();
 
         newQuizButton = findViewById(R.id.go_create_new_quiz_button);
         newQuizEditText = findViewById(R.id.mod_new_quiz_name_edittext);
@@ -91,6 +93,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuizModeratorActivity.this,QuestionListActivity.class);
                 intent.putExtra("readWrite",ONLYREAD);
                 intent.putExtra("channelId",channelId);
+                intent.putExtra("channelName",channelName);
                 intent.putExtra("quizId",quizDeatils.getQuizId());
                 intent.putExtra("quizName",quizDeatils.getQuizName());
                 startActivity(intent);
@@ -117,6 +120,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                     Intent intent = new Intent(QuizModeratorActivity.this,QuestionListActivity.class);
                     intent.putExtra("readWrite",READWRITE);
                     intent.putExtra("channelId",channelId);
+                    intent.putExtra("channelName",channelName);
                     intent.putExtra("quizId",quizId);
                     intent.putExtra("quizName",quizName);
                     startActivity(intent);
@@ -161,6 +165,7 @@ public class QuizModeratorActivity extends AppCompatActivity {
                             intent.putExtra("channelId",channelId);
                             intent.putExtra("quizId",quizId);
                             intent.putExtra("quizName",quizName);
+                            intent.putExtra("channelName",channelName);
                             startActivity(intent);
                         }else{
 

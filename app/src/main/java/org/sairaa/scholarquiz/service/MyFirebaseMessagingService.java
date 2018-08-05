@@ -85,13 +85,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                 // app is in foreground, broadcast the push message
-                Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
-                pushNotification.putExtra("message", message);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//                Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
+//                pushNotification.putExtra("message", message);
+//                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//
+//                // play notification sound
+//                NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+//                notificationUtils.playNotificationSound();
+                Intent resultIntent = new Intent(getApplicationContext(), SplashActivity.class);
+                resultIntent.putExtra("message", message);
 
-                // play notification sound
-                NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-                notificationUtils.playNotificationSound();
+                // check for image attachment
+                if (TextUtils.isEmpty(imageUrl)) {
+                    showNotificationMessage(getApplicationContext(), title, message, timestamp, resultIntent);
+                } else {
+                    // image is present, show notification with image
+                    showNotificationMessageWithBigImage(getApplicationContext(), title, message, timestamp, resultIntent, imageUrl);
+                }
             } else {
                 // app is in background, show the notification in notification tray
                 Intent resultIntent = new Intent(getApplicationContext(), SplashActivity.class);
