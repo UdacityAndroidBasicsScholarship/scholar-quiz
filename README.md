@@ -34,8 +34,9 @@ This document provides the detail about the Scholar Quiz app and helps in unders
 
 ## Illustration
 
- -A sample mockup for this project: (PDF attached)
+ - A detailed project report of ScholarQuiz App (PDF attached)
 [pdf-link](https://docs.google.com/document/d/12nLKL1UohpUhUBeCdJnxPYXSDL6gc7qk7V05Jk3-ls8/edit?usp=sharing)
+-A sample mockup for this project: (PDF attached)
 [pdf-link](https://github.com/UdacityAndroidBasicsScholarship/scholar-quiz/raw/master/scholarquiz_logic_and_screen.pdf)
 
 
